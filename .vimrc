@@ -1,14 +1,27 @@
+" Update MYVIMRC
+let $MYVIMRC="~/.dotfiles/.vimrc"
+
+" Make windows accept unixy stuff
+if has('win32') || has('win64')
+    set runtimepath=~/.vim,$VIM/vimfiles,$VIM,$VIM/vimfiles/after,~/.vim/after
+    set dir=$TEMP
+endif
+
+"Load pathogen
+source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+
 "Psh, compatibility schmompatibility
 set nocompatible
 
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
 
 " Put your non-Plugin stuff after this line
 " END VUNDLE CONFIG
 
 "Set Color Scheme and font
-"colorscheme solarize
+colorscheme solarized
+set background=dark
 set guifont=Source_Code_Pro:h12:cANSI
 
 "Configure some simple settings
