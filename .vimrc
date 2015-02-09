@@ -62,11 +62,10 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
-map <C-O> <Esc>:NERDTree<CR>
+map <C-O> <Esc>:NERDTreeToggle<CR>
 
 " CtrlP settings
 let g:ctrlp_working_path_mode='ra'
-
 
 " Maximize the window on launch
 au GUIEnter * simalt ~x
