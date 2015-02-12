@@ -15,14 +15,14 @@ $linksToCreate = @()
 
 dir $DotFilesRoot -fil "*.copy" | foreach {
     $name = [IO.Path]::GetFileNameWithoutExtension($_.Name)
-    $dest = Join-Path $UserProfile $name
+    $dest = Join-Path $UserProfile ".$name"
     Write-Host "Copying $($_.Name) to profile as $name"
     Copy-Item $_.FullName $dest
 }
 
 dir $DotFilesRoot -fil "*.symlink" | foreach {
     $name = [IO.Path]::GetFileNameWithoutExtension($_.Name)
-    $link = Join-Path $UserProfile $name
+    $link = Join-Path $UserProfile ".$name"
     if(!(Test-Path $link)) {
        $linksToCreate += @(@{
             "Link"=$link;
