@@ -19,7 +19,23 @@ set nocompatible
 filetype plugin indent on    " required
 
 "Set Color Scheme and font
-colorscheme solarized
+if has('gui_running')
+	colorscheme solarized
+
+	" Maximize the window on launch
+	if has('win32') || has('win64')
+		au GUIEnter * simalt ~x
+	endif
+	if has("unix")
+	  let s:uname = system("uname")
+	  if s:uname == "Darwin\n"
+	    " Do Mac stuff here
+	    set fuopt=maxhorz,maxvert
+	    au GUIEnter * set fullscreen
+	  endif
+	endif
+endif
+
 set background=dark
 set guifont=Source_Code_Pro:h12:cANSI
 
@@ -73,8 +89,3 @@ let g:nerdtree_tabs_open_on_new_tab=0
 
 " CtrlP settings
 let g:ctrlp_working_path_mode='ra'
-
-" Maximize the window on launch
-if has('win32') || has('win64')
-	au GUIEnter * simalt ~x
-endif
