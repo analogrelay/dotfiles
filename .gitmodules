@@ -10,3 +10,15 @@
 [submodule ".vim.symlink/bundle/vim-nerdtree-tabs"]
 	path = .vim.symlink/bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule ".vim.symlink/bundle/omnisharp-vim"]
+	path = .vim.symlink/bundle/omnisharp-vim
+	url = https://github.com/OmniSharp/omnisharp-vim
+[submodule ".vim.symlink/bundle/vim-dispatch"]
+	path = .vim.symlink/bundle/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
+[submodule ".vim.symlink/bundle/ctrlp.vim"]
+	path = .vim.symlink/bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim
+[submodule ".vim.symlink/bundle/syntastic"]
+	path = .vim.symlink/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic

@@ -62,7 +62,15 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
-map <C-O> <Esc>:NERDTreeToggle<CR>
+" Use Ctrl-J and Ctrl-K to switch windows
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+
+" Configure NERDTree and NERDTree tabs
+map <A-O> <Esc>:NERDTreeToggle<CR>
+map <C-O> <Esc>:NERDTreeFocusToggle<CR>
+let g:nerdtree_tabs_open_on_gui_startup=0
+let g:nerdtree_tabs_open_on_new_tab=0
 
 " CtrlP settings
 let g:ctrlp_working_path_mode='ra'
