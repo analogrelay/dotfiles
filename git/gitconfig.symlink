@@ -1,12 +1,12 @@
 [user]
-	name = anurse
-	email = andrew@andrewnurse.net
+        name = anurse
+        email = andrew@andrewnurse.net
+
+[credential]
+        helper = osxkeychain
 
 [color]
 	ui = true
-
-[credential]
-	helper = winstore
 
 [alias]
 	st = status
