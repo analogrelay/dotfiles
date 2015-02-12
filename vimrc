@@ -1,5 +1,5 @@
 " Update MYVIMRC
-let $MYVIMRC="~/.dotfiles/.vimrc"
+let $MYVIMRC="~/.dotfiles/vimrc"
 
 " Make windows accept unixy stuff
 if has('win32') || has('win64')

@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd)
+
+if (( $+commands[git] ))
+then
+  git="$commands[git]"
+else
+  git="/usr/bin/git"
+fi
+
+$git submodule update --init
