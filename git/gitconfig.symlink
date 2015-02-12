@@ -36,7 +36,6 @@
 
 [core]
 	excludesfile = "~/gitignore_global.txt"
-	autocrlf = true
 
 [diff]
 	algorithm = patience

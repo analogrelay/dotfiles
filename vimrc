@@ -1,6 +1,8 @@
 " Update MYVIMRC
 let $MYVIMRC="~/.dotfiles/vimrc"
 
+set ff=unix
+
 " Make windows accept unixy stuff
 if has('win32') || has('win64')
     set runtimepath=~/.vim,$VIM/vimfiles,$VIM,$VIM/vimfiles/after,~/.vim/after
@@ -16,9 +18,6 @@ set nocompatible
 
 filetype plugin indent on    " required
 
-" Put your non-Plugin stuff after this line
-" END VUNDLE CONFIG
-
 "Set Color Scheme and font
 colorscheme solarized
 set background=dark
@@ -29,7 +28,7 @@ set backspace=2 "Backspace over indents, eol, etc.
 
 "Set up VIM GUIs
 set guioptions-=m " Hide menu bar
-set guioptions-=T " Remove toolbar 
+set guioptions-=T " Remove toolbar
 set guioptions-=r
 set guioptions-=L " Remove scrollbars
 
@@ -76,4 +75,6 @@ let g:nerdtree_tabs_open_on_new_tab=0
 let g:ctrlp_working_path_mode='ra'
 
 " Maximize the window on launch
-au GUIEnter * simalt ~x
+if has('win32') || has('win64')
+	au GUIEnter * simalt ~x
+endif
