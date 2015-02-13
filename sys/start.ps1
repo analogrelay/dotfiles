@@ -3,8 +3,10 @@ param(
     [string]$UserProfile,
     [switch]$Reset)
 
-if(!$DotFilesRoot) {
-    $DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
+$Global:DotFiles_Root = $DotFilesRoot
+
+if(!$Global:DotFiles_Root) {
+    $Global:DotFiles_Root = Convert-Path (Split-Path -Parent $PSScriptRoot)
 }
 if(!$UserProfile) {
     $UserProfile = $env:USERPROFILE
@@ -12,7 +14,7 @@ if(!$UserProfile) {
 
 $env:HOME = $env:USERPROFILE
 
-$gitroot = Join-Path $DotFilesRoot "git"
+$gitroot = Join-Path $DotFiles_Root "git"
 $gitconfig = Join-Path $gitroot  "gitconfig"
 $gitconfig_templ = Join-Path $gitroot "gitconfig.template"
 
@@ -35,10 +37,10 @@ if(!(Test-Path $gitconfig)) {
     [IO.File]::WriteAllText($gitconfig, $newConfig)
 }
 
-$linksToCreate = @()
+$Global:DotFiles_LinksToCreate = @()
 
 function TwoLevelRecursiveDir($filter) {
-    dir $DotFiles | ForEach-Object {
+    dir $DotFiles_Root | ForEach-Object {
         if($_.Name -like $filter) {
             $_
         }
@@ -59,19 +61,24 @@ TwoLevelRecursiveDir "*.symlink" | foreach {
     $name = [IO.Path]::GetFileNameWithoutExtension($_.Name)
     $link = Join-Path $UserProfile ".$name"
     if(!(Test-Path $link)) {
-       $linksToCreate += @(@{
+        $Global:DotFiles_LinksToCreate += @(@{
             "Link"=$link;
             "Target"=$_.FullName
         })
     }
 }
 
-if($linksToCreate.Length -gt 0) {
-    Write-Host "Need to create $($linksToCreate.Length) links. Elevating..."
+# Run install scripts
+TwoLevelRecursiveDir "*.dotfiles.install.ps1" | foreach {
+    & $_.FullName
+}
+
+if($DotFiles_LinksToCreate.Length -gt 0) {
+    Write-Host "Need to create $($DotFiles_LinksToCreate.Length) links. Elevating..."
 
     $script = "`$links=@("
     $first = $true;
-    $linksToCreate | foreach {
+    $DotFiles_LinksToCreate | foreach {
         if($first) {
             $first = $false
         } else {
@@ -91,3 +98,10 @@ if($linksToCreate.Length -gt 0) {
 } else {
     Write-Host "No links to create!"
 }
+
+# Write the boot profile script
+$profileDir = Split-Path -Parent $Profile
+if(!(Test-Path $profileDir)) {
+    mkdir $profileDir | Out-Null
+}
+". $DotFiles_Root\powershell\profile.ps1" > $profile
