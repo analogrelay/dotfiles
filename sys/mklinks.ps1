@@ -1,6 +1,12 @@
 $links | foreach {
-    Write-Host "mklink $($_["Link"]) => $($_["Target"])"
-    New-Item -Type SymbolicLink -Path $_["Link"] -Value $_["Target"]
+	if($_ -ne $null) {
+	    if((Get-Item $_["Target"]).PSIsContainer) {
+	    	cmd /c mklink /J "$($_["Link"])" "$($_["Target"])"
+	    }
+	    else {
+	    	cmd /c mklink "$($_["Link"])" "$($_["Target"])"
+	    }
+	}
 }
 
 Write-Host "Finished! Press ENTER to continue..."

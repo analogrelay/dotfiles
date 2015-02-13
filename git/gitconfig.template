@@ -1,9 +1,13 @@
 [user]
-        name = anurse
-        email = andrew@andrewnurse.net
+    name = AUTHORNAME
+    email = AUTHOREMAIL
 
 [credential]
-        helper = osxkeychain
+    helper = GIT_CREDENTIAL_HELPER
+
+[core]
+	excludesfile = "~/gitignore_global.txt"
+	editor = EDITOR
 
 [color]
 	ui = true
@@ -34,9 +38,6 @@
 	default = matching
 	rebase = true
 
-[core]
-	excludesfile = "~/gitignore_global.txt"
-
 [diff]
 	algorithm = patience
 	tool = p4merge
@@ -48,7 +49,7 @@
 	cmd = "$HOME/../Tools/p4merge/p4merge.exe" "$LOCAL" "$REMOTE"
 
 [difftool "vsdiffmerge"]
-      cmd = '"C:/Program Files (x86)/Microsoft Visual Studio 11.0/Common7/IDE/vsdiffmerge.exe"' "$LOCAL" "$REMOTE" //t
+      cmd = '"%VSINSTALLDIR%Common7/IDE/vsdiffmerge.exe"' "$LOCAL" "$REMOTE" //t
       keepbackup = false
       trustexistcode = true
 
