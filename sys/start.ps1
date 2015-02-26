@@ -105,3 +105,8 @@ if(!(Test-Path $profileDir)) {
     mkdir $profileDir | Out-Null
 }
 ". $DotFiles_Root\powershell\profile.ps1" > $profile
+
+# Update submodules
+pushd $DotFiles_Root
+git submodule update --init
+popd
