@@ -1,5 +1,5 @@
 Write-Host "Loading profile from .dotfiles"
-$DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
+$Global:DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
 
 # Restore Library root to front of the PATH
 if($env:ACQYRE_LIBRARY) {

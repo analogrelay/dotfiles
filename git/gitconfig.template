@@ -32,10 +32,10 @@
 	topics = !"git branch --contains dev-start | sed -e '/dev/d;/dev-start/d;/master/d;/qa/d;/staging/d'"
 
 [push]
-	default = matching
+	default = simple
 
 [pull]
-	default = matching
+	default = simple
 	rebase = true
 
 [diff]

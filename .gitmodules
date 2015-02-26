@@ -28,3 +28,27 @@
 [submodule "powershell/modules/posh-git"]
 	path = powershell/modules/posh-git
 	url = https://github.com/dahlbyk/posh-git
+[submodule "powershell/modules/ps-cmdinterop"]
+	path = powershell/modules/ps-cmdinterop
+	url = https://github.com/anurse/ps-cmdinterop
+[submodule "powershell/modules/ps-vsvars"]
+	path = powershell/modules/ps-vsvars
+	url = https://github.com/anurse/ps-vsvars
+[submodule "vim.symlink/bundle/vim-easymotion"]
+	path = vim.symlink/bundle/vim-easymotion
+	url = https://github.com/Lokaltog/vim-easymotion
+[submodule "vim.symlink/bundle/neocomplcache.vim"]
+	path = vim.symlink/bundle/neocomplcache.vim
+	url = https://github.com/Shougo/neocomplcache.vim
+[submodule "vim.symlink/bundle/nerdcommenter"]
+	path = vim.symlink/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter
+[submodule "vim.symlink/bundle/numbers.vim"]
+	path = vim.symlink/bundle/numbers.vim
+	url = https://github.com/myusuf3/numbers.vim
+[submodule "vim.symlink/bundle/vim-surround"]
+	path = vim.symlink/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "vim.symlink/bundle/vim-fugitive"]
+	path = vim.symlink/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
