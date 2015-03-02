@@ -7,6 +7,9 @@ if($env:ACQYRE_LIBRARY) {
 }
 $env:PATH="$env:USERPROFILE\.k\bin;$env:PATH"
 
+# Put dotfiles bin on the path
+$env:PATH="$DotFilesRoot\bin;$env:PATH"
+
 # Add the modules from dotfiles to the module path
 $env:PSModulePath="$DotFilesRoot\powershell\modules;$env:PSModulePath"
 

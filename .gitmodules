@@ -55,3 +55,6 @@
 [submodule "vim.symlink/bundle/vim-ps1"]
 	path = vim.symlink/bundle/vim-ps1
 	url = https://github.com/PProvost/vim-ps1.git
+[submodule "vim.symlink/bundle/camelcasemotion"]
+	path = vim.symlink/bundle/camelcasemotion
+	url = https://github.com/vim-scripts/camelcasemotion
