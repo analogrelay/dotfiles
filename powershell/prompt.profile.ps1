@@ -8,6 +8,16 @@ function prompt {
 
     Write-Host $pwd -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
 
+    # If we have kvm, use it to determine the active KRE
+    if(Get-Command kvm -ErrorAction SilentlyContinue) {
+        $activeKre = kvm list -passthru | where { $_.Active }
+        if($activeKre) {
+            Write-Host " [" -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
+            Write-Host "kre-$($activeKre.Runtime)-win-$($activeKre.Architecture).$($activeKre.Version)" -nonewline -ForegroundColor ([ConsoleColor]::Cyan)
+            Write-Host "]" -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
+        }
+    }
+
     if(Get-Command Write-VcsStatus -ErrorAction SilentlyContinue) {
         Write-VcsStatus
     }
