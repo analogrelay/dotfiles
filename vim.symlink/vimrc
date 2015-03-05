@@ -24,6 +24,8 @@ set nocompatible
 filetype plugin indent on    " required
 
 "Set Color Scheme and font
+
+set guifont=Sauce_Code_Powerline:h12
 if has('gui_running')
 	colorscheme solarized
 
@@ -36,13 +38,14 @@ if has('gui_running')
 	  if s:uname == "Darwin\n"
 	    " Do Mac stuff here
 	    set fuopt=maxhorz,maxvert
-	    au GUIEnter * set fullscreen
+	    "au GUIEnter * set fullscreen
 	  endif
 	endif
 endif
 
+let g:airline_powerline_fonts=1
+
 set background=dark
-set guifont=Source_Code_Pro:h12:cANSI
 
 "Configure some simple settings
 set backspace=2 "Backspace over indents, eol, etc.
@@ -66,7 +69,6 @@ set expandtab
 " Statusline and line numbers
 set laststatus=2
 set number
-"set statusline=%{fugitive#statusline()}
 
 " Macros/Mappings
 nmap <S-Enter> O<Esc>

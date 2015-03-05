@@ -58,3 +58,9 @@
 [submodule "vim.symlink/bundle/camelcasemotion"]
 	path = vim.symlink/bundle/camelcasemotion
 	url = https://github.com/vim-scripts/camelcasemotion
+[submodule "vim.symlink/bundle/vim-airline"]
+	path = vim.symlink/bundle/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "vim.symlink/bundle/vim-bufferline"]
+	path = vim.symlink/bundle/vim-bufferline
+	url = https://github.com/bling/vim-bufferline
