@@ -5,7 +5,15 @@ $Global:DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
 if($env:ACQYRE_LIBRARY) {
     $env:PATH="$env:ACQYRE_LIBRARY\Bin;$env:PATH"
 }
-$env:PATH="$env:USERPROFILE\.k\bin;$env:PATH"
+
+# Locate code root
+$DefaultCodeRoot = Join-Path $env:USERPROFILE "Code"
+if(!$CodeRoot -and (Test-Path $DefaultCodeRoot)) {
+    $CodeRoot = $DefaultCodeRoot
+}
+
+$DnvmPath = Join-Path (Join-Path (Join-Path $CodeRoot "aspnet") "dnvm") "src"
+$env:PATH="$DnvmPath;$env:USERPROFILE\.k\bin;$env:PATH"
 
 # Put dotfiles bin on the path
 $env:PATH="$DotFilesRoot\bin;$env:PATH"

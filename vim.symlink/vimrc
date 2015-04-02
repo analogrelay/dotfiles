@@ -23,11 +23,10 @@ set nocompatible
 
 filetype plugin indent on    " required
 
-"Set Color Scheme and font
-
-set guifont=Sauce_Code_Powerline:h12
 if has('gui_running')
+    "Set Color Scheme and font
 	colorscheme solarized
+    set guifont=Sauce_Code_Powerline:h12:cDEFAULT
 
 	" Maximize the window on launch
 	if has('win32') || has('win64')

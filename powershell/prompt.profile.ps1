@@ -1,4 +1,4 @@
-function prompt {
+function global:prompt {
     $realLASTEXITCODE = $LASTEXITCODE
 
     # Reset color, which can be messed up by Enable-GitColors
@@ -8,13 +8,13 @@ function prompt {
 
     Write-Host $pwd -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
 
-    # If we have kvm, use it to determine the active KRE
-    if(Get-Command kvm -ErrorAction SilentlyContinue) {
-        $activeKre = kvm list -passthru | where { $_.Active }
-        if($activeKre) {
-            Write-Host " [" -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
-            Write-Host "kre-$($activeKre.Runtime)-win-$($activeKre.Architecture).$($activeKre.Version)" -nonewline -ForegroundColor ([ConsoleColor]::Cyan)
-            Write-Host "]" -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
+    # If we have dnvm, use it to determine the active KRE
+    if(Get-Command dnvm -ErrorAction SilentlyContinue) {
+        $activeDnx = dnvm list -passthru | where { $_.Active }
+        if($activeDnx) {
+            Write-Host " (" -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
+            Write-Host "dnx-$($activeDnx.Runtime)-win-$($activeDnx.Architecture).$($activeDnx.Version)" -nonewline -ForegroundColor ([ConsoleColor]::Cyan)
+            Write-Host ")" -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
         }
     }
 
