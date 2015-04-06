@@ -21,25 +21,28 @@ execute pathogen#infect()
 "Psh, compatibility schmompatibility
 set nocompatible
 
+set list listchars=tab:».,trail:·
+
 filetype plugin indent on    " required
 
 if has('gui_running')
     "Set Color Scheme and font
-	colorscheme solarized
+    colorscheme solarized
+    set encoding=utf-8
     set guifont=Sauce_Code_Powerline:h12:cDEFAULT
 
-	" Maximize the window on launch
-	if has('win32') || has('win64')
-		au GUIEnter * simalt ~x
-	endif
-	if has("unix")
-	  let s:uname = system("uname")
-	  if s:uname == "Darwin\n"
-	    " Do Mac stuff here
-	    set fuopt=maxhorz,maxvert
-	    "au GUIEnter * set fullscreen
-	  endif
-	endif
+    " Maximize the window on launch
+    if has('win32') || has('win64')
+        au GUIEnter * simalt ~x
+    endif
+    if has("unix")
+      let s:uname = system("uname")
+      if s:uname == "Darwin\n"
+        " Do Mac stuff here
+        set fuopt=maxhorz,maxvert
+        "au GUIEnter * set fullscreen
+      endif
+    endif
 endif
 
 let g:airline_powerline_fonts=1
