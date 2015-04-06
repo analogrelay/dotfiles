@@ -18,6 +18,11 @@ $env:PATH="$DnvmPath;$env:USERPROFILE\.k\bin;$env:PATH"
 # Put dotfiles bin on the path
 $env:PATH="$DotFilesRoot\bin;$env:PATH"
 
+# Git.exe should be at the front of the PATH
+# TODO: Add Acqyre feature for this?
+$gitPath = dir $env:ACQYRE_LIBRARY\Packages\git | select -first 1
+$env:PATH="$(Join-Path gitPath.FullName cmd);$env:PATH"
+
 # Add the modules from dotfiles to the module path
 $env:PSModulePath="$DotFilesRoot\powershell\modules;$env:PSModulePath"
 

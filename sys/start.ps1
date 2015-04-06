@@ -108,5 +108,5 @@ if(!(Test-Path $profileDir)) {
 
 # Update submodules
 pushd $DotFiles_Root
-git submodule update --init
+git submodule update --recursive --init
 popd
