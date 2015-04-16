@@ -64,3 +64,6 @@
 [submodule "vim.symlink/bundle/vim-bufferline"]
 	path = vim.symlink/bundle/vim-bufferline
 	url = https://github.com/bling/vim-bufferline
+[submodule "vim.symlink/bundle/racer"]
+	path = vim.symlink/bundle/racer
+	url = https://github.com/phildawes/racer
