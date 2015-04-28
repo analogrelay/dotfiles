@@ -29,7 +29,7 @@ filetype plugin indent on    " required
 if has('gui_running')
     "Set Color Scheme and font
     colorscheme solarized
-    set encoding=utf-8
+    "set encoding=utf-8
     set guifont=Sauce_Code_Powerline:h12:cDEFAULT
 
     " Maximize the window on launch
@@ -41,6 +41,7 @@ if has('gui_running')
       if s:uname == "Darwin\n"
         " Do Mac stuff here
         set fuopt=maxhorz,maxvert
+        set guifont=Sauce_Code_Powerline:h12
         "au GUIEnter * set fullscreen
       endif
     endif
@@ -74,8 +75,6 @@ set laststatus=2
 set number
 
 " Macros/Mappings
-nmap <S-Enter> O<Esc>
-nmap <CR> o<Esc>
 
 " Remove the ability to "derp around using the arrow keys"
 "map <up> <nop>
@@ -127,7 +126,7 @@ augroup omnisharp_commands
     " Builds can also run asynchronously with vim-dispatch installed
     autocmd FileType cs nnoremap <leader>b :wa!<cr>:OmniSharpBuildAsync<cr>
     " automatic syntax check on events (TextChanged requires Vim 7.4)
-    autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+    autocmd BufEnter,InsertLeave *.cs SyntasticCheck
 
     " Automatically add new cs files to the nearest project on save
     autocmd BufWritePost *.cs call OmniSharp#AddToProject()

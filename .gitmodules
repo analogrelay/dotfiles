@@ -43,9 +43,6 @@
 [submodule "vim.symlink/bundle/nerdcommenter"]
 	path = vim.symlink/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter
-[submodule "vim.symlink/bundle/numbers.vim"]
-	path = vim.symlink/bundle/numbers.vim
-	url = https://github.com/myusuf3/numbers.vim
 [submodule "vim.symlink/bundle/vim-surround"]
 	path = vim.symlink/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
@@ -64,6 +61,3 @@
 [submodule "vim.symlink/bundle/vim-bufferline"]
 	path = vim.symlink/bundle/vim-bufferline
 	url = https://github.com/bling/vim-bufferline
-[submodule "vim.symlink/bundle/racer"]
-	path = vim.symlink/bundle/racer
-	url = https://github.com/phildawes/racer
