@@ -31,7 +31,7 @@ if(!(Test-Path $gitconfig)) {
     $newConfig = [IO.File]::ReadAllText($gitconfig_templ)
     $newConfig = $newConfig.Replace("AUTHORNAME", $authorName)
     $newConfig = $newConfig.Replace("AUTHOREMAIL", $authorEmail)
-    $newConfig = $newConfig.Replace("GIT_CREDENTIAL_HELPER", "winstore")
+    $newConfig = $newConfig.Replace("GIT_CREDENTIAL_HELPER", "wincred")
     $newConfig = $newConfig.Replace("EDITOR", "GitPad")
 
     [IO.File]::WriteAllText($gitconfig, $newConfig)

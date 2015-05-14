@@ -6,7 +6,7 @@
     helper = GIT_CREDENTIAL_HELPER
 
 [core]
-	excludesfile = "~/.dotfiles/git/gitignore"
+    excludesfile = "~/.dotfiles/git/gitignore"
     editor = EDITOR
 
 [color]
