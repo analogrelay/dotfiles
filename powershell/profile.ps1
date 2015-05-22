@@ -39,5 +39,5 @@ function Profile! {
 }
 
 TwoLevelRecursiveDir "*.profile.ps1" | foreach {
-	. $_.FullName
+    . $_.FullName
 }
