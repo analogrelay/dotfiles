@@ -60,4 +60,3 @@ hi Visual          guifg=#333333 guibg=#f18c96 gui=reverse
 hi VisualNOS       guifg=#333333 guibg=#f18c96 gui=bold,underline
 hi WarningMsg      guifg=#ffffff guibg=#333333 gui=bold
 hi WildMenu        guifg=#000000 guibg=#dca3a3
-
