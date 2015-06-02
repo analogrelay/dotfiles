@@ -13,12 +13,12 @@
     ui = true
 
 [alias]
-    st = status
+    st = status -s
     ci = commit
     br = branch
     co = checkout
     df = diff
-    lg = log -p
+    lg = log --graph --decorate --oneline dev HEAD -n 20
     who = shortlog -s --
     k = !gitk
     cl = clean -d
