@@ -61,3 +61,6 @@
 [submodule "vim.symlink/bundle/vim-bufferline"]
 	path = vim.symlink/bundle/vim-bufferline
 	url = https://github.com/bling/vim-bufferline
+[submodule "vim.symlink/bundle/vim-expand-region"]
+	path = vim.symlink/bundle/vim-expand-region
+	url = https://github.com/terryma/vim-expand-region
