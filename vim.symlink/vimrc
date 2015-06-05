@@ -95,7 +95,16 @@ nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 vnoremap <Leader>P "+P
 nnoremap <Leader><Leader> V
+
+" Pseudo-camelcasemotion
+nnoremap ,e /.\u<CR>
+nnoremap ,w /\u<CR>
+nnoremap ,b ?\u<CR>
+
 nnoremap <Leader><CR> o<C-[>
+nnoremap <Leader>j i<CR><C-[>
+
+" ThisIsATestString
 
 nnoremap <CR> G
 nnoremap <BS> gg
