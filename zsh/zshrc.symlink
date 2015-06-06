@@ -1,2 +1,1 @@
 source $HOME/.dotfiles/zsh/zshrc
-[ -s "/Users/anurse/.k/kvm/kvm.sh" ] && . "/Users/anurse/.k/kvm/kvm.sh" # Load kvm

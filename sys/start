@@ -47,7 +47,9 @@ setup_gitconfig () {
     user ' - What is your github author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.template > git/gitconfig
+    editor='vi'
+
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" -e "s/EDITOR/$editor/g" git/gitconfig.template > git/gitconfig
 
     success 'gitconfig'
   fi
@@ -140,12 +142,12 @@ install_dotfiles () {
     link_file "$src" "$dst"
   done
 
-  for src in $(find "$DOTFILES_ROOT" -maxdepth 1 -type f -name '*.copy')
+  for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -type f -name '*.copy')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     (
       set +e
-      cp -f "$src" "$dest" 1>/dev/null 2>/dev/null
+      cp -f "$src" "$dst"
       set -e
     )
     success "copied $src to $dst"
