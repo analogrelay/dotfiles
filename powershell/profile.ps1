@@ -3,8 +3,11 @@ $Global:DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
 
 # Locate code root
 $DefaultCodeRoot = Join-Path $env:USERPROFILE "Code"
-if(!$CodeRoot -and (Test-Path $DefaultCodeRoot)) {
+if($env:PROJECTS) {
+    $CodeRoot = $env:PROJECTS
+} elseif(Test-Path $DefaultCodeRoot) {
     $CodeRoot = $DefaultCodeRoot
+    $env:PROJECTS = $CodeRoot
 }
 
 $DnvmPath = Join-Path (Join-Path (Join-Path $CodeRoot "aspnet") "dnvm") "src"

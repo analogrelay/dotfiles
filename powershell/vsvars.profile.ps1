@@ -1,1 +1,1 @@
-Import-VsVars -PrereleaseAllowed
+Import-VsVars -PrereleaseAllowed -Architecture x86

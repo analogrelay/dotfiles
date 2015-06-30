@@ -96,7 +96,7 @@ vnoremap <leader>p "+p
 vnoremap <Leader>P "+P
 nnoremap <Leader><Leader> V
 nnoremap <Leader><Tab> :bn<CR>
-nnoremap <Leader>= gg=Ggg
+nnoremap <Leader>= mzgg=G`z
 
 nnoremap <Leader>1 :b1<CR>
 nnoremap <Leader>2 :b2<CR>
