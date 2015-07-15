@@ -1,8 +1,19 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 
+# export the bin folder to the path
+export PATH="~/.dotfiles/bin:$PATH"
+
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
+
+if [[ $(uname) == "Darwin" ]]; then
+    export VAGRANT_DEFAULT_PROVIDER="parallels"
+fi
+
+# Set up library paths
+export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
+export CPATH="$CPATH:/usr/local/include"
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
