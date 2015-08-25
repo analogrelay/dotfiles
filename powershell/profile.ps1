@@ -1,4 +1,3 @@
-Write-Host "Loading profile from .dotfiles"
 $Global:DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
 
 # Locate code root
@@ -16,7 +15,7 @@ $env:PATH="$DnvmPath;$env:PATH"
 # Put dotfiles bin on the path. Also put functions on the path since unlike ZSH, PowerShell
 # runs scripts in the same shell instance (so there's no need to load the files as though they
 # were functions
-$env:PATH="$DotFilesRoot\functions;$DotFilesRoot\bin;$env:PATH"
+$env:PATH="$env:ProgramFiles\Perforce;$DotFilesRoot\functions;$DotFilesRoot\bin;$env:PATH"
 
 # Add the modules from dotfiles to the module path
 $env:PSModulePath="$DotFilesRoot\powershell\modules;$env:PSModulePath"

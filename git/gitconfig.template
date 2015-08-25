@@ -51,7 +51,7 @@
     tool = p4merge
 
 [difftool "p4merge"]
-    cmd = "$HOME/../Tools/p4merge/p4merge.exe" "$LOCAL" "$REMOTE"
+    cmd = "p4merge" "$LOCAL" "$REMOTE"
 
 [difftool "vsdiffmerge"]
       cmd = '"%VSINSTALLDIR%Common7/IDE/vsdiffmerge.exe"' "$LOCAL" "$REMOTE" //t
@@ -64,7 +64,7 @@
       trustexistcode = true
 
 [mergetool "p4merge"]
-    cmd = "$HOME/../Tools/p4merge/p4merge.exe" "$BASE" "$LOCAL" "$REMOTE" "$MERGED"    
+    cmd = "p4merge" "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 
 [http]
     postBuffer = 524288000
