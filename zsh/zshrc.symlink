@@ -1,1 +1,2 @@
 source $HOME/.dotfiles/zsh/zshrc
+[ -s "/Users/anurse/.dnx/dnvm/dnvm.sh" ] && . "/Users/anurse/.dnx/dnvm/dnvm.sh" # Load dnvm
