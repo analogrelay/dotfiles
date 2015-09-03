@@ -1,1 +1,0 @@
-dir $PSScriptDir\*.otf | foreach { & $PSScriptDir\Add-Font.ps1 (Convert-Path $_.FullName) }
