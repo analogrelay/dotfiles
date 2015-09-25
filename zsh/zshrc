@@ -1,6 +1,9 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 
+# unblock dnu restore
+export MONO_THREADS_PER_CPU=2000
+
 # export the bin folder to the path
 export PATH="~/.dotfiles/bin:$PATH"
 
@@ -10,6 +13,14 @@ export PROJECTS=~/Code
 if [[ $(uname) == "Darwin" ]]; then
     export VAGRANT_DEFAULT_PROVIDER="parallels"
 fi
+
+# Set up docker paths if docker-machine is present
+if type -p docker-machine >/dev/null 2>&1; then
+    if docker-machine inspect default >/dev/null 2>&1; then
+        eval "$(docker-machine env default)"
+    fi
+fi
+
 
 # Set up library paths
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"

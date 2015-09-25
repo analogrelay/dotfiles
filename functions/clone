@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+local OWNER=$(echo $1 | cut -d / -f 1)
+local REPO=$(echo $1 | cut -d / -f 2)
+
+local DIR=$PROJECTS/$OWNER
+
+if [ ! -d "$DIR" ]; then
+    mkdir "$DIR" >/dev/null 2>&1
+fi
+
+pushd "$DIR" >/dev/null 2>&1
+git clone git@github.com:$OWNER/$REPO
+popd >/dev/null 2>&1
