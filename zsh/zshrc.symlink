@@ -1,4 +1,2 @@
 source $HOME/.dotfiles/zsh/zshrc
 [ -s "/Users/anurse/.dnx/dnvm/dnvm.sh" ] && . "/Users/anurse/.dnx/dnvm/dnvm.sh" # Load dnvm
-
-[ -s "/Users/anurse/.k/kvm/kvm.sh" ] && . "/Users/anurse/.k/kvm/kvm.sh" # Load kvm

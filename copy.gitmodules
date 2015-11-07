@@ -1,0 +1,36 @@
+[submodule "vim.symlink/bundle/ctrlp.vim"]
+	path = vim.symlink/bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim
+[submodule "vim.symlink/bundle/nerdcommenter"]
+	path = vim.symlink/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter
+[submodule "vim.symlink/bundle/nerdtree"]
+	path = vim.symlink/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim.symlink/bundle/vim-airline"]
+	path = vim.symlink/bundle/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "vim.symlink/bundle/vim-bufferline"]
+	path = vim.symlink/bundle/vim-bufferline
+	url = https://github.com/bling/vim-bufferline
+[submodule "vim.symlink/bundle/vim-colors-solarized"]
+	path = vim.symlink/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
+[submodule "vim.symlink/bundle/vim-fugitive"]
+	path = vim.symlink/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim.symlink/bundle/vim-nerdtree-tabs"]
+	path = vim.symlink/bundle/vim-nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule "vim.symlink/bundle/vim-pathogen"]
+	path = vim.symlink/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule "powershell/modules/posh-git"]
+	path = powershell/modules/posh-git
+	url = https://github.com/dahlbyk/posh-git
+[submodule "powershell/modules/ps-cmdinterop"]
+	path = powershell/modules/ps-cmdinterop
+	url = https://github.com/anurse/ps-cmdinterop
+[submodule "powershell/modules/ps-vsvars"]
+	path = powershell/modules/ps-vsvars
+	url = https://github.com/anurse/ps-vsvars
