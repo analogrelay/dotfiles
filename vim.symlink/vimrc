@@ -135,6 +135,8 @@ map <C-N> <Esc>:NERDTreeToggle<CR>
 map <C-O> <Esc>:NERDTreeFocusToggle<CR>
 let g:nerdtree_tabs_open_on_gui_startup=0
 let g:nerdtree_tabs_open_on_new_tab=0
+let g:NERDTreeWinSize = 51
+autocmd vimenter * NERDTree
 
 " CtrlP settings
 let g:ctrlp_working_path_mode='ra'
