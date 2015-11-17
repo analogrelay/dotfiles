@@ -23,7 +23,6 @@
     k = !gitk
     cl = clean -d
 
-    whathappen = log --format="format:%h|%ai|%an|%s"
     fiddle = config --global http.proxy 127.0.0.1:8888
     unfiddle = config --global --unset
     addall = add -A :/
@@ -45,10 +44,13 @@
 
 [diff]
     algorithm = patience
-    tool = p4merge
+    tool = winmerge
 
 [merge]
-    tool = p4merge
+    tool = winmerge
+
+[difftool "winmerge"]
+    cmd = "winmergeu" -u -e "$LOCAL" "$REMOTE"
 
 [difftool "p4merge"]
     cmd = "p4merge" "$LOCAL" "$REMOTE"
@@ -65,6 +67,9 @@
 
 [mergetool "p4merge"]
     cmd = "p4merge" "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+
+[mergetool "winmerge"]
+    cmd = "winmergeu" -u -e -dl \"Local\" -dr \"Remote\" "$LOCAL" "$REMOTE" "$MERGED"
 
 [http]
     postBuffer = 524288000
