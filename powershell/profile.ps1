@@ -10,7 +10,8 @@ if($env:PROJECTS) {
 }
 
 $DnvmPath = Join-Path (Join-Path (Join-Path $CodeRoot "aspnet") "dnvm") "src"
-$env:PATH="$DnvmPath;$env:PATH"
+$DotNetPath = Join-Path "$env:LOCALAPPDATA" "Microsoft\dotnet\cli\bin"
+$env:PATH="$DotNetPath;$DnvmPath;$env:PATH"
 
 # Put dotfiles bin on the path. Also put functions on the path since unlike ZSH, PowerShell
 # runs scripts in the same shell instance (so there's no need to load the files as though they
