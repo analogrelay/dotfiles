@@ -18,6 +18,23 @@ function global:prompt {
         }
     }
 
+    # Check where dotnet is
+    $dotnetPath = (Get-Command dotnet).Definition
+    if(!$dotnetPath) {
+        $dotnetLocation = $null
+    } elseif($dotnetPath.StartsWith($env:LOCALAPPDATA)) {
+        $versionFile = Join-Path (Split-Path -Parent (Split-Path -Parent $dotnetPath)) ".version"
+        $dotnetLocation = @(cat $versionFile)[-1]
+    } elseif ($dotnetPath.StartsWith($CodeRoot)) {
+        $dotnetLocation = "dev"
+    } else {
+        $dotnetLocation = Split-Path -Parent (Split-Path -Parent $dotnetPath)
+    }
+
+    if($dotnetLocation) {
+        Write-Host " (dotnet:$dotnetLocation)" -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
+    }
+
     if(Get-Command Write-VcsStatus -ErrorAction SilentlyContinue) {
         Write-VcsStatus
     }
