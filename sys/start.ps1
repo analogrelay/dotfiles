@@ -8,6 +8,9 @@ $Global:DotFiles_Root = $DotFilesRoot
 if(!$Global:DotFiles_Root) {
     $Global:DotFiles_Root = Convert-Path (Split-Path -Parent $PSScriptRoot)
 }
+
+$gitconfig = Join-Path $Global:DotFiles_Root "git\gitconfig"
+
 if(!$UserProfile) {
     $UserProfile = $env:USERPROFILE
 }
