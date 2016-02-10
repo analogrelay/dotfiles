@@ -44,10 +44,10 @@
 
 [diff]
     algorithm = patience
-    tool = winmerge
+    tool = DIFFTOOL
 
 [merge]
-    tool = winmerge
+    tool = MERGETOOL
 
 [difftool "winmerge"]
     cmd = "winmergeu" -u -e "$LOCAL" "$REMOTE"

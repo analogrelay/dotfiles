@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # A lot of this is based on the excellent dotfiles scripts by
 # Zach Holman. You can find it here: https://github.com/holman/dotfiles
@@ -30,31 +30,6 @@ fail () {
   echo ''
   exit
 }
-
-setup_gitconfig () {
-  if ! [ -f git/gitconfig ]
-  then
-    info 'setup gitconfig'
-
-    git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
-      git_credential='osxkeychain'
-    fi
-
-    user ' - What is your github author name?'
-    read -e git_authorname
-    user ' - What is your github author email?'
-    read -e git_authoremail
-
-    editor='vi'
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" -e "s/EDITOR/$editor/g" git/gitconfig.template > git/gitconfig
-
-    success 'gitconfig'
-  fi
-}
-
 
 link_file () {
   local src=$1 dst=$2
@@ -154,7 +129,10 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
+if ! [ -f git/gitconfig ]; then
+    ./sys/gitconfig.sh
+fi
+
 install_dotfiles
 
 # If we're on a Mac, let's install and setup homebrew.

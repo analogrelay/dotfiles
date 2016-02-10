@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+IMAGE_NAME=anurse/dock
+
+docker build -t $IMAGE_NAME $ZSH/docker/dock
+
+docker run -it --rm -v $PWD:/work -v $HOME:/home $IMAGE_NAME
