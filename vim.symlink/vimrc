@@ -1,6 +1,5 @@
 " Update MYVIMRC
 let $MYVIMRC="~/.dotfiles/vim.symlink/vimrc"
-let $MYCOLORS="~/.dotfiles/vim.symlink/colorscheme.vim"
 
 set ff=unix
 
@@ -26,9 +25,11 @@ set list listchars=tab:».,trail:·
 
 filetype plugin indent on    " required
 
+" Set Color Scheme
+colorscheme vibrantcode
+
 if has('gui_running')
-    "Set Color Scheme and font
-    colorscheme blacklight
+    "Set encoding and font
     set encoding=utf-8
     set guifont=Sauce_Code_Powerline:h10:cDEFAULT
 
@@ -45,6 +46,12 @@ if has('gui_running')
         "au GUIEnter * set fullscreen
       endif
     endif
+endif
+
+if &diff || !has('gui_running')
+    " No NERDTree on Vimdiff or in terminal (by default)
+else
+    autocmd vimenter * NERDTree
 endif
 
 let g:airline_powerline_fonts=1
@@ -139,9 +146,3 @@ let g:NERDTreeWinSize = 51
 
 " CtrlP settings
 let g:ctrlp_working_path_mode='ra'
-
-if &diff
-    " No NERDTree on Vimdiff
-else
-    autocmd vimenter * NERDTree
-endif
