@@ -10,9 +10,9 @@ if has('win32') || has('win64')
 endif
 
 let g:pathogen_disabled = []
-if !has('python')
-    call add(g:pathogen_disabled, 'omnisharp-vim')
-endif
+"if !has('python')
+call add(g:pathogen_disabled, 'omnisharp-vim')
+"endif
 
 "Load pathogen
 source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
@@ -23,10 +23,10 @@ set nocompatible
 
 set list listchars=tab:».,trail:·
 
-filetype plugin indent on    " required
-
 " Set Color Scheme
 colorscheme vibrantcode
+
+filetype plugin indent on    " required
 
 if has('gui_running')
     "Set encoding and font
