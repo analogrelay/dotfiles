@@ -23,7 +23,7 @@ function global:prompt {
     if(!$dotnetPath) {
         $dotnetLocation = $null
     } elseif($dotnetPath.StartsWith($env:LOCALAPPDATA)) {
-        $versionFile = Join-Path (Split-Path -Parent (Split-Path -Parent $dotnetPath)) ".version"
+        $versionFile = Join-Path (Split-Path -Parent $dotnetPath) ".version"
         $dotnetLocation = @(cat $versionFile)[-1]
     } elseif ($dotnetPath.StartsWith($CodeRoot)) {
         $dotnetLocation = "dev"
