@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+while [[ $# -gt 0 ]]; do
+    KEY=$1
+
+    case $KEY in
+        -r|--remote)
+            REMOTE=$2
+            shift
+            ;;
+        -n|--dry-run)
+            DRY_RUN=1
+            ;;
+        -p|--prefix)
+            BRANCH_PREFIX=$2
+            shift
+            ;;
+        -t|--target)
+            TARGET=$2
+            shift
+            ;;
+        *)
+            echo "Usage: $0 [--target|-t <TARGET>] [--remote|-r <REMOTE>] [-p|--prefix <BRANCH_PREFIX>] [--dry-run|-n]"
+            echo
+            echo "Options:"
+            echo "  --target|-t <TARGET>            The branch to use as the base to clean against (i.e. clean branches merged into this branch; defaults to 'dev' or 'master' if no 'dev' branch found"
+            echo "  --remote|-r <REMOTE>            The remote to clean branches on (defaults to 'origin')"
+            echo "  --prefix|-p <BRANCH_PREFIX>     The prefix that distinguishes your branches (defaults to your local user name)"
+            echo "  --dry-run|-n                    Don't actually do anything, just print what would be done"
+    esac
+done
+
+echo "Not yet implemented" 1>&2
+exit 1
