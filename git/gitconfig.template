@@ -22,6 +22,7 @@
     who = shortlog -s --
     k = !gitk
     cl = clean -d
+    pf = push --force-with-lease origin
 
     fiddle = config --global http.proxy 127.0.0.1:8888
     unfiddle = config --global --unset
