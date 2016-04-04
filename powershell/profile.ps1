@@ -9,7 +9,7 @@ if($env:PROJECTS) {
     $env:PROJECTS = $CodeRoot
 }
 
-$DotNetPath = Join-Path "$env:LOCALAPPDATA" "Microsoft\dotnet\cli"
+$DotNetPath = Join-Path "$env:LOCALAPPDATA" "Microsoft\dotnet"
 $env:PATH="$DotNetPath;$env:PATH"
 
 # Put dotfiles bin on the path. Also put functions on the path since unlike ZSH, PowerShell
