@@ -17,6 +17,8 @@ $newConfig = [IO.File]::ReadAllText($gitconfig_templ)
 $newConfig = $newConfig.Replace("AUTHORNAME", $authorName)
 $newConfig = $newConfig.Replace("AUTHOREMAIL", $authorEmail)
 $newConfig = $newConfig.Replace("GIT_CREDENTIAL_HELPER", "wincred")
-$newConfig = $newConfig.Replace("EDITOR", "gvim")
+
+$vimRCPath = "$DotFilesRoot\vim.symlink\gitdiff.vimrc".Replace("\", "/")
+$newConfig = $newConfig.Replace("EDITOR", "`"gvim -u $vimRCPath`"")
 
 [IO.File]::WriteAllText($gitconfig, $newConfig)
