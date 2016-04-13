@@ -5,7 +5,7 @@ export ZSH=$HOME/.dotfiles
 export MONO_THREADS_PER_CPU=2000
 
 # export the bin folder to the path
-export PATH="$HOME/.multirust/toolchains/stable/cargo/bin:$HOME/.dotfiles/bin:$PATH"
+export PATH="/usr/local/share/dotnet:$HOME/.multirust/toolchains/stable/cargo/bin:$HOME/.dotfiles/bin:$PATH"
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
