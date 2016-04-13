@@ -42,6 +42,11 @@ function Profile! {
     . "$PSScriptRoot\profile.ps1"
 }
 
+function UpdateDotFiles {
+    pushd Dotfiles:\; git pull origin master; popd
+    Profile!
+}
+
 TwoLevelRecursiveDir "*.profile.ps1" | foreach {
     . $_.FullName
 }
