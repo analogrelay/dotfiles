@@ -483,9 +483,9 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2016-03-22 14:50:18" build="150813f">
-				<value name="Count" type="dword" data="00000005"/>
-						<key name="Task1" modified="2016-03-22 14:50:18" build="150813f">
+				<key name="Tasks" modified="2016-04-06 11:41:53" build="150813f">
+				<value name="Count" type="dword" data="00000006"/>
+						<key name="Task1" modified="2016-04-06 11:41:53" build="150813f">
 					<value name="Name" type="string" data="{PowerShell}"/>
 					<value name="GuiArgs" type="string" data="/dir &quot;%userprofile%&quot;"/>
 					<value name="Cmd1" type="string" data="powershell"/>
@@ -494,7 +494,16 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task2" modified="2016-03-22 14:50:18" build="150813f">
+						<key name="Task2" modified="2016-04-06 11:41:53" build="150813f">
+					<value name="Name" type="string" data="{bash}"/>
+					<value name="GuiArgs" type="string" data=""/>
+					<value name="Cmd1" type="string" data="bash"/>
+					<value name="Active" type="dword" data="00000000"/>
+					<value name="Count" type="dword" data="00000001"/>
+					<value name="Flags" type="dword" data="00000000"/>
+					<value name="Hotkey" type="dword" data="00000000"/>
+				</key>
+						<key name="Task3" modified="2016-04-06 11:41:53" build="150813f">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data=" /icon &quot;cmd.exe&quot;"/>
 					<value name="Cmd1" type="string" data="cmd /k vendor\init.bat"/>
@@ -503,7 +512,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task3" modified="2016-03-22 14:50:18" build="150813f">
+						<key name="Task4" modified="2016-04-06 11:41:53" build="150813f">
 					<value name="Name" type="string" data="{Putty}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="%LocalAppData%\scoop\apps\putty\0.64\PUTTY.EXE -new_console"/>
@@ -512,7 +521,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task4" modified="2016-03-22 14:50:18" build="150813f">
+						<key name="Task5" modified="2016-04-06 11:41:53" build="150813f">
 					<value name="Name" type="string" data="{Cygwin}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="C:\Cygwin64\bin\bash.exe --login -i"/>
@@ -521,21 +530,21 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task5" modified="2016-03-22 14:50:18" build="150813f">
+				<key name="Task6" modified="2016-04-06 11:41:53" build="150813f">
 					<value name="Name" type="string" data="{Cygwin zsh}"/>
+					<value name="Flags" type="dword" data="00000000"/>
+					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="C:\Cygwin64\bin\zsh.exe -l -i"/>
 					<value name="Active" type="dword" data="00000000"/>
 					<value name="Count" type="dword" data="00000001"/>
-					<value name="Flags" type="dword" data="00000000"/>
-					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2016-03-22 14:50:18" build="150813f">
+				<key name="Apps" modified="2016-04-06 11:41:53" build="150813f">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Colors" modified="2016-03-22 14:50:18" build="150813f">
-			<key name="Palette1" modified="2016-03-22 14:50:18" build="150813f">
+				<key name="Colors" modified="2016-04-06 11:41:53" build="150813f">
+			<key name="Palette1" modified="2016-04-06 11:41:53" build="150813f">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
