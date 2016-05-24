@@ -1,0 +1,7 @@
+# Force line endings to CRLF
+*.cmd       eol=crlf
+
+# Force line endings to LF
+*.zsh       eol=lf
+*.sh        eol=lf
+zshrc       eol=lf
