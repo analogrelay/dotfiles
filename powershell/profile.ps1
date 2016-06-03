@@ -50,3 +50,5 @@ function UpdateDotFiles {
 TwoLevelRecursiveDir "*.profile.ps1" | foreach {
     . $_.FullName
 }
+
+[Console]::CursorSize = 25
