@@ -9,7 +9,11 @@ function global:prompt {
     Write-Host $pwd -nonewline -ForegroundColor ([ConsoleColor]::Yellow)
 
     if(Get-Command dotnet -ErrorAction SilentlyContinue) {
-        $dotnetVersion = (dotnet --version).Trim()
+        try {
+            $dotnetVersion = (dotnet --version).Trim()
+        } catch {
+            $dotnetVersion = "<<error>>"
+        }
     }
 
     if($dotnetVersion) {
