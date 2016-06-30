@@ -16,7 +16,7 @@ call add(g:pathogen_disabled, 'omnisharp-vim')
 
 "Load pathogen
 if !exists('is_git') || !is_git
-    source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
+    source ~/.dotfiles/vim.symlink/bundle/vim-pathogen/autoload/pathogen.vim
     execute pathogen#infect()
 endif
 
