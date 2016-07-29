@@ -5,3 +5,5 @@
 *.zsh       eol=lf
 *.sh        eol=lf
 zshrc       eol=lf
+sys/start   eol=lf
+sys/update  eol=lf
