@@ -2,8 +2,10 @@
 *.cmd       eol=crlf
 
 # Force line endings to LF
-*.zsh       eol=lf
-*.sh        eol=lf
-zshrc       eol=lf
-sys/start   eol=lf
-sys/update  eol=lf
+*.zsh           eol=lf
+*.sh            eol=lf
+zshrc           eol=lf
+sys/start       eol=lf
+sys/update      eol=lf
+tmux.conf*      eol=lf
+vim.symlink/*   eof=lf
