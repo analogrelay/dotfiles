@@ -139,7 +139,15 @@ if [ $WSL = "1" ]; then
     echo "Running in Windows Subsystem for Linux"
 
     if [ $DOTFILES_ROOT != "$HOME/.dotfiles" ]; then
+        # Symlink the Windows home directory
+        WINHOME=$( cd -P "$DOTFILES_ROOT/.." && pwd)
+
+        [ ! -e ~/winhome ] || rm ~/winhome
+        ln -s $WINHOME ~/winhome
+        success "symlinked $WINHOME to ~/winhome"
+
         # Symlink ourselves over to ~/.dotfiles
+        [ ! -e ~/.dotfiles ] || rm ~/.dotfiles
         ln -s $DOTFILES_ROOT ~/.dotfiles
         success "symlinked $DOTFILES_ROOT to ~/.dotfiles"
 
@@ -148,6 +156,14 @@ if [ $WSL = "1" ]; then
         # And move over there
         cd $DOTFILES_ROOT
     fi
+
+    # Symlink some useful directories
+    [ ! -e ~/Code ] || rm ~/Code
+    ln -s ~/winhome/Code ~/Code
+    success "symlinked ~/winhome/Code to ~/Code"
+    [ ! -e ~/.ssh ] || rm -Rf ~/.ssh
+    ln -s ~/winhome/.ssh ~/.ssh
+    success "symlinked ~/winhome/.ssh to ~/.ssh"
 fi
 
 if ! [ -f git/gitconfig ]; then

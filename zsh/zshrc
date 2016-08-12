@@ -1,8 +1,10 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 
-# unblock dnu restore
-export MONO_THREADS_PER_CPU=2000
+# DO NOT use 'cat', because that spawns a process and we end up with 'cat's command line :)
+CMDLINE=$(</proc/self/cmdline)
+
+export SHELL="$(echo $CMDLINE | awk '{ print $1 }')"
 
 # export the bin folder to the path
 export PATH="$HOME/.dotnet:$HOME/.cargo/bin:$HOME/.dotfiles/bin:$PATH"

@@ -494,16 +494,16 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task2" modified="2016-08-05 11:47:30" build="160619">
-					<value name="Name" type="string" data="{bash}"/>
+						<key name="Task2" modified="2016-08-12 11:18:08" build="160619">
+					<value name="Name" type="string" data="{zsh}"/>
 					<value name="GuiArgs" type="string" data=""/>
-					<value name="Cmd1" type="string" data="bash -c &quot;SHELL=/usr/bin/zsh /usr/bin/zsh&quot;"/>
+					<value name="Cmd1" type="string" data="outbash -cur_console:p1 -c &quot;/usr/bin/zsh&quot;"/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task3" modified="2016-08-05 11:47:30" build="160619">
+						<key name="Task3" modified="2016-08-12 11:18:08" build="160619">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data=" /icon &quot;cmd.exe&quot;"/>
 					<value name="Cmd1" type="string" data="cmd /k vendor\init.bat"/>
@@ -512,7 +512,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task4" modified="2016-08-05 11:47:30" build="160619">
+						<key name="Task4" modified="2016-08-12 11:18:08" build="160619">
 					<value name="Name" type="string" data="{Putty}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="%LocalAppData%\scoop\apps\putty\0.64\PUTTY.EXE -new_console"/>
@@ -521,7 +521,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task5" modified="2016-08-05 11:47:30" build="160619">
+						<key name="Task5" modified="2016-08-12 11:18:08" build="160619">
 					<value name="Name" type="string" data="{Cygwin}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="C:\Cygwin64\bin\bash.exe --login -i"/>
@@ -530,7 +530,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-				<key name="Task6" modified="2016-08-05 11:47:30" build="160619">
+				<key name="Task6" modified="2016-08-12 11:18:08" build="160619">
 					<value name="Name" type="string" data="{Cygwin zsh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -540,11 +540,11 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2016-08-05 11:47:30" build="160619">
+				<key name="Apps" modified="2016-08-12 11:18:08" build="160619">
 				<value name="Count" type="long" data="0"/>
 			</key>
-				<key name="Colors" modified="2016-08-05 11:47:30" build="160619">
-			<key name="Palette1" modified="2016-08-05 11:47:30" build="160619">
+				<key name="Colors" modified="2016-08-12 11:18:08" build="160619">
+			<key name="Palette1" modified="2016-08-12 11:18:08" build="160619">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
