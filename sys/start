@@ -129,11 +129,41 @@ install_dotfiles () {
   done
 }
 
+if cat /proc/version | grep Microsoft >/dev/null 2>&1; then
+    WSL=1
+else
+    WSL=0
+fi
+
+if [ $WSL = "1" ]; then
+    echo "Running in Windows Subsystem for Linux"
+
+    if [ $DOTFILES_ROOT != "$HOME/.dotfiles" ]; then
+        # Symlink ourselves over to ~/.dotfiles
+        ln -s $DOTFILES_ROOT ~/.dotfiles
+        success "symlinked $DOTFILES_ROOT to ~/.dotfiles"
+
+        DOTFILES_ROOT="$HOME/.dotfiles"
+
+        # And move over there
+        cd $DOTFILES_ROOT
+    fi
+fi
+
 if ! [ -f git/gitconfig ]; then
     ./sys/gitconfig.sh
 fi
 
 install_dotfiles
+
+# Configure shell
+if type -p zsh >/dev/null 2>&1; then
+    ZSH_PATH=$(type -p zsh)
+    chsh -s $ZSH_PATH
+    success "configured default shell as zsh"
+else
+    user "unable to configure default shell to zsh, it is not installed"
+fi
 
 # If we're on a Mac, let's install and setup homebrew.
 # if [ "$(uname -s)" == "Darwin" ]

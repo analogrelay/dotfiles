@@ -10,6 +10,12 @@ export PATH="$HOME/.dotnet:$HOME/.cargo/bin:$HOME/.dotfiles/bin:$PATH"
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
 
+if cat /proc/version | grep Microsoft >/dev/null 2>&1; then
+    export WSL=1
+else
+    export WSL=0
+fi
+
 if [[ $(uname) == "Darwin" ]]; then
     export VAGRANT_DEFAULT_PROVIDER="parallels"
 fi
