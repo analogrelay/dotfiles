@@ -1,7 +1,10 @@
-*           text=auto
+*               text=auto
+
+bin/*           eol=lf
+bin/*.ps1       eol=crlf
 
 # Force line endings to CRLF
-*.cmd       eol=crlf
+*.cmd           eol=crlf
 
 # Force line endings to LF
 *.zsh           eol=lf
