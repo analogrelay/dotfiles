@@ -51,4 +51,6 @@ TwoLevelRecursiveDir "*.profile.ps1" | foreach {
     . $_.FullName
 }
 
-[Console]::CursorSize = 25
+try {
+    [Console]::CursorSize = 25
+} catch {}
