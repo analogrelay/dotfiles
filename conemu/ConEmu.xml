@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2016-08-05 11:46:31" build="160619">
-			<value name="ColorTable00" type="dword" data="00362b00"/>
-			<value name="ColorTable01" type="dword" data="00423607"/>
-			<value name="ColorTable02" type="dword" data="00756e58"/>
-			<value name="ColorTable03" type="dword" data="00837b65"/>
-			<value name="ColorTable04" type="dword" data="00164bcb"/>
-			<value name="ColorTable05" type="dword" data="00c4716c"/>
-			<value name="ColorTable06" type="dword" data="00969483"/>
-			<value name="ColorTable07" type="dword" data="00d5e8ee"/>
-			<value name="ColorTable08" type="dword" data="00a1a193"/>
-			<value name="ColorTable09" type="dword" data="00d28b26"/>
-			<value name="ColorTable10" type="dword" data="00009985"/>
-			<value name="ColorTable11" type="dword" data="0098a12a"/>
-			<value name="ColorTable12" type="dword" data="002f32dc"/>
-			<value name="ColorTable13" type="dword" data="008236d3"/>
-			<value name="ColorTable14" type="dword" data="000089b5"/>
-			<value name="ColorTable15" type="dword" data="00e3f6fd"/>
+		<key name=".Vanilla" modified="2016-08-18 15:40:19" build="160710">
+			<value name="ColorTable00" type="dword" data="00000000"/>
+			<value name="ColorTable01" type="dword" data="00ff5555"/>
+			<value name="ColorTable02" type="dword" data="003bd01d"/>
+			<value name="ColorTable03" type="dword" data="00fae36a"/>
+			<value name="ColorTable04" type="dword" data="000000ff"/>
+			<value name="ColorTable05" type="dword" data="00ff55ff"/>
+			<value name="ColorTable06" type="dword" data="0009c8ed"/>
+			<value name="ColorTable07" type="dword" data="00ffffff"/>
+			<value name="ColorTable08" type="dword" data="00555555"/>
+			<value name="ColorTable09" type="dword" data="00d26014"/>
+			<value name="ColorTable10" type="dword" data="0021de38"/>
+			<value name="ColorTable11" type="dword" data="00bbbb00"/>
+			<value name="ColorTable12" type="dword" data="00170ef4"/>
+			<value name="ColorTable13" type="dword" data="005d00ff"/>
+			<value name="ColorTable14" type="dword" data="000ae5ff"/>
+			<value name="ColorTable15" type="dword" data="00bbbbbb"/>
 			<value name="ColorTable16" type="dword" data="00000000"/>
 			<value name="ColorTable17" type="dword" data="00800000"/>
 			<value name="ColorTable18" type="dword" data="00008000"/>
@@ -483,9 +483,9 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2016-08-05 11:47:30" build="160619">
+				<key name="Tasks" modified="2016-08-18 15:40:19" build="160710">
 				<value name="Count" type="long" data="6"/>
-						<key name="Task1" modified="2016-08-05 11:47:30" build="160619">
+						<key name="Task1" modified="2016-08-18 15:40:19" build="160710">
 					<value name="Name" type="string" data="{PowerShell}"/>
 					<value name="GuiArgs" type="string" data="/dir &quot;%userprofile%&quot;"/>
 					<value name="Cmd1" type="string" data="powershell"/>
@@ -494,7 +494,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task2" modified="2016-08-12 11:18:08" build="160619">
+						<key name="Task2" modified="2016-08-18 15:40:19" build="160710">
 					<value name="Name" type="string" data="{zsh}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="outbash -cur_console:p1 -c &quot;/usr/bin/zsh&quot;"/>
@@ -503,7 +503,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task3" modified="2016-08-12 11:18:08" build="160619">
+						<key name="Task3" modified="2016-08-18 15:40:19" build="160710">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data=" /icon &quot;cmd.exe&quot;"/>
 					<value name="Cmd1" type="string" data="cmd /k vendor\init.bat"/>
@@ -512,7 +512,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task4" modified="2016-08-12 11:18:08" build="160619">
+						<key name="Task4" modified="2016-08-18 15:40:19" build="160710">
 					<value name="Name" type="string" data="{Putty}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="%LocalAppData%\scoop\apps\putty\0.64\PUTTY.EXE -new_console"/>
@@ -521,7 +521,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task5" modified="2016-08-12 11:18:08" build="160619">
+						<key name="Task5" modified="2016-08-18 15:40:19" build="160710">
 					<value name="Name" type="string" data="{Cygwin}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="C:\Cygwin64\bin\bash.exe --login -i"/>
@@ -530,7 +530,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-				<key name="Task6" modified="2016-08-12 11:18:08" build="160619">
+				<key name="Task6" modified="2016-08-18 15:40:19" build="160710">
 					<value name="Name" type="string" data="{Cygwin zsh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -540,11 +540,11 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2016-08-12 11:18:08" build="160619">
+				<key name="Apps" modified="2016-08-18 15:40:19" build="160710">
 				<value name="Count" type="long" data="0"/>
 			</key>
-				<key name="Colors" modified="2016-08-12 11:18:08" build="160619">
-			<key name="Palette1" modified="2016-08-12 11:18:08" build="160619">
+				<key name="Colors" modified="2016-08-18 15:40:19" build="160710">
+			<key name="Palette1" modified="2016-08-18 15:40:19" build="160710">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -656,7 +656,7 @@
 			<value name="Key.BufBottom" type="dword" data="00005d23"/>
 			<value name="Key.BufCursor" type="dword" data="00005d08"/>
 			<value name="FontOriginalKey" type="dword" data="00001104"/>
-			<key name="HotKeys" modified="2016-08-05 11:47:30" build="160619">
+			<key name="HotKeys" modified="2016-08-18 15:40:19" build="160710">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
@@ -867,6 +867,7 @@
 			<value name="DebugLog" type="hex" data="00"/>
 			<value name="StatusBar.Hide.TMode" type="hex" data="01"/>
 			<value name="StatusBar.Hide.RMode" type="hex" data="01"/>
+			<value name="CompressLongStrings" type="hex" data="01"/>
 		</key>
 	</key>
 </key>
