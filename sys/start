@@ -8,6 +8,7 @@
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
+UNAME=$(uname)
 
 set -e
 
@@ -127,6 +128,11 @@ install_dotfiles () {
     )
     success "copied $src to $dst"
   done
+
+  # Custom symlinks
+  if [[ $UNAME == "Darwin" ]]; then
+    link_file "$DOTFILES_ROOT/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
+  fi
 }
 
 if cat /proc/version | grep Microsoft >/dev/null 2>&1; then
