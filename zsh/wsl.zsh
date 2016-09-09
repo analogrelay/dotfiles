@@ -1,4 +1,4 @@
-if [ $WSL != "1" ]; then
+if [[ $WSL != "1" ]]; then
     # We are sourced, so DON'T use exit
     return 0
 fi

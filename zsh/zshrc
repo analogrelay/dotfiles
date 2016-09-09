@@ -2,21 +2,25 @@
 export ZSH=$HOME/.dotfiles
 
 # DO NOT use 'cat', because that spawns a process and we end up with 'cat's command line :)
-CMDLINE=$(</proc/self/cmdline)
+if [[ $(uname) == "Linux" ]]; then
+    if cat /proc/version | grep Microsoft >/dev/null 2>&1; then
+        export WSL=1
+    else
+        export WSL=0
+    fi
+fi
 
-export SHELL="$(echo $CMDLINE | awk '{ print $1 }')"
+if [[ $WSL == "1" ]]; then
+    CMDLINE=$(</proc/self/cmdline)
+
+    export SHELL="$(echo $CMDLINE | awk '{ print $1 }')"
+fi
 
 # export the bin folder to the path
 export PATH="$HOME/.dotnet:$HOME/.cargo/bin:$HOME/.dotfiles/bin:$PATH"
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
-
-if cat /proc/version | grep Microsoft >/dev/null 2>&1; then
-    export WSL=1
-else
-    export WSL=0
-fi
 
 if [[ $(uname) == "Darwin" ]]; then
     export VAGRANT_DEFAULT_PROVIDER="parallels"
