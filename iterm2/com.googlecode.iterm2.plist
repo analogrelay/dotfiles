@@ -129,9 +129,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>330 289 620 392 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>244 228 1016 502 0 0 1280 800 </string>
+	<string>244 320 918 381 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 297 570 448 0 0 1280 777 </string>
+	<string>0 9 1277 768 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>152 50 570 451 0 0 1280 800 </string>
 	<key>New Bookmarks</key>
@@ -235,12 +235,16 @@
 			</dict>
 			<key>Ansi 4 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.73333334922790527</real>
+				<real>0.83851933479309082</real>
+				<key>Color Space</key>
+				<string>Calibrated</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.40651586651802063</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.34672582149505615</real>
 			</dict>
 			<key>Ansi 5 Color</key>
 			<dict>
@@ -810,7 +814,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>62231CA8-E157-4C56-A96F-3B6C87FC24B7</string>
 	<key>NoSyncLastTipTime</key>
-	<real>494459836.94096202</real>
+	<real>494868943.278745</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -823,6 +827,8 @@
 	<real>477806488.653449</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
 	<real>486596245.51212001</real>
+	<key>NoSyncTipsDisabled</key>
+	<true/>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
 		<string>000</string>
@@ -870,6 +876,8 @@
 		<string>0041</string>
 		<string>0042</string>
 		<string>0043</string>
+		<string>0044</string>
+		<string>0045</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
@@ -935,7 +943,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-30T18:32:08Z</date>
+	<date>2016-09-08T21:10:12Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -987,6 +995,10 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.8</string>
+	<string>3.0.9</string>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>1</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>
