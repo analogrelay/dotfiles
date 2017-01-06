@@ -1,7 +1,7 @@
 $VisualStudios = @()
 Export-ModuleMember -Variable VisualStudios
 
-$EditionNodes = @(
+$ProductNodes = @(
     "VisualStudio",
     "VCExpress",
     "VPDExpress",
@@ -20,16 +20,16 @@ if($env:PROCESSOR_ARCHITECTURE -eq "AMD64") {
     $SearchRoot = "Software\Wow6432Node\Microsoft"
 }
 
-$EditionNodes | ForEach-Object {
-    $edition = $_;
-    $root = "HKLM:\$SearchRoot\$edition"
+$ProductNodes | ForEach-Object {
+    $product = $_;
+    $root = "HKLM:\$SearchRoot\$product"
     if(Test-Path $root) {
         dir "$root" | Where-Object {
             ($_.Name -match "\d+\.\d+") -and
             (![String]::IsNullOrEmpty((Get-ItemProperty "$root\$($_.PSChildName)").InstallDir)) 
         } | ForEach-Object {
             $regPath = "$root\$($_.PSChildName)"
-            
+
             # Gather VS data
             $installDir = (Get-ItemProperty $regPath).InstallDir
 
@@ -38,11 +38,11 @@ $EditionNodes | ForEach-Object {
                 $vsVars = Convert-Path "$installDir\..\..\VC\vcvarsall.bat"
             }
             $devenv = (Get-ItemProperty "$regPath\Setup\VS").EnvironmentPath;
-            
+
             # Make a VSInfo object
             $ver = New-Object System.Version $_.PSChildName;
             $vsInfo = [PSCustomObject]@{
-                "Edition" = $edition;
+                "Product" = $product;
                 "Version" = $ver;
                 "RegistryRoot" = $_;
                 "InstallDir" = $installDir;
@@ -57,38 +57,70 @@ $EditionNodes | ForEach-Object {
     }
 }
 
-$DefaultVisualStudio = $VisualStudios | Where { $_.Edition -eq "VisualStudio" } | sort Version -desc | select -first 1
+# Find VS 2017 instances
+dir (Join-Path ([Environment]::GetFolderPath("CommonApplicationData")) "Microsoft\VisualStudio\Packages\_Instances") | ForEach-Object {
+    $instanceRoot = $_
+    $state = ConvertFrom-Json (Get-Content (Join-Path $instanceRoot.FullName "state.json"))
+
+    $installDir = $state.installationPath
+    $vsVarsPath = Join-Path $installDir "Common7\Tools\Vsdevcmd.bat"
+    $devenv = Join-Path $installDir $state.launchParams.fileName
+
+    $vsInfo = [PSCustomObject]@{
+        "Product" = $state.catalogInfo.manifestName;
+        "Edition" = $state.product.id;
+        "Version" = (New-Object System.Version $state.catalogInfo.buildVersion);
+        "InstallDir" = $installDir;
+        "VsVarsPath" = $vsVarsPath;
+        "DevEnv" = $devenv;
+        "Prerelease" = $true
+    }
+    $VisualStudios += $vsInfo
+}
+
+$DefaultVisualStudio = $VisualStudios | Where { $_.Product -eq "VisualStudio" } | sort Version -desc | select -first 1
 Export-ModuleMember -Variable DefaultVisualStudio
 
 function Import-VsVars {
     param(
         [Parameter(Mandatory=$false)][string]$Version = $null,
-        [Parameter(Mandatory=$false)][string]$Edition = "VisualStudio",
-        [Parameter(Mandatory=$false)][string]$VsVarsPath = $null,
+        [Parameter(Mandatory=$false)][string]$Product = "VisualStudio",
         [Parameter(Mandatory=$false)][string]$Architecture = $env:PROCESSOR_ARCHITECTURE,
-        [Parameter(Mandatory=$false)][switch]$PrereleaseAllowed
+        [Parameter(Mandatory=$false)][switch]$PrereleaseAllowed,
+        [Parameter(Mandatory=$false)][switch]$WhatIf
     )
-    
-    if([String]::IsNullOrEmpty($VsVarsPath)) {
-        Write-Debug "Finding vcvarsall.bat automatically..."
 
-        # Find all versions of the specified edition
-        $vers = $VisualStudios | Where { $_.Edition -eq $Edition }
+    Write-Debug "Finding vcvarsall.bat automatically..."
 
-        $Vs = Get-VisualStudio -Version $Version -Edition $Edition -PrereleaseAllowed:$PrereleaseAllowed;
-        
-        if(!$Vs) {
-            throw "No $Edition Environments found"
-        } else {
-            Write-Debug "Found VS $($Vs.Version) in $($Vs.InstallDir)"
-            $VsVarsPath = $Vs.VsVarsPath
-        }
+    # Find all versions of the specified product
+    $vers = $VisualStudios | Where { $_.Product -eq $Product }
+
+    $Vs = Get-VisualStudio -Version $Version -Product $Product |
+        where { $PrereleaseAllowed -or !$_.Prerelease } |
+        select -first 1
+
+    if(!$Vs) {
+        throw "No $Product Environments found"
+    } else {
+        Write-Debug "Found VS $($Vs.Version) in $($Vs.InstallDir)"
+        $VsVarsPath = $Vs.VsVarsPath
     }
+
     if($VsVarsPath -and (Test-Path $VsVarsPath)) {
         # Run the cmd script
-        Write-Debug "Invoking: `"$VsVarsPath`" $Architecture"
-        Invoke-CmdScript "$VsVarsPath" $Architecture
-        "Imported Visual Studio $VsVersion Environment into current shell"
+        if($Vs.Version -lt "15.0") {
+            Write-Host "Invoking: `"$VsVarsPath`" $Architecture"
+            if(!$WhatIf) {
+                Invoke-CmdScript "$VsVarsPath" $Architecture
+            }
+        } else {
+            $arch = $Architecture.ToLowerInvariant()
+            Write-Host "Invoking: `"$VsVarsPath`" -arch=$arch"
+            if(!$WhatIf) {
+                Invoke-CmdScript "$VsVarsPath" "-arch=$arch"
+            }
+        }
+        Write-Host "Imported Visual Studio $VsVersion Environment into current shell"
     } else {
         throw "Could not find VsVars batch file at: $VsVarsPath!"
     }
@@ -98,23 +130,22 @@ Export-ModuleMember -Function Import-VsVars
 function Get-VisualStudio {
     param(
         [Parameter(Mandatory=$false, Position=1)][string]$Version,
-        [Parameter(Mandatory=$false, Position=1)][string]$Edition = "VisualStudio",
-        [Parameter(Mandatory=$false)][switch]$PrereleaseAllowed)
-    # Find all versions of the specified edition
-    $vers = $VisualStudios | Where { $_.Edition -eq $Edition }
+        [Parameter(Mandatory=$false, Position=1)][string]$Product = "VisualStudio")
+    # Find all versions of the specified product
+    $vers = $VisualStudios | Where { $_.Product -eq $Product }
 
     $Vs = $null;
     if($Version) {
-        $Vs = $vers | where { $_.Version -eq [System.Version]$Version } | select -first 1
+        $Vs = $vers | where { $_.Version -eq [System.Version]$Version }
     } else {
-        $Vs = $vers | where { $PrereleaseAllowed -or !($_.Prerelease) } | sort Version -desc | select -first 1
+        $Vs = $vers | sort Version -desc
     }
 
     if(!$Vs) {
         if($Version) {
-            throw "Could not find $Edition $Version!"
+            throw "Could not find $Product $Version!"
         } else {
-            throw "Could not find any $Edition version!"
+            throw "Could not find any $Product version!"
         }
     }
     $Vs
@@ -125,7 +156,7 @@ function Invoke-VisualStudio {
     param(
         [Parameter(Mandatory=$false, Position=0)][string]$Solution,
         [Parameter(Mandatory=$false, Position=1)][string]$Version,
-        [Parameter(Mandatory=$false, Position=2)][string]$Edition,
+        [Parameter(Mandatory=$false, Position=2)][string]$Product,
         [Parameter(Mandatory=$false)][switch]$Elevated,
         [Parameter(Mandatory=$false)][switch]$PrereleaseAllowed,
         [Parameter(Mandatory=$false)][switch]$WhatIf)
@@ -134,16 +165,16 @@ function Invoke-VisualStudio {
     if(Test-Path ".vslaunch") {
         $config = ConvertFrom-Json (cat -Raw ".vslaunch")
         if($config) {
-            $Edition = if($Edition) { $Edition } else { $config.edition }
+            $Product = if($Product) { $Product } else { $config.product }
             $Version = if($Version) { $Version } else { $config.version }
             $Solution = if($Solution) { $Solution } else { $config.solution }
             $Elevated = if($Elevated) { $Elevated } else { $config.elevated }
         }
     }
-    if(!$Edition) {
-        $Edition = "VisualStudio";
+    if(!$Product) {
+        $Product = "VisualStudio";
     }
-    Write-Debug "Launching: Edition=$Edition, Version=$Version, Solution=$Solution, Elevated=$Elevated"
+    Write-Debug "Launching: Product=$Product, Version=$Version, Solution=$Solution, Elevated=$Elevated"
 
     if([String]::IsNullOrEmpty($Solution)) {
         $Solution = "*.sln"
@@ -165,7 +196,9 @@ function Invoke-VisualStudio {
         $devenvargs = @($slns[0])
     }
 
-    $Vs = Get-VisualStudio -Version $Version -Edition $Edition -PrereleaseAllowed:$PrereleaseAllowed
+    $Vs = Get-VisualStudio -Version $Version -Product $Product |
+        where { $PrereleaseAllowed -or !$_.Prerelease } |
+        select -first 1
     $devenv = $Vs.DevEnv
 
     if($devenv) {
@@ -181,7 +214,7 @@ function Invoke-VisualStudio {
             }
         }
     } else {
-        throw "Could not find desired Visual Studio Edition/Version: $Edition v$Version"
+        throw "Could not find desired Visual Studio Product/Version: $Product v$Version"
     }
 }
 Set-Alias -Name vs -Value Invoke-VisualStudio
