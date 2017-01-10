@@ -2,5 +2,6 @@
 {
     "editor.wordWrap": true,
     "editor.wordBasedSuggestions": false,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "typescript.check.tscVersion": false
 }

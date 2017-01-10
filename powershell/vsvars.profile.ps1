@@ -1,1 +1,1 @@
-Import-VsVars -Architecture x64 | Out-Null
+Import-VsVars -Architecture x86 | Out-Null
