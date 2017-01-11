@@ -34,7 +34,9 @@ $ProductNodes | ForEach-Object {
             $installDir = (Get-ItemProperty $regPath).InstallDir
 
             $vsVars = $null;
-            if(Test-Path "$installDir\..\..\VC\vcvarsall.bat") {
+            if(Test-Path "$installDir\..\Tools\VsDevCmd.bat") {
+                $vsVars = Convert-Path "$installDir\..\Tools\VsDevCmd.bat"
+            } elseif(Test-Path "$installDir\..\..\VC\vcvarsall.bat") {
                 $vsVars = Convert-Path "$installDir\..\..\VC\vcvarsall.bat"
             }
             $devenv = (Get-ItemProperty "$regPath\Setup\VS").EnvironmentPath;
