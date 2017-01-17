@@ -22,7 +22,10 @@
     who = shortlog -s --
     k = !gitk
     cl = clean -d
+
+    p = push origin
     pf = push --force-with-lease origin
+    pff = push --force origin
 
     fiddle = config --global http.proxy 127.0.0.1:8888
     unfiddle = config --global --unset
@@ -32,9 +35,6 @@
     out = log @{u}..
     incoming = log ..@{u}
     in = log ..@{u}
-
-    merged = !"git branch -r --merged origin/master | grep -v ^\\s+origin/pr/\\d+\\s*"
-    topics = !"git branch --contains dev-start | sed -e '/dev/d;/dev-start/d;/master/d;/qa/d;/staging/d'"
 
 [push]
     default = simple
