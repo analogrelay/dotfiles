@@ -131,14 +131,17 @@ Export-ModuleMember -Function Import-VsVars
 
 function Get-VisualStudio {
     param(
-        [Parameter(Mandatory=$false, Position=1)][string]$Version,
-        [Parameter(Mandatory=$false, Position=1)][string]$Product = "VisualStudio")
+        [Parameter(Mandatory=$false)][string]$Version,
+        [Parameter(Mandatory=$false)][string]$MinVersion,
+        [Parameter(Mandatory=$false)][string]$Product = "VisualStudio")
     # Find all versions of the specified product
     $vers = $VisualStudios | Where { $_.Product -eq $Product }
 
     $Vs = $null;
     if($Version) {
-        $Vs = $vers | where { $_.Version -eq [System.Version]$Version }
+        $Vs = $vers | where { $_.Version -eq [System.Version]$Version } | sort -desc Version
+    } elseif($MinVersion) {
+        $Vs = $vers | where { $_.Version -ge [System.Version]$MinVersion } | sort -desc Version
     } else {
         $Vs = $vers | sort Version -desc
     }
@@ -163,16 +166,6 @@ function Invoke-VisualStudio {
         [Parameter(Mandatory=$false)][switch]$PrereleaseAllowed,
         [Parameter(Mandatory=$false)][switch]$WhatIf)
 
-    # Load defaults from ".vslaunch" file
-    if(Test-Path ".vslaunch") {
-        $config = ConvertFrom-Json (cat -Raw ".vslaunch")
-        if($config) {
-            $Product = if($Product) { $Product } else { $config.product }
-            $Version = if($Version) { $Version } else { $config.version }
-            $Solution = if($Solution) { $Solution } else { $config.solution }
-            $Elevated = if($Elevated) { $Elevated } else { $config.elevated }
-        }
-    }
     if(!$Product) {
         $Product = "VisualStudio";
     }
@@ -195,11 +188,24 @@ function Invoke-VisualStudio {
             $names = [String]::Join(",", @($slns | foreach { $_.Name }))
             throw "Ambiguous matches for $($Solution): $names";
         }
+        $Solution = $slns[0]
         $devenvargs = @($slns[0])
     }
 
-    $Vs = Get-VisualStudio -Version $Version -Product $Product |
+    # Check if the solution specifies a version
+    if($Solution -and !$Version) {
+        $line = cat $Solution | where { $_.StartsWith("VisualStudioVersion") } | select -first 1
+        if($line) {
+            $MinVersion = [System.Version]($line.Split("=")[1].Trim())
+
+            # If we have the matching version, we want to use 
+            $PrereleaseAllowed = $true
+        }
+    }
+
+    $Vs = Get-VisualStudio -MinVersion:$MinVersion -Version:$Version -Product $Product |
         where { $PrereleaseAllowed -or !$_.Prerelease } |
+        sort Version |
         select -first 1
     $devenv = $Vs.DevEnv
 
