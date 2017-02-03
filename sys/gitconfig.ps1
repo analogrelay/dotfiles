@@ -1,4 +1,8 @@
-param($DotFilesRoot)
+param($DotFilesRoot, [switch]$Reset)
+
+# Read existing values
+$ExistingName = git config user.name
+$ExistingEmail = git config user.email
 
 if(!$DotFilesRoot) {
     $DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
@@ -10,8 +14,17 @@ $gitconfig_templ = Join-Path $gitroot "gitconfig.template"
 
 Write-Host "Setting up your git config"
 
-$authorName = Read-Host " - What is your github author name?"
-$authorEmail = Read-Host " - What is your github author email?"
+if($Reset -or !$ExistingName) {
+    $authorName = Read-Host " - What is your github author name?"
+} else {
+    $authorName = $ExistingName
+}
+
+if($Reset -or !$ExistingEmail) {
+    $authorEmail = Read-Host " - What is your github author email?"
+} else {
+    $authorEmail = $ExistingEmail
+}
 
 $newConfig = [IO.File]::ReadAllText($gitconfig_templ)
 $newConfig = $newConfig.Replace("AUTHORNAME", $authorName)

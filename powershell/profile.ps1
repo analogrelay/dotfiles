@@ -27,6 +27,10 @@ dir "$DotFilesRoot\powershell\modules" | Where-Object { $_.PSIsContainer } | For
     }
 }
 
+function gitconfig! {
+    & "$DotFilesRoot\sys\gitconfig.ps1"
+}
+
 function TwoLevelRecursiveDir($filter) {
     dir $DotFilesRoot | ForEach-Object {
         if($_.Name -like $filter) {

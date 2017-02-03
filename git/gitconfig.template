@@ -36,6 +36,8 @@
     incoming = log ..@{u}
     in = log ..@{u}
 
+    mine = !git branch -a | grep anurse
+
 [push]
     default = simple
 
