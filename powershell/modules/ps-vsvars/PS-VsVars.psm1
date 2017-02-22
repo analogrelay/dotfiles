@@ -196,9 +196,12 @@ function Invoke-VisualStudio {
     if($Solution -and !$Version) {
         $line = cat $Solution | where { $_.StartsWith("VisualStudioVersion") } | select -first 1
         if($line) {
-            $MinVersion = [System.Version]($line.Split("=")[1].Trim())
+            $ver = [System.Version]($line.Split("=")[1].Trim())
 
-            # If we have the matching version, we want to use 
+            # Strip everything but major/minor
+            $MinVersion = [System.Version]"$($ver.Major).$($ver.Minor)"
+
+            # If we have the matching version, we want to use it regardless of prerelease status
             $PrereleaseAllowed = $true
         }
     }
