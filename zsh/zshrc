@@ -17,7 +17,7 @@ if [[ $WSL == "1" ]]; then
 fi
 
 # export the bin folder to the path
-export PATH="$HOME/.dotnet:$HOME/.cargo/bin:$HOME/.dotfiles/bin:$PATH"
+export PATH="$HOME/.cache/rebar3/bin:$HOME/.dotnet:$HOME/.cargo/bin:$HOME/.dotfiles/bin:$PATH"
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code

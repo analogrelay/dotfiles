@@ -3,5 +3,7 @@
     "editor.wordWrap": true,
     "editor.wordBasedSuggestions": false,
     "editor.formatOnType": true,
-    "typescript.check.tscVersion": false
+    "typescript.check.tscVersion": false,
+    "workbench.colorTheme": "Tomorrow Night Blue",
+    "workbench.iconTheme": "Seti"
 }

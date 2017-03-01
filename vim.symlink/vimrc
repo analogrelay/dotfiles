@@ -33,7 +33,7 @@ filetype plugin indent on    " required
 if has('gui_running')
     "Set encoding and font
     set encoding=utf-8
-    set guifont=Sauce_Code_Powerline:h10:cDEFAULT
+    set guifont=Sauce_Code_Powerline:h12:cDEFAULT
 
     " Maximize the window on launch
     if has('win32') || has('win64')
@@ -44,7 +44,7 @@ if has('gui_running')
       if s:uname == "Darwin\n"
         " Do Mac stuff here
         set fuopt=maxhorz,maxvert
-        set guifont=Sauce_Code_Powerline:h10
+        set guifont=Sauce_Code_Powerline:h12
         "au GUIEnter * set fullscreen
       endif
     endif
