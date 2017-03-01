@@ -1,0 +1,13 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+        "key": "ctrl+j",
+        "command": "extension.vim_ctrl+n",
+        "when": "suggestWidgetVisible && vim.useCtrlKeys"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "extension.vim_ctrl+p",
+        "when": "suggestWidgetVisible && vim.useCtrlKeys"
+    },
+]
