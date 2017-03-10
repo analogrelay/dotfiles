@@ -1,6 +1,3 @@
-$VisualStudios = @()
-Export-ModuleMember -Variable VisualStudios
-
 $ProductNodes = @(
     "VisualStudio",
     "VCExpress",
@@ -10,85 +7,81 @@ $ProductNodes = @(
     "WDExpress"
 )
 
-# I assume there will be a 15.0 :), who knows for sure? :P
-$CtpVersions = @(
-    New-Object System.Version "15.0"
-)
-
 $SearchRoot = "Software\Microsoft"
 if($env:PROCESSOR_ARCHITECTURE -eq "AMD64") {
     $SearchRoot = "Software\Wow6432Node\Microsoft"
 }
 
-$ProductNodes | ForEach-Object {
-    $product = $_;
-    $root = "HKLM:\$SearchRoot\$product"
-    if(Test-Path $root) {
-        dir "$root" | Where-Object {
-            ($_.Name -match "\d+\.\d+") -and
-            (![String]::IsNullOrEmpty((Get-ItemProperty "$root\$($_.PSChildName)").InstallDir)) 
-        } | ForEach-Object {
-            $regPath = "$root\$($_.PSChildName)"
+function _LoadVisualStudios {
+    $VisualStudios = @()
+    $ProductNodes | ForEach-Object {
+        $product = $_;
+        $root = "HKLM:\$SearchRoot\$product"
+        if(Test-Path $root) {
+            dir "$root" | Where-Object {
+                ($_.Name -match "\d+\.\d+") -and
+                (![String]::IsNullOrEmpty((Get-ItemProperty "$root\$($_.PSChildName)").InstallDir)) 
+            } | ForEach-Object {
+                $regPath = "$root\$($_.PSChildName)"
 
-            # Gather VS data
-            $installDir = (Get-ItemProperty $regPath).InstallDir
+                # Gather VS data
+                $installDir = (Get-ItemProperty $regPath).InstallDir
 
-            $vsVars = $null;
-            if(Test-Path "$installDir\..\Tools\VsDevCmd.bat") {
-                $vsVars = Convert-Path "$installDir\..\Tools\VsDevCmd.bat"
-            } elseif(Test-Path "$installDir\..\..\VC\vcvarsall.bat") {
-                $vsVars = Convert-Path "$installDir\..\..\VC\vcvarsall.bat"
+                $vsVars = $null;
+                if(Test-Path "$installDir\..\Tools\VsDevCmd.bat") {
+                    $vsVars = Convert-Path "$installDir\..\Tools\VsDevCmd.bat"
+                } elseif(Test-Path "$installDir\..\..\VC\vcvarsall.bat") {
+                    $vsVars = Convert-Path "$installDir\..\..\VC\vcvarsall.bat"
+                }
+                $devenv = (Get-ItemProperty "$regPath\Setup\VS").EnvironmentPath;
+
+                # Make a VSInfo object
+                $ver = New-Object System.Version $_.PSChildName;
+                $vsInfo = [PSCustomObject]@{
+                    "Product" = $product;
+                    "Version" = $ver;
+                    "RegistryRoot" = $_;
+                    "InstallDir" = $installDir;
+                    "VsVarsPath" = $vsVars;
+                    "DevEnv" = $devenv;
+                }
+
+                # Add it to the dictionary
+                $VisualStudios += $vsInfo
             }
-            $devenv = (Get-ItemProperty "$regPath\Setup\VS").EnvironmentPath;
-
-            # Make a VSInfo object
-            $ver = New-Object System.Version $_.PSChildName;
-            $vsInfo = [PSCustomObject]@{
-                "Product" = $product;
-                "Version" = $ver;
-                "RegistryRoot" = $_;
-                "InstallDir" = $installDir;
-                "VsVarsPath" = $vsVars;
-                "DevEnv" = $devenv;
-                "Prerelease" = ($CtpVersions -contains $ver)
-            }
-
-            # Add it to the dictionary
-            $VisualStudios += $vsInfo
         }
     }
-}
 
-# Find VS 2017 instances
-dir (Join-Path ([Environment]::GetFolderPath("CommonApplicationData")) "Microsoft\VisualStudio\Packages\_Instances") | ForEach-Object {
-    $instanceRoot = $_
-    $state = ConvertFrom-Json (Get-Content (Join-Path $instanceRoot.FullName "state.json"))
+    # Find VS 2017 instances
+    dir (Join-Path ([Environment]::GetFolderPath("CommonApplicationData")) "Microsoft\VisualStudio\Packages\_Instances") | ForEach-Object {
+        $instanceRoot = $_
+        $state = ConvertFrom-Json (Get-Content (Join-Path $instanceRoot.FullName "state.json"))
 
-    $installDir = $state.installationPath
-    $vsVarsPath = Join-Path $installDir "Common7\Tools\Vsdevcmd.bat"
-    $devenv = Join-Path $installDir $state.launchParams.fileName
+        $installDir = $state.installationPath
+        $vsVarsPath = Join-Path $installDir "Common7\Tools\Vsdevcmd.bat"
+        $devenv = Join-Path $installDir $state.launchParams.fileName
 
-    $vsInfo = [PSCustomObject]@{
-        "Product" = $state.catalogInfo.manifestName;
-        "Edition" = $state.product.id;
-        "Version" = (New-Object System.Version $state.catalogInfo.buildVersion);
-        "InstallDir" = $installDir;
-        "VsVarsPath" = $vsVarsPath;
-        "DevEnv" = $devenv;
-        "Prerelease" = $true
+        $vsInfo = [PSCustomObject]@{
+            "Product" = $state.catalogInfo.manifestName;
+            "Edition" = $state.product.id;
+            "Version" = (New-Object System.Version $state.catalogInfo.buildVersion);
+            "Release" = $state.catalogInfo.productRelease;
+            "InstallDir" = $installDir;
+            "VsVarsPath" = $vsVarsPath;
+            "DevEnv" = $devenv;
+            "Nickname" = $state.properties.nickname
+        }
+        $VisualStudios += $vsInfo
     }
-    $VisualStudios += $vsInfo
-}
 
-$DefaultVisualStudio = $VisualStudios | Where { $_.Product -eq "VisualStudio" } | sort Version -desc | select -first 1
-Export-ModuleMember -Variable DefaultVisualStudio
+    $VisualStudios
+}
 
 function Import-VsVars {
     param(
         [Parameter(Mandatory=$false)][string]$Version = $null,
         [Parameter(Mandatory=$false)][string]$Product = "VisualStudio",
         [Parameter(Mandatory=$false)][string]$Architecture = $env:PROCESSOR_ARCHITECTURE,
-        [Parameter(Mandatory=$false)][switch]$PrereleaseAllowed,
         [Parameter(Mandatory=$false)][switch]$WhatIf
     )
 
@@ -133,9 +126,11 @@ function Get-VisualStudio {
     param(
         [Parameter(Mandatory=$false)][string]$Version,
         [Parameter(Mandatory=$false)][string]$MinVersion,
-        [Parameter(Mandatory=$false)][string]$Product = "VisualStudio")
+        [Parameter(Mandatory=$false)][string]$Product = "VisualStudio",
+        [Parameter(Mandatory=$false)][string]$Nickname)
+
     # Find all versions of the specified product
-    $vers = $VisualStudios | Where { $_.Product -eq $Product }
+    $vers = _LoadVisualStudios | Where { $_.Product -eq $Product }
 
     $Vs = $null;
     if($Version) {
@@ -144,6 +139,10 @@ function Get-VisualStudio {
         $Vs = $vers | where { $_.Version -ge [System.Version]$MinVersion } | sort -desc Version
     } else {
         $Vs = $vers | sort Version -desc
+    }
+
+    if($Nickname) {
+        $Vs = $vers | where { $_.Nickname -like $Nickname }
     }
 
     if(!$Vs) {
@@ -162,8 +161,8 @@ function Invoke-VisualStudio {
         [Parameter(Mandatory=$false, Position=0)][string]$Solution,
         [Parameter(Mandatory=$false, Position=1)][string]$Version,
         [Parameter(Mandatory=$false, Position=2)][string]$Product,
+        [Parameter(Mandatory=$false)][string]$Nickname,
         [Parameter(Mandatory=$false)][switch]$Elevated,
-        [Parameter(Mandatory=$false)][switch]$PrereleaseAllowed,
         [Parameter(Mandatory=$false)][switch]$WhatIf)
 
     if(!$Product) {
@@ -206,9 +205,9 @@ function Invoke-VisualStudio {
         }
     }
 
-    $Vs = Get-VisualStudio -MinVersion:$MinVersion -Version:$Version -Product $Product |
-        where { $PrereleaseAllowed -or !$_.Prerelease } |
-        sort Version |
+    $Vs = Get-VisualStudio -MinVersion:$MinVersion -Nickname:$Nickname -Version:$Version -Product $Product |
+        where { $_.Nickname -eq $Nickname }
+        sort Version -desc |
         select -first 1
     $devenv = $Vs.DevEnv
 
@@ -225,7 +224,7 @@ function Invoke-VisualStudio {
             }
         }
     } else {
-        throw "Could not find desired Visual Studio Product/Version: $Product v$Version"
+        throw "Could not find desired Visual Studio Product/Version: $Product v$Version ($Nickname)"
     }
 }
 Set-Alias -Name vs -Value Invoke-VisualStudio
