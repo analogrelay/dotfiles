@@ -115,7 +115,7 @@ function Import-VsVars {
                 Invoke-CmdScript "$VsVarsPath" "-arch=$arch"
             }
         }
-        Write-Host "Imported Visual Studio $VsVersion Environment into current shell"
+        Write-Host "Imported Visual Studio $($Vs.Version) Environment into current shell"
     } else {
         throw "Could not find VsVars batch file at: $VsVarsPath!"
     }
@@ -204,11 +204,27 @@ function Invoke-VisualStudio {
             $PrereleaseAllowed = $true
         }
     }
-
     $Vs = Get-VisualStudio -MinVersion:$MinVersion -Nickname:$Nickname -Version:$Version -Product $Product |
-        where { $_.Nickname -eq $Nickname }
+        where {
+            ([string]::IsNullOrEmpty($Nickname) -and [string]::IsNullOrEmpty($_.Nickname)) -or
+            ($_.Nickname -eq $Nickname) }
         sort Version -desc |
         select -first 1
+
+    if(!$Vs) {
+        $ver = "";
+        if($Version) {
+            $ver = " $Version"
+        } elseif($MinVersion) {
+            $ver = " >=$MinVersion"
+        }
+        $nick = ""
+        if($Nickname) {
+            $nick = " ($Nickname)"
+        }
+        throw "Could not find desired Visual Studio Product/Version: $Product$ver$nick"
+    }
+
     $devenv = $Vs.DevEnv
 
     if($devenv) {
@@ -224,7 +240,7 @@ function Invoke-VisualStudio {
             }
         }
     } else {
-        throw "Could not find desired Visual Studio Product/Version: $Product v$Version ($Nickname)"
+        throw "Desired Visual Studio ($($Vs.Version)) does not have a 'devenv' command associated with it!"
     }
 }
 Set-Alias -Name vs -Value Invoke-VisualStudio
