@@ -20,6 +20,18 @@ $env:PATH="$env:ProgramFiles\Perforce;$DotFilesRoot\functions;$DotFilesRoot\bin;
 # Add the modules from dotfiles to the module path
 $env:PSModulePath="$DotFilesRoot\powershell\modules;$env:PSModulePath"
 
+# Install (if needed) and import Modules
+$Modules = @(
+    "posh-git")
+$Modules | ForEach-Object {
+    if(!(Get-Module -ListAvailable $_)) {
+        Write-Host "Installing Module $_ ..."
+        Install-Module $_ -Scope CurrentUser
+    }
+    Import-Module $_
+}
+
+
 # Load all modules, unless they are disabled
 dir "$DotFilesRoot\powershell\modules" | Where-Object { $_.PSIsContainer } | ForEach-Object {
     if(!(Test-Path "$DotFilesRoot\powershell\modules\$($_.Name).disabled")) {
