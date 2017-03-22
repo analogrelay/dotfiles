@@ -1,10 +1,10 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "editor.wordWrap": true,
+    "editor.wordWrap": false,
     "editor.wordBasedSuggestions": false,
     "editor.formatOnType": true,
     "typescript.check.tscVersion": false,
     "workbench.colorTheme": "Tomorrow Night Blue",
-    "workbench.iconTheme": "Seti",
+    "workbench.iconTheme": "vs-seti",
     "vim.leader": " "
 }
