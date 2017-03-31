@@ -6,5 +6,6 @@
     "typescript.check.tscVersion": false,
     "workbench.colorTheme": "Tomorrow Night Blue",
     "workbench.iconTheme": "vs-seti",
-    "vim.leader": " "
+    "vim.leader": " ",
+    "window.zoomLevel": 0
 }
