@@ -4,7 +4,6 @@
     "editor.wordBasedSuggestions": false,
     "editor.formatOnType": true,
     "typescript.check.tscVersion": false,
-    "workbench.colorTheme": "Tomorrow Night Blue",
     "workbench.iconTheme": "vs-seti",
     "vim.leader": " ",
     "window.zoomLevel": 0
