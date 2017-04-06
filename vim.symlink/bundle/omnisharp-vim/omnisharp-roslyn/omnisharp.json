@@ -1,5 +1,0 @@
-{
-    "dnx": {
-        "projects": "src/*/project.json;tests/*/project.json"
-    }
-}
