@@ -136,7 +136,7 @@ function Get-VisualStudio {
     if($Version) {
         $Vs = $vers | where { $_.Version -eq [System.Version]$Version } | sort -desc Version
     } elseif($MinVersion) {
-        $Vs = $vers | where { $_.Version -ge [System.Version]$MinVersion } | sort -desc Version
+        $Vs = $vers | where { $_.Version.Major -eq ([System.Version]$MinVersion).Major -and $_.Version -ge [System.Version]$MinVersion } | sort -desc Version
     } else {
         $Vs = $vers | sort Version -desc
     }
