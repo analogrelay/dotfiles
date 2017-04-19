@@ -1,14 +1,3 @@
-# Find Git Unix Tools and put them on the path
-if (!(Get-Command ssh-agent -ErrorAction SilentlyContinue)) {
-    $ScoopPath = Join-Path $env:USERPROFILE "scoop"
-    if (Test-Path $ScoopPath) {
-        $GitSshBin = "$ScoopPath\apps\git\current\usr\bin"
-        if (Test-Path $GitSshBin) {
-            $env:PATH = "$env:PATH;$GitSshBin"
-        }
-    }
-}
-
 $KeysToAdd = @(
     "id_rsa",
     "anurse-docker"
@@ -24,7 +13,6 @@ function AddKeyIfNotPresent($KeyFile) {
         ssh-add $KeyFile
     }
 }
-
 
 if (Get-Command ssh-agent -ErrorAction SilentlyContinue) {
     Start-SshAgent
