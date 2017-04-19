@@ -80,7 +80,6 @@ function _LoadVisualStudios {
 function Import-VsVars {
     param(
         [Parameter(Mandatory=$false)][string]$Version = $null,
-        [Parameter(Mandatory=$false)][string]$Product = "VisualStudio",
         [Parameter(Mandatory=$false)][string]$Architecture = $env:PROCESSOR_ARCHITECTURE,
         [Parameter(Mandatory=$false)][switch]$WhatIf
     )
@@ -88,14 +87,14 @@ function Import-VsVars {
     Write-Debug "Finding vcvarsall.bat automatically..."
 
     # Find all versions of the specified product
-    $vers = $VisualStudios | Where { $_.Product -eq $Product }
+    $vers = $VisualStudios
 
-    $Vs = Get-VisualStudio -Version $Version -Product $Product |
+    $Vs = Get-VisualStudio -Version $Version |
         where { $PrereleaseAllowed -or !$_.Prerelease } |
         select -first 1
 
     if(!$Vs) {
-        throw "No $Product Environments found"
+        throw "No Visual Studio Environments found"
     } else {
         Write-Debug "Found VS $($Vs.Version) in $($Vs.InstallDir)"
         $VsVarsPath = $Vs.VsVarsPath
@@ -126,11 +125,10 @@ function Get-VisualStudio {
     param(
         [Parameter(Mandatory=$false)][string]$Version,
         [Parameter(Mandatory=$false)][string]$MinVersion,
-        [Parameter(Mandatory=$false)][string]$Product = "VisualStudio",
         [Parameter(Mandatory=$false)][string]$Nickname)
 
     # Find all versions of the specified product
-    $vers = _LoadVisualStudios | Where { $_.Product -eq $Product }
+    $vers = _LoadVisualStudios
 
     $Vs = $null;
     if($Version) {
@@ -147,9 +145,9 @@ function Get-VisualStudio {
 
     if(!$Vs) {
         if($Version) {
-            throw "Could not find $Product $Version!"
+            throw "Could not find Visual Studio $Version!"
         } else {
-            throw "Could not find any $Product version!"
+            throw "Could not find any Visual Studio version!"
         }
     }
     $Vs
@@ -160,15 +158,11 @@ function Invoke-VisualStudio {
     param(
         [Parameter(Mandatory=$false, Position=0)][string]$Solution,
         [Parameter(Mandatory=$false, Position=1)][string]$Version,
-        [Parameter(Mandatory=$false, Position=2)][string]$Product,
         [Parameter(Mandatory=$false)][string]$Nickname,
         [Parameter(Mandatory=$false)][switch]$Elevated,
         [Parameter(Mandatory=$false)][switch]$WhatIf)
 
-    if(!$Product) {
-        $Product = "VisualStudio";
-    }
-    Write-Debug "Launching: Product=$Product, Version=$Version, Solution=$Solution, Elevated=$Elevated"
+    Write-Debug "Launching: Version=$Version, Solution=$Solution, Elevated=$Elevated"
 
     if([String]::IsNullOrEmpty($Solution)) {
         $Solution = "*.sln"
@@ -204,7 +198,7 @@ function Invoke-VisualStudio {
             $PrereleaseAllowed = $true
         }
     }
-    $Vs = Get-VisualStudio -MinVersion:$MinVersion -Nickname:$Nickname -Version:$Version -Product $Product |
+    $Vs = Get-VisualStudio -MinVersion:$MinVersion -Nickname:$Nickname -Version:$Version |
         where {
             ([string]::IsNullOrEmpty($Nickname) -and [string]::IsNullOrEmpty($_.Nickname)) -or
             ($_.Nickname -eq $Nickname) }
@@ -222,7 +216,7 @@ function Invoke-VisualStudio {
         if($Nickname) {
             $nick = " ($Nickname)"
         }
-        throw "Could not find desired Visual Studio Product/Version: $Product$ver$nick"
+        throw "Could not find desired Visual Studio Version: $ver$nick"
     }
 
     $devenv = $Vs.DevEnv
