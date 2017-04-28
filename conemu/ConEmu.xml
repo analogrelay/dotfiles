@@ -98,7 +98,7 @@
 			<value name="Multi.SplitWidth" type="hex" data="04"/>
 			<value name="Multi.SplitHeight" type="hex" data="04"/>
 			<value name="KeyboardHooks" type="hex" data="02"/>
-			<value name="FontName" type="string" data="Source Code Pro for Powerline"/>
+			<value name="FontName" type="string" data="SauceCodePro NF"/>
 			<value name="FontName2" type="string" data="Consolas"/>
 			<value name="FontAutoSize" type="hex" data="00"/>
 			<value name="FontSize" type="ulong" data="17"/>
@@ -494,7 +494,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task2" modified="2017-04-19 10:50:20" build="170118">
+						<key name="Task2" modified="2017-04-28 10:43:02" build="170118">
 					<value name="Name" type="string" data="{zsh}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="bash -cur_console:p1 -c &quot;/usr/bin/zsh&quot;"/>
@@ -504,7 +504,7 @@
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="Cmd2" type="string" data="outbash -cur_console:p1 -c &quot;/usr/bin/zsh&quot;"/>
 				</key>
-						<key name="Task3" modified="2017-04-19 10:50:20" build="170118">
+						<key name="Task3" modified="2017-04-28 10:43:02" build="170118">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data=" /icon &quot;cmd.exe&quot;"/>
 					<value name="Cmd1" type="string" data="cmd /k vendor\init.bat"/>
@@ -513,7 +513,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task4" modified="2017-04-19 10:50:20" build="170118">
+						<key name="Task4" modified="2017-04-28 10:43:02" build="170118">
 					<value name="Name" type="string" data="{Putty}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="%LocalAppData%\scoop\apps\putty\0.64\PUTTY.EXE -new_console"/>
@@ -522,7 +522,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task5" modified="2017-04-19 10:50:20" build="170118">
+						<key name="Task5" modified="2017-04-28 10:43:02" build="170118">
 					<value name="Name" type="string" data="{Cygwin}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="C:\Cygwin64\bin\bash.exe --login -i"/>
@@ -531,7 +531,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-				<key name="Task6" modified="2017-04-19 10:50:20" build="170118">
+				<key name="Task6" modified="2017-04-28 10:43:02" build="170118">
 					<value name="Name" type="string" data="{Cygwin zsh}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -541,11 +541,11 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2017-04-19 10:50:20" build="170118">
+				<key name="Apps" modified="2017-04-28 10:43:02" build="170118">
 				<value name="Count" type="long" data="0"/>
 			</key>
-				<key name="Colors" modified="2017-04-19 10:50:20" build="170118">
-			<key name="Palette1" modified="2017-04-19 10:50:20" build="170118">
+				<key name="Colors" modified="2017-04-28 10:43:02" build="170118">
+			<key name="Palette1" modified="2017-04-28 10:43:02" build="170118">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -657,7 +657,7 @@
 			<value name="Key.BufBottom" type="dword" data="00005d23"/>
 			<value name="Key.BufCursor" type="dword" data="00005d08"/>
 			<value name="FontOriginalKey" type="dword" data="00001104"/>
-			<key name="HotKeys" modified="2017-04-19 10:50:20" build="170118">
+			<key name="HotKeys" modified="2017-04-28 10:43:02" build="170118">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
