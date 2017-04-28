@@ -3,6 +3,9 @@ let $MYVIMRC="~/.dotfiles/vim.symlink/vimrc"
 
 set ff=unix
 
+" Fix background color erase
+set t_ut=
+
 " Make windows accept unixy stuff
 if has('win32') || has('win64')
     set runtimepath=~/.vim,$VIM/vimfiles,$VIM,$VIM/vimfiles/after,~/.vim/after
@@ -10,15 +13,9 @@ if has('win32') || has('win64')
 endif
 
 let g:pathogen_disabled = []
-"if !has('python')
-call add(g:pathogen_disabled, 'omnisharp-vim')
-"endif
 
 "Load pathogen
-if !exists('is_git') || !is_git
-    source ~/.dotfiles/vim.symlink/bundle/vim-pathogen/autoload/pathogen.vim
-    execute pathogen#infect()
-endif
+execute pathogen#infect()
 
 "Psh, compatibility schmompatibility
 set nocompatible
@@ -26,7 +23,7 @@ set nocompatible
 set list listchars=tab:».,trail:·
 
 " Set Color Scheme
-colorscheme vibrantcode
+colorscheme monokai
 
 filetype plugin indent on    " required
 
@@ -50,15 +47,11 @@ if has('gui_running')
     endif
 endif
 
-if &diff || !has('gui_running') || (exists('is_git') && is_git)
-    " No NERDTree on Vimdiff, when used by git, or in terminal (by default)
-else
-    autocmd vimenter * NERDTree
-endif
-
-let g:airline_powerline_fonts=1
-
-set background=dark
+"if &diff || !has('gui_running') || (exists('is_git') && is_git)
+"    " No NERDTree on Vimdiff, when used by git, or in terminal (by default)
+"else
+"    autocmd vimenter * NERDTree
+"endif
 
 "Configure some simple settings
 set backspace=2 "Backspace over indents, eol, etc.
@@ -85,9 +78,6 @@ set number
 
 " Macros/Mappings
 
-" Force me to learn C-[
-imap <C-C> <nop>
-
 " Change the leader to Space
 let mapleader = "\<Space>"
 
@@ -100,8 +90,6 @@ vnoremap <Leader>y "+y
 vnoremap <Leader>Y "+Y
 vnoremap <leader>d "+d
 nnoremap <leader>p "+p
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
 vnoremap <Leader>P "+P
 nnoremap <Leader><Leader> V
 nnoremap <Leader><Tab> :bn<CR>
@@ -126,8 +114,6 @@ nnoremap ,b ?\u<CR>
 nnoremap <Leader><CR> o<C-[>
 nnoremap <Leader>j i<CR><C-[>
 
-" ThisIsATestString
-
 nnoremap <CR> G
 nnoremap <BS> gg
 map q: :q
@@ -148,3 +134,8 @@ let g:NERDTreeWinSize = 51
 
 " CtrlP settings
 let g:ctrlp_working_path_mode='ra'
+
+" syntax highlighting debugging
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>

@@ -51,3 +51,6 @@ set -g status-utf8 on
 set -g utf8 on
 set -g status-bg black
 set -g status-fg white
+
+# Set default shell
+set -g default-shell /bin/zsh
