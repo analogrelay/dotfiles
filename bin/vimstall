@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 
 URL=$1
-BRANCH=$2
 
 if [ -z "$URL" ]; then
-    echo "Usage: vimstall [url] [branch]" 1>&2
+    echo "Usage: vimstall [url]" 1>&2
     exit 1
 fi
 
 NAME=$(basename $URL)
 
-[ -z "$BRANCH" ] && BRANCH="master"
-
 pushd $ZSH >/dev/null
-git subtree add --prefix vim.symlink/bundle/$NAME $URL $BRANCH --squash
+git submodule add $URL vim.symlink/bundle/$NAME
 popd >/dev/null

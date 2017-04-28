@@ -1,4 +1,4 @@
-param([string]$Url, [string]$Branch)
+param([string]$Url)
 if (!$Url) {
     Write-Error "Usage: vimstall [url] [branch]"
     return
@@ -6,13 +6,9 @@ if (!$Url) {
 
 $name=(New-Object Uri $Url).Segments[-1]
 
-if (!$Branch) {
-    $Branch = "master"
-}
-
 pushd $DotFilesRoot
 try {
-    git subtree add --prefix vim.symlink/bundle/$name $url $branch --squash
+    git submodule add $url vim.symlink/bundle/$name
 } finally {
     popd
 }
