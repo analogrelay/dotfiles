@@ -100,11 +100,6 @@ nnoremap <Leader>8 :b8<CR>
 nnoremap <Leader>9 :b9<CR>
 nnoremap <Leader>0 :b10<CR>
 
-" Pseudo-camelcasemotion
-nnoremap ,e /.\u<CR>
-nnoremap ,w /\u<CR>
-nnoremap ,b ?\u<CR>
-
 nnoremap <Leader><CR> o<C-[>
 nnoremap <Leader>j i<CR><C-[>
 
@@ -115,20 +110,20 @@ map q: :q
 vnoremap v <Plug>(expand_region_expand)
 vnoremap <C-v> <Plug>(expand_region_shrink)
 
-" Use Ctrl-J and Ctrl-K to switch windows
+" Use Ctrl-[H,J,K,LJ to switch windows
+map <C-H> <C-W>h<C-W>_
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
+map <C-L> <C-W>l<C-W>_
 
 " Airline settings
 let g:airline_powerline_fonts=1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Configure NERDTree and NERDTree tabs
 map <C-N> <Esc>:NERDTreeToggle<CR>
-let g:nerdtree_tabs_open_on_gui_startup=0
-let g:nerdtree_tabs_open_on_new_tab=0
 let g:NERDTreeWinSize = 51
+let g:NERDTreeDirArrowExpandable = "\uf07b"
+let g:NERDTreeDirArrowCollapsible = "\uf07c"
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " CtrlP settings

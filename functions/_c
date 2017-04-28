@@ -1,4 +1,2 @@
-# See further documentation in `functions/c`.
-#
 #compdef c
 _files -W $PROJECTS -/
