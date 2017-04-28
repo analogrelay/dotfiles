@@ -47,12 +47,6 @@ if has('gui_running')
     endif
 endif
 
-"if &diff || !has('gui_running') || (exists('is_git') && is_git)
-"    " No NERDTree on Vimdiff, when used by git, or in terminal (by default)
-"else
-"    autocmd vimenter * NERDTree
-"endif
-
 "Configure some simple settings
 set backspace=2 "Backspace over indents, eol, etc.
 
@@ -125,12 +119,17 @@ vnoremap <C-v> <Plug>(expand_region_shrink)
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 
+" Airline settings
+let g:airline_powerline_fonts=1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+
 " Configure NERDTree and NERDTree tabs
 map <C-N> <Esc>:NERDTreeToggle<CR>
-map <C-O> <Esc>:NERDTreeFocusToggle<CR>
 let g:nerdtree_tabs_open_on_gui_startup=0
 let g:nerdtree_tabs_open_on_new_tab=0
 let g:NERDTreeWinSize = 51
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " CtrlP settings
 let g:ctrlp_working_path_mode='ra'
