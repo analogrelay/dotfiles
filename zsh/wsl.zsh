@@ -3,7 +3,7 @@ if [[ $WSL != "1" ]]; then
     return 0
 fi
 
-if [ -z $WSL_FIRSTRUN ]; then
+if [[ -z $WSL_FIRSTRUN ]]; then
     export WSL_FIRSTRUN=1
 
     cd $HOME
@@ -13,4 +13,4 @@ fi
 export DOCKER_HOST=tcp://0.0.0.0:2375
 
 CMDLINE=$(</proc/self/cmdline)
-export SHELL=$(type $CMDLINE | cut -d' ' -f 3)
+export SHELL=$(type ${CMDLINE//-} | cut -d' ' -f 3)
