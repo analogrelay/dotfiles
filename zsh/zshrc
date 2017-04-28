@@ -10,12 +10,6 @@ if [[ $(uname) == "Linux" ]]; then
     fi
 fi
 
-if [[ $WSL == "1" ]]; then
-    CMDLINE=$(</proc/self/cmdline)
-
-    export SHELL="$(echo $CMDLINE | awk '{ print $1 }')"
-fi
-
 # export the bin folder to the path
 export PATH="$HOME/.cache/rebar3/bin:$HOME/.dotnet:$HOME/.cargo/bin:$HOME/.dotfiles/bin:$PATH"
 
