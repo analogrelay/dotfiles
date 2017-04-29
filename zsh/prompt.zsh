@@ -2,6 +2,15 @@ autoload colors && colors
 # cheers, @ehrenmurdick
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
+MN_BG=6
+MN_FG=15
+DIR_BG=11
+DIR_FG=0
+GIT_CLEAN_BG=10
+GIT_CLEAN_FG=0
+GIT_DIRTY_BG=9
+GIT_DIRTY_FG=15
+
 if (( $+commands[git] ))
 then
   git="$commands[git]"
@@ -16,13 +25,13 @@ git_branch() {
 git_dirty() {
   if $(! $git status -s &> /dev/null)
   then
-    echo ""
+    echo "  %F{$DIR_BG}%k\ue0b0%f"
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo "  %F{$DIR_BG}%K{$GIT_CLEAN_BG}\ue0b0 %K{$GIT_CLEAN_BG}%F{$GIT_CLEAN_FG}$(git_prompt_info)"
     else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo "  %F{$DIR_BG}%K{$GIT_DIRTY_BG}\ue0b0 %K{$GIT_DIRTY_BG}%F{$GIT_DIRTY_FG}$(git_prompt_info)"
     fi
   fi
 }
@@ -42,19 +51,19 @@ need_push () {
   then
     echo " "
   else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
+    echo " with unpushed "
   fi
 }
 
 directory_name() {
-  echo "%{$fg_bold[cyan]%}%~%\/%{$reset_color%}"
+  echo "%K{$DIR_BG}%F{$DIR_FG}%~%\/"
 }
 
 machine_name() {
-  echo "%{$fg_bold[yellow]%}[$(hostname)]%{$reset_color%}"
+  echo -e "%K{$MN_BG}%F{$MN_FG} [$(hostname)] %K{$DIR_BG}%F{$MN_BG}\ue0b0"
 }
 
-export PROMPT=$'\n$(machine_name) in $(directory_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'\n$(machine_name)$(directory_name)$(git_dirty)$(need_push)%k%f\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
