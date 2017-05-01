@@ -24,7 +24,7 @@ function global:prompt {
         $Branch = git rev-parse --abbrev-ref HEAD
         if ([string]::IsNullOrWhiteSpace($Status)) {
             Write-Host -ForegroundColor Yellow -BackgroundColor Green $ArrowSymbol -NoNewLine
-            Write-Host -BackgroundColor Green " $BranchSymbol $Branch " -NoNewLine
+            Write-Host -BackgroundColor Green -ForegroundColor Black " $BranchSymbol $Branch " -NoNewLine
             Write-Host -ForegroundColor Green -BackgroundColor Black $ArrowSymbol -NoNewLine
         } else {
             Write-Host -ForegroundColor Yellow -BackgroundColor Red $ArrowSymbol -NoNewLine
