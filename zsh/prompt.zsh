@@ -17,8 +17,10 @@ ARROW_SYMBOL="\ue0b0"
 
 MACHINE_TYPE_SYMBOL=
 UNAME=$(uname)
+BATTERY_STATUS=
 if [[ "$UNAME" == "Darwin" ]]; then
     MACHINE_TYPE_SYMBOL="\ue711"
+    BATTERY_STATUS=$(pmset -g batt | sed -n '1!p' | sed "s/^ -InternalBattery-0 .id=[0-9]*.[^0-9]*//g" | cut -d ";" -f 1,2)
 elif [[ "$WSL" == "1" ]]; then
     MACHINE_TYPE_SYMBOL="\ue70f"
 else
