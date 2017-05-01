@@ -3,13 +3,17 @@ autoload colors && colors
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
 MN_BG=6
-MN_FG=15
+MN_FG=8
 DIR_BG=11
 DIR_FG=0
 GIT_CLEAN_BG=10
 GIT_CLEAN_FG=0
 GIT_DIRTY_BG=9
-GIT_DIRTY_FG=15
+GIT_DIRTY_FG=0
+
+DIR_SYMBOL="\ue5ff"
+BRANCH_SYMBOL="\ue0a0"
+ARROW_SYMBOL="\ue0b0"
 
 MACHINE_TYPE_SYMBOL=
 UNAME=$(uname)
@@ -35,13 +39,13 @@ git_branch() {
 git_dirty() {
   if $(! $git status -s &> /dev/null)
   then
-    echo "  %F{$DIR_BG}%k\ue0b0%f"
+    echo " %F{$DIR_BG}%k$ARROW_SYMBOL%f"
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo "  %F{$DIR_BG}%K{$GIT_CLEAN_BG}\ue0b0 %K{$GIT_CLEAN_BG}%F{$GIT_CLEAN_FG}$(git_prompt_info)$(need_push)%k%F{$GIT_CLEAN_BG}\ue0b0%f"
+      echo " %F{$DIR_BG}%K{$GIT_CLEAN_BG}$ARROW_SYMBOL %K{$GIT_CLEAN_BG}%F{$GIT_CLEAN_FG}$(git_prompt_info)$(need_push)%k%F{$GIT_CLEAN_BG}$ARROW_SYMBOL%f"
     else
-      echo "  %F{$DIR_BG}%K{$GIT_DIRTY_BG}\ue0b0 %K{$GIT_DIRTY_BG}%F{$GIT_DIRTY_FG}$(git_prompt_info)$(need_push)%k%F{$GIT_DIRTY_BG}\ue0b0%f"
+      echo " %F{$DIR_BG}%K{$GIT_DIRTY_BG}$ARROW_SYMBOL %K{$GIT_DIRTY_BG}%F{$GIT_DIRTY_FG}$(git_prompt_info)$(need_push)%k%F{$GIT_DIRTY_BG}$ARROW_SYMBOL%f"
     fi
   fi
 }
@@ -49,7 +53,7 @@ git_dirty() {
 git_prompt_info () {
  ref=$($git symbolic-ref HEAD 2>/dev/null) || return
 # echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
- echo "\ue0a0 ${ref#refs/heads/}"
+ echo "$BRANCH_SYMBOL ${ref#refs/heads/}"
 }
 
 unpushed () {
@@ -66,7 +70,7 @@ need_push () {
 }
 
 directory_name() {
-  echo " \uf07c %K{$DIR_BG}%F{$DIR_FG}%~%\/"
+  echo " $DIR_SYMBOL %K{$DIR_BG}%F{$DIR_FG}%~%\/"
 }
 
 machine_name() {
