@@ -5,12 +5,17 @@ $KeysToAdd = @(
 
 function AddKeyIfNotPresent($KeyFile) {
     # Check if we need to add the main identity to the agent
-    $fingerprint = (ssh-keygen -lf $KeyFile).Split(" ")[1]
+    $KeyGenInfo = (ssh-keygen -lf $KeyFile)
+    if ($KeyGenInfo) {
+        $fingerprint = $KeyGenInfo.Split(" ")[1]
 
-    if(ssh-add -l | select-string $fingerprint -SimpleMatch) {
-        Write-Host "$KeyFile already registered in SSH agent"
+        if(ssh-add -l | select-string $fingerprint -SimpleMatch) {
+            Write-Host "$KeyFile already registered in SSH agent"
+        } else {
+            ssh-add $KeyFile
+        }
     } else {
-        ssh-add $KeyFile
+        Write-Host "$KeyFile does not exist"
     }
 }
 

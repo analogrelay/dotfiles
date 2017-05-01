@@ -8,6 +8,8 @@ $PromptSymbol = [char]0x203a;
 
 $OsSymbol = $WindowsSymbol
 
+Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Cyan
+
 function global:prompt {
     $realLASTEXITCODE = $LASTEXITCODE
 
@@ -38,5 +40,5 @@ function global:prompt {
 
     $LASTEXITCODE = $realLASTEXITCODE
     $Host.UI.RawUI.WindowTitle = $pwd
-    return "$PromptSymbol "
+    return "ps1$PromptSymbol "
 }

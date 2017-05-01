@@ -3,7 +3,7 @@ autoload colors && colors
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
 MN_BG=6
-MN_FG=8
+MN_FG=0
 DIR_BG=11
 DIR_FG=0
 GIT_CLEAN_BG=10
@@ -64,7 +64,7 @@ machine_name() {
   echo -e "%K{$MN_BG}%F{$MN_FG} $MACHINE_TYPE_SYMBOL $(hostname) %K{$DIR_BG}%F{$MN_BG}\ue0b0"
 }
 
-export PROMPT=$'\n$(machine_name)$(directory_name)$(git_dirty)%k%f\n› '
+export PROMPT=$'\n$(machine_name)$(directory_name)$(git_dirty)%k%f\nzsh› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
