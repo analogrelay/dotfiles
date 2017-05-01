@@ -2,9 +2,11 @@ $WindowsSymbol = [char]0xf17a;
 $LinuxSymbol = [char]0xf17c;
 $AppleSymbol = [char]0xf179;
 $DirSymbol = [char]0xf07b;
-$BranchSymbol = [char]0xe0a0;
+$BranchSymbol = [char]0xe725;
 $ArrowSymbol = [char]0xe0b0;
 $PromptSymbol = [char]0x203a;
+$DotNetSymbol = [char]0xe70c;
+$ClockSymbol = [char]0xf017;
 
 $OsSymbol = $WindowsSymbol
 
@@ -13,28 +15,43 @@ Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Cyan
 function global:prompt {
     $realLASTEXITCODE = $LASTEXITCODE
 
-    Write-Host -ForegroundColor Black -BackgroundColor Cyan " $OsSymbol $([Environment]::MachineName) " -NoNewLine
-    Write-Host -ForegroundColor Cyan -BackgroundColor Yellow $ArrowSymbol -NoNewLine
+    $CurrentFg = [System.ConsoleColor]::Black;
+    $CurrentBg = [System.ConsoleColor]::White;
 
-    Write-Host -ForegroundColor Black -BackgroundColor Yellow " $DirSymbol $(Get-Location) " -NoNewLine
+    function NextSegment([System.ConsoleColor]$NextBg, [System.ConsoleColor]$NextFg) {
+        Write-Host -ForegroundColor $CurrentBg -BackgroundColor $NextBg $ArrowSymbol -NoNewLine
+        Set-Variable -Scope 1 -Name CurrentBg -Value $NextBg
+        Set-Variable -Scope 1 -Name CurrentFg -Value $NextFg
+    }
+
+    function WriteSegment([string]$Str) {
+        Write-Host -ForegroundColor $CurrentFg -BackgroundColor $CurrentBg $Str -NoNewLine
+    }
+
+    WriteSegment " $OsSymbol $([Environment]::MachineName) "
+    NextSegment Yellow Black
+
+    WriteSegment " $DirSymbol $(Get-Location) "
+
+    if (Get-Command -ErrorAction SilentlyContinue dotnet) {
+        NextSegment Blue Gray
+        WriteSegment " $DotNetSymbol $(dotnet --version) "
+    }
 
     git status -s 2>&1 | Out-Null
     if ($LASTEXITCODE -eq 0) {
         $Status = git status --porcelain
         $Branch = git rev-parse --abbrev-ref HEAD
         if ([string]::IsNullOrWhiteSpace($Status)) {
-            Write-Host -ForegroundColor Yellow -BackgroundColor Green $ArrowSymbol -NoNewLine
-            Write-Host -BackgroundColor Green -ForegroundColor Black " $BranchSymbol $Branch " -NoNewLine
-            Write-Host -ForegroundColor Green -BackgroundColor Black $ArrowSymbol -NoNewLine
+            NextSegment Green Black
+            WriteSegment " $BranchSymbol $Branch "
         } else {
-            Write-Host -ForegroundColor Yellow -BackgroundColor Red $ArrowSymbol -NoNewLine
-            Write-Host -BackgroundColor Red " $BranchSymbol $Branch " -NoNewLine
-            Write-Host -ForegroundColor Red -BackgroundColor Black $ArrowSymbol -NoNewLine
+            NextSegment Red Black
+            WriteSegment " $BranchSymbol $Branch "
         }
     }
-    else {
-        Write-Host -ForegroundColor Yellow -BackgroundColor Black $ArrowSymbol -NoNewLine
-    }
+
+    NextSegment Black
 
     Write-Host
 
