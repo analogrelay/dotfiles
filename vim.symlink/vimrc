@@ -30,7 +30,7 @@ filetype plugin indent on    " required
 if has('gui_running')
     "Set encoding and font
     set encoding=utf-8
-    set guifont=Source_Code_Pro:h12:cDEFAULT
+    set guifont=SauceCodePro_NF:h10:b:cDEFAULT
 
     " Maximize the window on launch
     if has('win32') || has('win64')

@@ -43,9 +43,9 @@ git_dirty() {
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo " %F{$DIR_BG}%K{$GIT_CLEAN_BG}$ARROW_SYMBOL %K{$GIT_CLEAN_BG}%F{$GIT_CLEAN_FG}$(git_prompt_info)$(need_push)%k%F{$GIT_CLEAN_BG}$ARROW_SYMBOL%f"
+      echo " %F{$DIR_BG}%K{$GIT_CLEAN_BG}$ARROW_SYMBOL %K{$GIT_CLEAN_BG}%F{$GIT_CLEAN_FG}$(git_prompt_info)%k%F{$GIT_CLEAN_BG}$ARROW_SYMBOL%f"
     else
-      echo " %F{$DIR_BG}%K{$GIT_DIRTY_BG}$ARROW_SYMBOL %K{$GIT_DIRTY_BG}%F{$GIT_DIRTY_FG}$(git_prompt_info)$(need_push)%k%F{$GIT_DIRTY_BG}$ARROW_SYMBOL%f"
+      echo " %F{$DIR_BG}%K{$GIT_DIRTY_BG}$ARROW_SYMBOL %K{$GIT_DIRTY_BG}%F{$GIT_DIRTY_FG}$(git_prompt_info)%k%F{$GIT_DIRTY_BG}$ARROW_SYMBOL%f"
     fi
   fi
 }
@@ -54,19 +54,6 @@ git_prompt_info () {
  ref=$($git symbolic-ref HEAD 2>/dev/null) || return
 # echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
  echo "$BRANCH_SYMBOL ${ref#refs/heads/}"
-}
-
-unpushed () {
-  $git cherry -v @{upstream} 2>/dev/null
-}
-
-need_push () {
-  if [[ $(unpushed) == "" ]]
-  then
-    echo " "
-  else
-    echo " with unpushed "
-  fi
 }
 
 directory_name() {
