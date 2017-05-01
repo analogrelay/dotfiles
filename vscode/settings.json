@@ -6,5 +6,11 @@
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": "vs-seti",
     "vim.leader": " ",
-    "window.zoomLevel": 0
+    "window.zoomLevel": 0,
+    "[cpp]": {
+        "editor.quickSuggestions": false
+    },
+    "[c]": {
+        "editor.quickSuggestions": false
+    }
 }
