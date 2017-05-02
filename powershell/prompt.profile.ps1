@@ -28,6 +28,9 @@ function global:prompt {
         Write-Host -ForegroundColor $CurrentFg -BackgroundColor $CurrentBg $Str -NoNewLine
     }
 
+    WriteSegment " $ClockSymbol $([DateTime]::Now.ToString("HH:mm")) "
+    NextSegment Cyan Black
+
     WriteSegment " $OsSymbol $([Environment]::MachineName) "
     NextSegment Yellow Black
 
