@@ -1,6 +1,7 @@
 alias reload!='. ~/.zshrc'
-alias ls='ls --color=auto'
 
-if type -p hub >/dev/null 2>&1; then
-    alias git=hub
+if [[ $(uname) == "Darwin" ]]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto'
 fi
