@@ -36,6 +36,7 @@ symbols=(
     prompt "\u203a"
     dotnet "\ue70c"
     clock "\uf017"
+    terminal "\uf120"
 )
 
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -138,7 +139,14 @@ write_prompt() {
     next_segment white black
 
     echo "$(color_reset)"
-    echo "$symbols[prompt] "
+
+    SEGMENT_FG=black
+    SEGMENT_BG=white
+
+    write_segment "$symbols[terminal]"
+    next_segment white black
+
+    echo " "
 }
 
 export PROMPT="$(write_prompt)"
