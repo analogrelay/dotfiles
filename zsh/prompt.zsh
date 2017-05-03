@@ -149,4 +149,4 @@ write_prompt() {
     echo " "
 }
 
-export PROMPT="$(write_prompt)"
+export PROMPT="\$(write_prompt)"
