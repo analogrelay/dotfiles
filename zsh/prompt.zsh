@@ -37,6 +37,11 @@ symbols=(
     dotnet "\ue70c"
     clock "\uf017"
     terminal "\uf120"
+    bat_empty "\uf244"
+    bat_low "\uf243"
+    bat_med "\uf242"
+    bat_hi "\uf241"
+    bat_full "\uf240"
 )
 
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -129,8 +134,38 @@ segment_git() {
     write_segment "$symbols[branch] $branch"
 }
 
+segment_battery() {
+    if [[ $(uname) == "Darwin" ]]; then
+        local battery_status=$(pmset -g batt | sed 1d)
+        local percent=$(echo $battery_status | awk '{ print $3 }' | sed "s/%;$//")
+
+        local battery_symbol
+        local battery_color
+        if [ "$percent" -ge "95" ]; then
+            battery_symbol=$symbols[bat_full]
+            battery_color=bright_green
+        elif [ "$percent" -ge "70" ]; then
+            battery_symbol=$symbols[bat_hi]
+            battery_color=green
+        elif [ "$percent" -ge "45" ]; then
+            battery_symbol=$symbols[bat_med]
+            battery_color=bright_yellow
+        elif [ "$percent" -ge "20" ]; then
+            battery_symbol=$symbols[bat_low]
+            battery_color=bright_red
+        else
+            battery_symbol=$symbols[bat_empty]
+            battery_color=red
+        fi
+
+        next_segment black $battery_color
+        write_segment "$battery_symbol ${percent}%%"
+    fi
+}
+
 write_prompt() {
     segment_time
+    segment_battery
     segment_hostname
     segment_pwd
     segment_dotnet
