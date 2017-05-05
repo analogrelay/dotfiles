@@ -3,6 +3,7 @@
     "editor.wordWrap": false,
     "editor.wordBasedSuggestions": false,
     "editor.formatOnType": true,
+    "editor.fontFamily": "SauceCodePro NF, Menlo, Monaco, 'Courier New', monospace",
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": "vs-seti",
     "vim.leader": " ",

@@ -27,21 +27,21 @@ done
 
 typeset -A symbols
 symbols=(
-    windows "\uf17a"
-    linux "\uf17c"
-    apple "\uf179"
-    folder "\uf07b"
-    branch "\ue725"
-    arrow "\ue0b0"
-    prompt "\u203a"
-    dotnet "\ue70c"
-    clock "\uf017"
-    terminal "\uf120"
-    bat_empty "\uf244"
-    bat_low "\uf243"
-    bat_med "\uf242"
-    bat_hi "\uf241"
-    bat_full "\uf240"
+    windows $(echo -e "\uf17a")
+    linux $(echo -e "\uf17c")
+    apple $(echo -e "\uf179")
+    folder $(echo -e "\uf07b")
+    branch $(echo -e "\ue725")
+    arrow $(echo -e "\ue0b0")
+    prompt $(echo -e "\u203a")
+    dotnet $(echo -e "\ue70c")
+    clock $(echo -e "\uf017")
+    terminal $(echo -e "\uf120")
+    bat_empty $(echo -e "\uf244")
+    bat_low $(echo -e "\uf243")
+    bat_med $(echo -e "\uf242")
+    bat_hi $(echo -e "\uf241")
+    bat_full $(echo -e "\uf240")
 )
 
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -174,14 +174,6 @@ write_prompt() {
     next_segment white black
 
     echo "$(color_reset)"
-
-    SEGMENT_FG=black
-    SEGMENT_BG=white
-
-    write_segment "$symbols[terminal]"
-    next_segment white black
-
-    echo " "
 }
 
-export PROMPT="\$(write_prompt)"
+export PROMPT=$'\$(write_prompt)\nzsh$symbols[prompt] '
