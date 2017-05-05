@@ -2,7 +2,9 @@
 {
     "editor.wordWrap": false,
     "editor.wordBasedSuggestions": false,
+    "editor.formatOnSave": true,
     "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
     "editor.fontFamily": "SauceCodePro NF, Menlo, Monaco, 'Courier New', monospace",
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": "vs-seti",
