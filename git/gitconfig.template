@@ -28,6 +28,7 @@
     pf = push --force-with-lease origin
     pff = push --force origin
     pd = push --delete origin
+    pl = pull origin
 
     fiddle = config --global http.proxy 127.0.0.1:8888
     unfiddle = config --global --unset
