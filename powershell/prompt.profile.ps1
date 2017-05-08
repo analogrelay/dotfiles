@@ -12,6 +12,11 @@ $OsSymbol = $WindowsSymbol
 
 Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Cyan
 
+function GetLocationWithSubstitution() {
+    $loc = Get-Location
+    $loc.Path.Replace("$env:USERPROFILE", "~")
+}
+
 function global:prompt {
     $realLASTEXITCODE = $LASTEXITCODE
 
@@ -34,7 +39,7 @@ function global:prompt {
     WriteSegment " $OsSymbol $([Environment]::MachineName) "
     NextSegment Yellow Black
 
-    WriteSegment " $DirSymbol $(Get-Location) "
+    WriteSegment " $DirSymbol $(GetLocationWithSubstitution) "
 
     if (Get-Command -ErrorAction SilentlyContinue dotnet) {
         NextSegment Blue Gray
