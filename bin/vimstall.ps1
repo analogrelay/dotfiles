@@ -1,14 +1,15 @@
 param([string]$Url)
 if (!$Url) {
-    Write-Error "Usage: vimstall [url] [branch]"
+    Write-Error "Usage: vimstall [url]"
     return
 }
 
-$name=(New-Object Uri $Url).Segments[-1]
+$LastSlashIndex = $Url.LastIndexOf("/");
+$Name = $Url.Substring($LastSlashIndex + 1);
 
 pushd $DotFilesRoot
 try {
-    git submodule add $url vim.symlink/bundle/$name
+    git submodule add $url vim.symlink/bundle/$Name
 } finally {
     popd
 }

@@ -4,3 +4,6 @@
 [submodule "vim.symlink/bundle/vim-airline.git"]
 	path = vim.symlink/bundle/vim-airline.git
 	url = git@github.com:vim-airline/vim-airline.git
+[submodule "vim.symlink/bundle/ctrlp.vim"]
+	path = vim.symlink/bundle/ctrlp.vim
+	url = git@github.com:kien/ctrlp.vim
