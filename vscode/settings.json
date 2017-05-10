@@ -6,6 +6,7 @@
     "editor.formatOnType": true,
     "editor.formatOnPaste": true,
     "editor.fontFamily": "SauceCodePro NF, Menlo, Monaco, 'Courier New', monospace",
+    "editor.codeLens": false,
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": "vs-seti",
     "vim.leader": " ",

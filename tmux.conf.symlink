@@ -39,6 +39,10 @@ set-window-option -g window-status-current-bg red
 bind \ split-window -h
 bind - split-window -v
 
+# make the scroll wheel and mouse work
+set-option -g mouse on
+bind -n WheelUpPane copy-mode
+
 # Change cursor in vim to distinguish between insert and command mode
 # Use in conjunciton with tmux-cursors.vim
 set-option -g terminal-overrides '*88col*:colors=88,*256col*:colors=256,xterm*:XT:Ms=\E]52;%p1%s;%p2%s\007:Cc=\E]12;%p1%s\007:Cr=\E]112\007:Cs=\E]50;CursorShape=%?%p1%{3}%<%t%{0}%e%p1%{2}%-%;%d\007'
