@@ -129,10 +129,11 @@ install_dotfiles () {
         success "copied $src to $dst"
     done
 
-    # Custom symlinks
-    if [[ $UNAME == "Darwin" ]]; then
-        link_file "$DOTFILES_ROOT/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
-    fi
+    # Custom install scripts
+    for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -type f -name '*.install.zsh')
+    do
+        source $src
+    done
 }
 
 if cat /proc/version | grep Microsoft >/dev/null 2>&1; then
@@ -173,11 +174,6 @@ if type -p zsh >/dev/null 2>&1; then
 else
     user "unable to configure default shell to zsh, it is not installed"
 fi
-
-# If we're on a Mac, let's install and setup homebrew.
-# if [ "$(uname -s)" == "Darwin" ]
-# then
-# fi
 
 echo ''
 echo '  All installed!'

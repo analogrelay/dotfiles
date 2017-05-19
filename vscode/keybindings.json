@@ -1,13 +1,23 @@
 // Place your key bindings in this file to overwrite the defaults
 [
     {
-        "key": "ctrl+j",
-        "command": "extension.vim_ctrl+n",
-        "when": "suggestWidgetVisible && vim.useCtrlKeys"
+        "key": "j",
+        "command": "list.focusDown",
+        "when": "listFocus"
     },
     {
-        "key": "ctrl+k",
-        "command": "extension.vim_ctrl+p",
-        "when": "suggestWidgetVisible && vim.useCtrlKeys"
+        "key": "k",
+        "command": "list.focusUp",
+        "when": "listFocus"
     },
+    {
+        "key": "enter",
+        "command": "list.select",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "o",
+        "command": "list.toggleExpand",
+        "when": "listFocus"
+    }
 ]
