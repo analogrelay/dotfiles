@@ -8,7 +8,6 @@
 [core]
     excludesfile = "~/.dotfiles/git/gitignore"
     editor = EDITOR
-    autocrlf = true
 
 [color]
     ui = true
