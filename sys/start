@@ -175,5 +175,7 @@ else
     user "unable to configure default shell to zsh, it is not installed"
 fi
 
+git submodule update --init
+
 echo ''
 echo '  All installed!'
