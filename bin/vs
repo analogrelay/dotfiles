@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+find_sln() {
+    local basedir=$1
+
+    local matches=$(ls -1 $basedir/*.sln)
+
+    if [ -z $matches ]; then
+        echo "error: No solution file found" 1>&2
+        exit 1
+    else
+        local match_count=$(echo $matches | wc -l | awk '{print $1}')
+
+        if [[ $match_count == "1" ]]; then
+            echo $matches
+        else
+            echo "error: Multiple solutions found (TODO: Allow selecting one)" 1>&2
+            exit 1
+        fi
+    fi
+}
+
+if [ "$(uname)" = "Darwin" ]; then
+    sln=$(find_sln $(pwd))
+    echo "Launching solution: $sln"
+    open $sln
+elif [ "$WSL" = "1" ]; then
+    echo "TODO: Launch VS from WSL" 1>&2
+    exit 1
+else
+    echo "Can't launch VS on Linux\!" 1>&2
+    exit 1
+fi
