@@ -130,7 +130,7 @@ install_dotfiles () {
     done
 
     # Custom install scripts
-    for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -type f -name '*.install.zsh')
+    for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -type f -name '*.install.sh')
     do
         source $src
     done
