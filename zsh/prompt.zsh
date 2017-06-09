@@ -135,12 +135,22 @@ segment_git() {
 }
 
 segment_battery() {
-    if [[ $(uname) == "Darwin" ]]; then
-        local battery_status=$(pmset -g batt | sed 1d)
-        local percent=$(echo $battery_status | awk '{ print $3 }' | sed "s/%;$//")
+    local battery_status
+    local percent
+    local battery_symbol
+    local battery_color
+    local enabled
 
-        local battery_symbol
-        local battery_color
+    if [[ $(uname) == "Darwin" ]]; then
+        enabled="1"
+        battery_status=$(pmset -g batt | sed 1d)
+        percent=$(echo $battery_status | awk '{ print $3 }' | sed "s/%;$//")
+    else
+        enabled="1"
+        percent=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | awk '{print $2}' | tr -d '%')
+    fi
+
+    if [ ! -z $enabled ]; then
         if [ "$percent" -ge "95" ]; then
             battery_symbol=$symbols[bat_full]
             battery_color=bright_green
