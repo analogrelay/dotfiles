@@ -1,10 +1,6 @@
 code() {
     if [[ "$WSL" = "1" ]]; then
-        if ! type -p wstart >/dev/null 2>/dev/null; then
-            echo "Can't find 'wstart'. Install cbwin to call back to Windows apps." 1>&2
-            return 1
-        fi
-        wstart "C:\Progra~2\MIFA7F~1\Code.exe" "$@"
+        echo "Not yet implemented: Linux + WSL" 1>&2
     elif [[ "$(uname)" = "Darwin" ]]; then
         if [[ $# = 0 ]]
         then
@@ -14,7 +10,6 @@ code() {
             open -a "Visual Studio Code" --args "$F"
         fi
     else
-        echo "Not yet implemented!" 1>&2
-        return 1
+        /usr/bin/code "$@"
     fi
 }
