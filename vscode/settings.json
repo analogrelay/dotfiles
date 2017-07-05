@@ -7,6 +7,7 @@
     "editor.formatOnPaste": true,
     "editor.fontFamily": "SauceCodePro NF, Menlo, Monaco, 'Courier New', monospace",
     "editor.codeLens": false,
+    "csharp.suppressDotnetRestoreNotification": true,
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": "vs-seti",
     "vim.leader": " ",
@@ -16,5 +17,6 @@
     },
     "[c]": {
         "editor.quickSuggestions": false
-    }
+    },
+    "vim.disableAnnoyingNeovimMessage": true
 }
