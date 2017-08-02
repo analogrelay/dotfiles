@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+info () {
+    printf "  [ \033[00;34m..\033[0m ] $1"
+}
+
 user () {
   printf "\r  [ \033[0;33m?\033[0m ] $1 "
 }
@@ -29,3 +33,8 @@ sed -e "s/AUTHORNAME/$git_authorname/g" \
     -e "s/MERGETOOL/$mergetool/g" \
     -e "s/DIFFTOOL/$difftool/g" \
     git/gitconfig.template > git/gitconfig
+
+if [ "$WSL" = "1" ]; then
+    info 'enabling autocrlf in WSL for Windows compatibility'
+    git config --global core.autocrlf true
+fi

@@ -103,7 +103,11 @@ segment_pwd() {
 
 segment_hostname() {
     next_segment black cyan
-    write_segment "$symbols[os] $(hostname)"
+    if [ "$WSL" = "1" ]; then
+        write_segment "$symbols[linux] (on $symbols[windows]) $(hostname)"
+    else
+        write_segment "$symbols[os] $(hostname)"
+    fi;
 }
 
 segment_dotnet() {
@@ -145,7 +149,7 @@ segment_battery() {
         enabled="1"
         battery_status=$(pmset -g batt | sed 1d)
         percent=$(echo $battery_status | awk '{ print $3 }' | sed "s/%;$//")
-    else
+    elif [ ! -z $(cat /sys/class/power_supply/battery/present) ]; then
         enabled="1"
         percent=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | awk '{print $2}' | tr -d '%')
     fi

@@ -1,3 +1,9 @@
+profile_trace() {
+    if [ "$PROFILE_TRACE" = "1" ]; then
+        echo "trace: $1"
+    fi
+}
+
 if [[ "$PROFILE_STARTUP" == true ]]; then
     # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
     PS4=$'%D{%M%S%.} %N:%i> '
@@ -45,12 +51,14 @@ config_files=($ZSH/**/*.zsh)
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
 do
+    profile_trace "sourcing $file"
     source $file
 done
 
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do
+    profile_trace "sourcing $file"
     source $file
 done
 
@@ -61,6 +69,7 @@ compinit -u -D
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
 do
+    profile_trace "sourcing $file"
     source $file
 done
 
