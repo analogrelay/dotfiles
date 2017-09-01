@@ -18,5 +18,7 @@
     "[c]": {
         "editor.quickSuggestions": false
     },
-    "vim.disableAnnoyingNeovimMessage": true
+    "vim.disableAnnoyingNeovimMessage": true,
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "nvim.exe"
 }

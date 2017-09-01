@@ -6,10 +6,32 @@ set ff=unix
 " Fix background color erase
 set t_ut=
 
-" Make windows accept unixy stuff
-if has('win32') || has('win64')
-    set runtimepath=~/.vim,$VIM/vimfiles,$VIM,$VIM/vimfiles/after,~/.vim/after
-    set dir=$TEMP
+if !has('nvim')
+    " Make windows accept unixy stuff
+    if has('win32') || has('win64')
+        set runtimepath=~/.vim,$VIM/vimfiles,$VIM,$VIM/vimfiles/after,~/.vim/after
+        set dir=$TEMP
+    endif
+
+    if has('gui_running')
+        "Set encoding and font
+        set encoding=utf-8
+        set guifont=SauceCodePro_NF:h10:b:cDEFAULT
+
+        " Maximize the window on launch
+        if has('win32') || has('win64')
+            au GUIEnter * simalt ~x
+        endif
+        if has("unix")
+        let s:uname = system("uname")
+        if s:uname == "Darwin\n"
+            " Do Mac stuff here
+            set fuopt=maxhorz,maxvert
+            set guifont=Sauce_Code_Powerline:h12
+            "au GUIEnter * set fullscreen
+        endif
+        endif
+    endif
 endif
 
 let g:pathogen_disabled = []
@@ -20,32 +42,12 @@ execute pathogen#infect()
 "Psh, compatibility schmompatibility
 set nocompatible
 
-set list listchars=tab:».,trail:·
+set list listchars=tab:ï¿½.,trail:ï¿½
 
 " Set Color Scheme
 colorscheme monokai
 
 filetype plugin indent on    " required
-
-if has('gui_running')
-    "Set encoding and font
-    set encoding=utf-8
-    set guifont=SauceCodePro_NF:h10:b:cDEFAULT
-
-    " Maximize the window on launch
-    if has('win32') || has('win64')
-        au GUIEnter * simalt ~x
-    endif
-    if has("unix")
-      let s:uname = system("uname")
-      if s:uname == "Darwin\n"
-        " Do Mac stuff here
-        set fuopt=maxhorz,maxvert
-        set guifont=Sauce_Code_Powerline:h12
-        "au GUIEnter * set fullscreen
-      endif
-    endif
-endif
 
 "Configure some simple settings
 set backspace=2 "Backspace over indents, eol, etc.
@@ -133,3 +135,11 @@ let g:ctrlp_working_path_mode='ra'
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+
+" Useful functions
+function! MakeInterpolatedString()
+    exec "normal! m`F\"i$\<c-[>``l"
+endfunction
+
+nnoremap <Leader>$ :call MakeInterpolatedString()<CR>
