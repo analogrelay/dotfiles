@@ -102,7 +102,7 @@ segment_pwd() {
 }
 
 segment_hostname() {
-    next_segment black cyan
+    next_segment black bright_cyan
     if [ "$WSL" = "1" ]; then
         write_segment "$symbols[linux] (on $symbols[windows]) $(hostname)"
     else

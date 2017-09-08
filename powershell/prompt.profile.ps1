@@ -34,7 +34,7 @@ function global:prompt {
     }
 
     WriteSegment " $ClockSymbol $([DateTime]::Now.ToString("HH:mm")) "
-    NextSegment DarkCyan Black
+    NextSegment Cyan Black
 
     WriteSegment " $OsSymbol $([Environment]::MachineName) "
     NextSegment Yellow Black
