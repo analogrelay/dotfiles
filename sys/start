@@ -15,15 +15,15 @@ set -e
 echo ''
 
 info () {
-    printf "  [ \033[00;34m..\033[0m ] $1"
+    printf "  [ \033[00;34m .. \033[0m ] $1"
 }
 
 user () {
-    printf "\r  [ \033[0;33m?\033[0m ] $1 "
+    printf "\r  [ \033[0;33m ?? \033[0m ] $1 "
 }
 
 success () {
-    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+    printf "\r\033[2K  [ \033[00;32m OK \033[0m ] $1\n"
 }
 
 fail () {
@@ -143,7 +143,7 @@ else
 fi
 
 if [ $WSL = "1" ]; then
-    echo "Running in Windows Subsystem for Linux"
+    echo "Initializing for Windows Subsystem for Linux"
 
     # Symlink some useful directories
     WINHOME=/mnt/c/Users/$USER
@@ -156,8 +156,18 @@ if [ $WSL = "1" ]; then
     ln -s ~/Winhome/Code ~/Code
     success "symlinked ~/Winhome/Code to ~/Code"
     [ ! -e ~/.ssh ] || rm -Rf ~/.ssh
+
     ln -s ~/Winhome/.ssh ~/.ssh
     success "symlinked ~/Winhome/.ssh to ~/.ssh"
+
+    # Symlink ourselves if we aren't already
+    if [ ! -e ~/.dotfiles ]; then
+        ln -s $DOTFILES_ROOT ~/.dotfiles
+        success "symlinked $DOTFILES_ROOT to ~/.dotfiles"
+
+        # Change DOTFILES_ROOT
+        DOTFILES_ROOT=~/.dotfiles
+    fi
 fi
 
 if ! [ -f git/gitconfig ]; then
@@ -167,12 +177,17 @@ fi
 install_dotfiles
 
 # Configure shell
-if type -p zsh >/dev/null 2>&1; then
-    ZSH_PATH=$(type -p zsh)
-    chsh -s $ZSH_PATH
-    success "configured default shell as zsh"
+if [ $(basename $SHELL) != "zsh" ]; then
+    info "configuring default shell to be 'zsh'"
+    if type -p zsh >/dev/null 2>&1; then
+        ZSH_PATH=$(type -p zsh)
+        chsh -s $ZSH_PATH
+        success "configured default shell as zsh"
+    else
+        user "unable to configure default shell to zsh, it is not installed"
+    fi
 else
-    user "unable to configure default shell to zsh, it is not installed"
+    success "default shell is already zsh"
 fi
 
 git submodule update --init
