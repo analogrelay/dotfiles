@@ -1,6 +1,7 @@
 code() {
     if [[ "$WSL" = "1" ]]; then
-        echo "Not yet implemented: Linux + WSL" 1>&2
+        # VS Code COMES WITH a WSL-compatible POSIX-shell launcher!!
+        command code "$@" &
     elif [[ "$(uname)" = "Darwin" ]]; then
         if [[ $# = 0 ]]
         then
