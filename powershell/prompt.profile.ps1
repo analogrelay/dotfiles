@@ -34,7 +34,7 @@ function global:prompt {
     }
 
     WriteSegment " $ClockSymbol $([DateTime]::Now.ToString("HH:mm")) "
-    NextSegment Cyan Black
+    NextSegment DarkCyan Black
 
     WriteSegment " $OsSymbol $([Environment]::MachineName) "
     NextSegment Yellow Black
@@ -42,7 +42,7 @@ function global:prompt {
     WriteSegment " $DirSymbol $(GetLocationWithSubstitution) "
 
     if (Get-Command -ErrorAction SilentlyContinue dotnet) {
-        NextSegment Blue Gray
+        NextSegment DarkBlue White
         WriteSegment " $DotNetSymbol $(dotnet --version) "
     }
 
@@ -53,7 +53,8 @@ function global:prompt {
         if ([string]::IsNullOrWhiteSpace($Status)) {
             NextSegment Green Black
             WriteSegment " $BranchSymbol $Branch "
-        } else {
+        }
+        else {
             NextSegment Red Black
             WriteSegment " $BranchSymbol $Branch "
         }

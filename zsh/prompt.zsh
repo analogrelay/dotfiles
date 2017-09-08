@@ -75,7 +75,7 @@ write_colored() {
 }
 
 SEGMENT_FG=black
-SEGMENT_BG=white
+SEGMENT_BG=bright_white
 
 write_segment() {
     local CONTENT=$1
