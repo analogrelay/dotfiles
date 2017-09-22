@@ -18,6 +18,9 @@
     "[c]": {
         "editor.quickSuggestions": false
     },
+    "[json]": {
+        "editor.formatOnSave": false
+    },
     "vim.disableAnnoyingNeovimMessage": true,
     "vim.enableNeovim": true,
     "vim.neovimPath": "nvim.exe"
