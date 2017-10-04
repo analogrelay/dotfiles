@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2017-09-08 10:03:55" build="170730">
+		<key name=".Vanilla" modified="2017-10-03 12:23:02" build="170730">
 			<value name="ColorTable00" type="dword" data="00262626"/>
 			<value name="ColorTable01" type="dword" data="00f90000"/>
 			<value name="ColorTable02" type="dword" data="0000aa00"/>
@@ -127,8 +127,8 @@
 			<value name="ConWnd Width" type="dword" data="000000d3"/>
 			<value name="ConWnd Height" type="dword" data="0000001a"/>
 			<value name="Cascaded" type="hex" data="01"/>
-			<value name="ConWnd X" type="long" data="8"/>
-			<value name="ConWnd Y" type="long" data="13"/>
+			<value name="ConWnd X" type="long" data="6"/>
+			<value name="ConWnd Y" type="long" data="0"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="AutoSaveSizePos" type="hex" data="00"/>
 			<value name="IntegralSize" type="hex" data="00"/>
@@ -483,9 +483,9 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2017-09-08 10:03:55" build="170730">
+				<key name="Tasks" modified="2017-10-03 12:23:02" build="170730">
 				<value name="Count" type="long" data="3"/>
-						<key name="Task1" modified="2017-09-08 10:03:55" build="170730">
+						<key name="Task1" modified="2017-10-03 12:23:02" build="170730">
 					<value name="Name" type="string" data="{PowerShell}"/>
 					<value name="GuiArgs" type="string" data="/dir &quot;%userprofile%&quot;"/>
 					<value name="Cmd1" type="string" data="powershell"/>
@@ -494,17 +494,17 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task2" modified="2017-09-08 10:03:55" build="170730">
+						<key name="Task2" modified="2017-10-03 12:23:02" build="170730">
 					<value name="Name" type="string" data="{ubuntu}"/>
 					<value name="GuiArgs" type="string" data=""/>
-					<value name="Cmd1" type="string" data="ubuntu -cur_console:C:&quot;%USERPROFILE%\.dotfiles\icons\if_ubuntu_386503.ico&quot;:p5"/>
+					<value name="Cmd1" type="string" data="wsl -cur_console:C:&quot;%USERPROFILE%\.dotfiles\icons\if_ubuntu_386503.ico&quot;:p5"/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="Cmd2" type="string" data="outbash -cur_console:p1 -c &quot;/usr/bin/zsh&quot;"/>
 				</key>
-						<key name="Task3" modified="2017-09-08 10:03:55" build="170730">
+						<key name="Task3" modified="2017-10-03 12:23:02" build="170730">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data=" /icon &quot;cmd.exe&quot;"/>
 					<value name="Cmd1" type="string" data="cmd /k vendor\init.bat"/>
@@ -641,11 +641,11 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2017-09-08 10:03:55" build="170730">
+				<key name="Apps" modified="2017-10-03 12:23:02" build="170730">
 				<value name="Count" type="long" data="0"/>
 			</key>
-				<key name="Colors" modified="2017-09-08 10:03:55" build="170730">
-			<key name="Palette1" modified="2017-09-08 10:03:55" build="170730">
+				<key name="Colors" modified="2017-10-03 12:23:02" build="170730">
+			<key name="Palette1" modified="2017-10-03 12:23:02" build="170730">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -757,7 +757,7 @@
 			<value name="Key.BufBottom" type="dword" data="00005d23"/>
 			<value name="Key.BufCursor" type="dword" data="00005d08"/>
 			<value name="FontOriginalKey" type="dword" data="00001104"/>
-			<key name="HotKeys" modified="2017-09-08 10:03:55" build="170730">
+			<key name="HotKeys" modified="2017-10-03 12:23:02" build="170730">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
