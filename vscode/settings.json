@@ -23,5 +23,6 @@
     },
     "vim.disableAnnoyingNeovimMessage": true,
     "vim.enableNeovim": true,
-    "vim.neovimPath": "nvim.exe"
+    "vim.neovimPath": "nvim",
+    "editor.minimap.enabled": false
 }

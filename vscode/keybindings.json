@@ -19,5 +19,15 @@
         "key": "o",
         "command": "list.toggleExpand",
         "when": "listFocus"
+    },
+    {
+        "key": "cmd+r",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
     }
 ]
