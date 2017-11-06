@@ -46,6 +46,7 @@ _ssh_add_key()
 if [[ -z "$DOTFILES_SSH_KEYS_ADDED" ]]; then
     _ssh_add_key ~/.ssh/id_rsa
     _ssh_add_key ~/.ssh/anurse-docker
+    _ssh_add_key ~/.ssh/anurse-benchmarking
 
     export DOTFILES_SSH_KEYS_ADDED=1
 fi

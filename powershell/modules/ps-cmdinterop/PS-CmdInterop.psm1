@@ -19,22 +19,22 @@
 		Nothing
 #>	
 function Invoke-CmdScript {
-	# Adapted from http://www.leeholmes.com/blog/2006/05/11/nothing-solves-everything-%E2%80%93-powershell-and-other-technologies/
-	param(
-		[Parameter(Mandatory=$true, ValueFromPipeline=$true)][string]$Script,
-		[Parameter(Mandatory=$false, ValueFromRemainingArguments=$true)][string]$Parameters
-	)
+    # Adapted from http://www.leeholmes.com/blog/2006/05/11/nothing-solves-everything-%E2%80%93-powershell-and-other-technologies/
+    param(
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)][string]$Script,
+        [Parameter(Mandatory = $false, ValueFromRemainingArguments = $true)][string]$Parameters
+    )
 	
-	$tempFile = [System.IO.Path]::GetTempFileName()
+    $tempFile = [System.IO.Path]::GetTempFileName()
 	
-	cmd /c " `"$Script`" $Parameters && set > `"$tempFile`" "
+    cmd /c " `"$Script`" $Parameters && set > `"$tempFile`" "
 	
-	Get-Content $tempFile | ForEach-Object {
-			if($_ -match "^(?<var>.*?)=(?<val>.*)$") {
-				Set-Content "env:\$($matches['var'])" $matches['val']
-			}
-	}
+    Get-Content $tempFile | ForEach-Object {
+        if ($_ -match "^(?<var>.*?)=(?<val>.*)$") {
+            Set-Content "env:\$($matches['var'])" $matches['val']
+        }
+    }
 	
-	Remove-Item $tempFile
+    Remove-Item $tempFile
 }
 Export-ModuleMember -Function Invoke-CmdScript

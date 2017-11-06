@@ -1,6 +1,7 @@
 $KeysToAdd = @(
     "id_rsa",
     "anurse-docker"
+    "anurse-benchmarking"
 )
 
 function AddKeyIfNotPresent($KeyFile) {
@@ -9,12 +10,14 @@ function AddKeyIfNotPresent($KeyFile) {
     if ($KeyGenInfo) {
         $fingerprint = $KeyGenInfo.Split(" ")[1]
 
-        if(ssh-add -l | select-string $fingerprint -SimpleMatch) {
+        if (ssh-add -l | select-string $fingerprint -SimpleMatch) {
             Write-Host "$KeyFile already registered in SSH agent"
-        } else {
+        }
+        else {
             ssh-add $KeyFile
         }
-    } else {
+    }
+    else {
         Write-Host "$KeyFile does not exist"
     }
 }
@@ -22,7 +25,7 @@ function AddKeyIfNotPresent($KeyFile) {
 if (Get-Command ssh-agent -ErrorAction SilentlyContinue) {
     Start-SshAgent
     $ssh = (Get-Command ssh.exe).Definition
-    $env:GIT_SSH=$ssh
+    $env:GIT_SSH = $ssh
 
     $KeysToAdd | ForEach-Object {
         $KeyFile = Join-Path (Join-Path $env:USERPROFILE ".ssh") $_
