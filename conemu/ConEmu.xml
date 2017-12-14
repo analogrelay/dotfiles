@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2017-10-03 12:23:02" build="170730">
+		<key name=".Vanilla" modified="2017-11-06 10:53:55" build="170730">
 			<value name="ColorTable00" type="dword" data="00262626"/>
 			<value name="ColorTable01" type="dword" data="00f90000"/>
 			<value name="ColorTable02" type="dword" data="0000aa00"/>
@@ -11,7 +11,7 @@
 			<value name="ColorTable06" type="dword" data="0000aaaa"/>
 			<value name="ColorTable07" type="dword" data="00e9e9e9"/>
 			<value name="ColorTable08" type="dword" data="00868686"/>
-			<value name="ColorTable09" type="dword" data="00ff0000"/>
+			<value name="ColorTable09" type="dword" data="00ff8484"/>
 			<value name="ColorTable10" type="dword" data="0000ff00"/>
 			<value name="ColorTable11" type="dword" data="00ffff00"/>
 			<value name="ColorTable12" type="dword" data="000000ff"/>
@@ -483,9 +483,9 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2017-10-03 12:23:02" build="170730">
+				<key name="Tasks" modified="2017-11-06 10:53:55" build="170730">
 				<value name="Count" type="long" data="3"/>
-						<key name="Task1" modified="2017-10-03 12:23:02" build="170730">
+						<key name="Task1" modified="2017-11-06 10:53:55" build="170730">
 					<value name="Name" type="string" data="{PowerShell}"/>
 					<value name="GuiArgs" type="string" data="/dir &quot;%userprofile%&quot;"/>
 					<value name="Cmd1" type="string" data="powershell"/>
@@ -494,7 +494,7 @@
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 				</key>
-						<key name="Task2" modified="2017-10-03 12:23:02" build="170730">
+						<key name="Task2" modified="2017-11-06 10:53:55" build="170730">
 					<value name="Name" type="string" data="{ubuntu}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="wsl -cur_console:C:&quot;%USERPROFILE%\.dotfiles\icons\if_ubuntu_386503.ico&quot;:p5"/>
@@ -504,7 +504,7 @@
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="Cmd2" type="string" data="outbash -cur_console:p1 -c &quot;/usr/bin/zsh&quot;"/>
 				</key>
-						<key name="Task3" modified="2017-10-03 12:23:02" build="170730">
+						<key name="Task3" modified="2017-11-06 10:53:55" build="170730">
 					<value name="Name" type="string" data="{cmd}"/>
 					<value name="GuiArgs" type="string" data=" /icon &quot;cmd.exe&quot;"/>
 					<value name="Cmd1" type="string" data="cmd /k vendor\init.bat"/>
@@ -641,11 +641,11 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2017-10-03 12:23:02" build="170730">
+				<key name="Apps" modified="2017-11-06 10:53:55" build="170730">
 				<value name="Count" type="long" data="0"/>
 			</key>
-				<key name="Colors" modified="2017-10-03 12:23:02" build="170730">
-			<key name="Palette1" modified="2017-10-03 12:23:02" build="170730">
+				<key name="Colors" modified="2017-11-06 10:53:55" build="170730">
+			<key name="Palette1" modified="2017-11-06 10:53:55" build="170730">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -757,7 +757,7 @@
 			<value name="Key.BufBottom" type="dword" data="00005d23"/>
 			<value name="Key.BufCursor" type="dword" data="00005d08"/>
 			<value name="FontOriginalKey" type="dword" data="00001104"/>
-			<key name="HotKeys" modified="2017-10-03 12:23:02" build="170730">
+			<key name="HotKeys" modified="2017-11-06 10:53:55" build="170730">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
