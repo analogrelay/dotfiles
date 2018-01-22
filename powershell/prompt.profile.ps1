@@ -10,6 +10,8 @@ $ClockSymbol = [char]0xf017;
 
 $OsSymbol = $WindowsSymbol
 
+$StatusExcludedRepositories = "aspnet\Universe"
+
 Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Cyan
 
 function GetLocationWithSubstitution() {
@@ -46,15 +48,21 @@ function global:prompt {
         WriteSegment " $DotNetSymbol $(dotnet --version) "
     }
 
-    git status -s 2>&1 | Out-Null
-    if ($LASTEXITCODE -eq 0) {
-        $Status = git status --porcelain
-        $Branch = git rev-parse --abbrev-ref HEAD
+    $Branch = git rev-parse --abbrev-ref HEAD
+    if($LASTEXITCODE -eq 0) {
+        if ((git config gitprompt.disablestatus) -eq "1") {
+            $Status = "unknown"
+        }
+        else {
+            $Status = git status --porcelain
+        }
         if ([string]::IsNullOrWhiteSpace($Status)) {
             NextSegment Green Black
             WriteSegment " $BranchSymbol $Branch "
-        }
-        else {
+        } elseif($Status -eq "unknown") {
+            NextSegment Yellow Black
+            WriteSegment " $BranchSymbol $Branch ?"
+        } else {
             NextSegment Red Black
             WriteSegment " $BranchSymbol $Branch "
         }
