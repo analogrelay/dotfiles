@@ -51,20 +51,18 @@ function global:prompt {
     $Branch = git rev-parse --abbrev-ref HEAD
     if($LASTEXITCODE -eq 0) {
         if ((git config gitprompt.disablestatus) -eq "1") {
-            $Status = "unknown"
+            NextSegment Yellow Black
+            WriteSegment " $BranchSymbol $Branch "
         }
         else {
             $Status = git status --porcelain
-        }
-        if ([string]::IsNullOrWhiteSpace($Status)) {
-            NextSegment Green Black
-            WriteSegment " $BranchSymbol $Branch "
-        } elseif($Status -eq "unknown") {
-            NextSegment Yellow Black
-            WriteSegment " $BranchSymbol $Branch ?"
-        } else {
-            NextSegment Red Black
-            WriteSegment " $BranchSymbol $Branch "
+            if ([string]::IsNullOrWhiteSpace($Status)) {
+                NextSegment Green Black
+                WriteSegment " $BranchSymbol $Branch "
+            } else {
+                NextSegment Red Black
+                WriteSegment " $BranchSymbol $Branch "
+            }
         }
     }
 
