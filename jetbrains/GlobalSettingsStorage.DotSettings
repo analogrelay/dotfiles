@@ -3,6 +3,10 @@
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=AssignmentIsFullyDiscarded/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ParameterOnlyUsedForPreconditionCheck_002ELocal/@EntryIndexedValue">SUGGESTION</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_FOR/@EntryValue">Required</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_FOREACH/@EntryValue">Required</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_IFELSE/@EntryValue">Required</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_WHILE/@EntryValue">Required</s:String>
 	<s:String x:Key="/Default/Connection/XmlConnectionList/@EntryValue">&lt;Configurator&gt;&lt;ConnectList /&gt;&lt;/Configurator&gt;</s:String>
 	<s:Int64 x:Key="/Default/ControllerUi/PositionSettingsX/@EntryValue">1132</s:Int64>
 	<s:Int64 x:Key="/Default/ControllerUi/PositionSettingsY/@EntryValue">51</s:Int64>
@@ -20,7 +24,7 @@
 	<s:Boolean x:Key="/Default/FirstLaunch/IsFirstLaunch/@EntryValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=EditorConfigFeatureSuggester/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Housekeeping/IntellisenseHousekeeping/HintUsed/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue">InspectionSeverity</s:String>
+	<s:String x:Key="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue">CSharpCodeStyle2</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/RefactoringsMru/UseInline/@EntryValue">False</s:Boolean>
 	
 	
