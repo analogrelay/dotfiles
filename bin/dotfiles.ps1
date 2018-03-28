@@ -49,18 +49,55 @@ function dotfiles-help {
 
 <#
 .SYNOPSIS
-    Runs the specified git command in the dotfiles folder
+    Runs the specified script block in the dotfiles folder
 #>
-function dotfiles-git {
+function dotfiles-exec {
     param(
-        [Parameter(Mandatory=$false, ValueFromRemainingArguments=$true)][object[]]$Arguments
+        [Parameter(Mandatory=$false,Position=0)][ScriptBlock]$Command
     )
 
     Push-Location $DotFilesRoot
     try {
-        & git @Arguments
+        & $Command
     } finally {
         Pop-Location
+    }
+}
+
+<#
+.SYNOPSIS
+    Show git status for the dotfiles repo
+#>
+function dotfiles-status {
+    dotfiles-exec { git status }
+}
+
+<#
+.SYNOPSIS
+    Commit recent changes to the dotfiles repo.
+#>
+function dotfiles-commit {
+    param(
+        [Alias("m")][Parameter(Mandatory=$true)][string]$Message
+    )
+
+    dotfiles-exec { 
+        # To print out the list of added files
+        git add -An
+
+        git add -A
+        git commit -am"$Message"
+    }
+}
+
+<#
+.SYNOPSIS
+    Sync changes with the origin repo
+#>
+function dotfiles-sync {
+    dotfiles-exec {
+        git pull --rebase origin master
+        git push origin master
     }
 }
 
