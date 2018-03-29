@@ -4,6 +4,11 @@ $links | foreach {
 			Remove-Item $_["Link"] -Recurse -Force
 		}
 
+		$LinkBase = Split-Path -Parent $_["Link"]
+		if(!(Test-Path $LinkBase)) {
+			mkdir $LinkBase | Out-Null
+		}
+
 	    if((Get-Item $_["Target"]).PSIsContainer) {
 	    	cmd /c mklink /J "$($_["Link"])" "$($_["Target"])"
 	    } elseif($_["HardLink"]) {

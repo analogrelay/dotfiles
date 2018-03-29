@@ -101,6 +101,24 @@ function dotfiles-sync {
     }
 }
 
+<#
+.SYNOPSIS
+    Launch Visual Studio Code (Insiders build, if installed) in the dotfiles folder
+#>
+function dotfiles-edit {
+    $cmd = "code-insiders"
+    if(!(Get-Command $cmd -ErrorAction SilentlyContinue)) {
+        $cmd = "code"
+        if(!(Get-Command $cmd -ErrorAction SilentlyContinue)) {
+            throw "Could not find 'code' or 'code-insiders' commands"
+        }
+    }
+
+    dotfiles-exec {
+        & "$cmd" .
+    }
+}
+
 $FnPath = "function:\dotfiles-$Command"
 if(Test-Path $FnPath) {
     & (Get-Item $FnPath) @Arguments
