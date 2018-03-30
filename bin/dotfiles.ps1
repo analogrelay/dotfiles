@@ -119,6 +119,16 @@ function dotfiles-edit {
     }
 }
 
+<#
+.SYNOPSIS
+    Shows the Git Diff for the current state of the dotfiles repo
+#>
+function dotfiles-diff {
+    dotfiles-exec {
+        git diff HEAD
+    }
+}
+
 $FnPath = "function:\dotfiles-$Command"
 if(Test-Path $FnPath) {
     & (Get-Item $FnPath) @Arguments
