@@ -13,7 +13,6 @@ fi
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 
-# DO NOT use 'cat', because that spawns a process and we end up with 'cat's command line :)
 if [[ $(uname) == "Linux" ]]; then
     if cat /proc/version | grep Microsoft >/dev/null 2>&1; then
         export WSL=1

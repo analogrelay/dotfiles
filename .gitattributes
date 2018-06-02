@@ -13,6 +13,7 @@ functions/*.ps1     eol=crlf
 *.sh                eol=lf
 zshrc               eol=lf
 sys/start           eol=lf
+sys/wsl-start       eol=lf
 sys/update          eol=lf
 tmux.conf*          eol=lf
 vim.symlink/*       eof=lf
