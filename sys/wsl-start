@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Configures Windows Subsystem for Linux to use dotfiles.
+cd "$(dirname "$0")/.."
+WIN_DOTFILES_ROOT=$(pwd)
+DOTFILES_ROOT="$HOME/.dotfiles"
+UNAME=$(uname)
+
+source "$WIN_DOTFILES_ROOT/sys/_common.sh"
+
+# Create a symlink in $HOME
+link_file $WIN_DOTFILES_ROOT $DOTFILES_ROOT
+
+# Run the "start" script to create the symlinks in $HOME
+"$DOTFILES_ROOT/sys/start"
+
+# Copy wsl.conf in place
+sudo cp "$DOTFILES_ROOT/sys/wsl.conf" /etc/wsl.conf
