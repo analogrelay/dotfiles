@@ -12,8 +12,6 @@ $OsSymbol = $WindowsSymbol
 
 $StatusExcludedRepositories = "aspnet\Universe"
 
-Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Cyan
-
 function GetLocationWithSubstitution() {
     $loc = Get-Location
     $loc.Path.Replace("$env:USERPROFILE", "~")
