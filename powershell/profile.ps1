@@ -25,9 +25,11 @@ $Modules | ForEach-Object {
 }
 
 # Load all modules, unless they are disabled
-dir "$DotFilesRoot\powershell\modules" | Where-Object { $_.PSIsContainer } | ForEach-Object {
-    if (!(Test-Path "$DotFilesRoot\powershell\modules\$($_.Name).disabled")) {
-        Import-Module ($_.Name)
+if((Test-Path "$DotFilesRoot\powershell\modules")) {
+    dir "$DotFilesRoot\powershell\modules" | Where-Object { $_.PSIsContainer } | ForEach-Object {
+        if (!(Test-Path "$DotFilesRoot\powershell\modules\$($_.Name).disabled")) {
+            Import-Module ($_.Name)
+        }
     }
 }
 
