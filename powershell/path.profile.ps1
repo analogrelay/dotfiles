@@ -40,3 +40,4 @@ $DotNetPath = Join-Path "$env:USERPROFILE" ".dotnet\x64"
 Add-PathVariable -Prepend $DotNetPath
 
 Add-PathVariable -Prepend "C:\Chocolatey\bin"
+Add-PathVariable -Prepend "C:\Tools\bin"
