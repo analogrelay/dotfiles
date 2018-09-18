@@ -24,10 +24,21 @@
     cl = clean -d
 
     p = push --set-upstream origin
+    pi = push internal
+    pp = push public
     pf = push --force-with-lease origin
+    pfi = push --force-with-lease internal
+    pfp = push --force-with-lease public
     pff = push --force origin
+    pffi = push --force internal
+    pffp = push --force public
     pd = push --delete origin
+    pdi = push --delete internal
+    pdp = push --delete public
     pl = pull origin
+    f = fetch origin
+    fi = fetch internal
+    fp = fetch public
 
     fiddle = config --global http.proxy 127.0.0.1:8888
     unfiddle = config --global --unset
