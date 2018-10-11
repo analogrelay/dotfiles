@@ -41,3 +41,8 @@ Add-PathVariable -Prepend $DotNetPath
 
 Add-PathVariable -Prepend "C:\Chocolatey\bin"
 Add-PathVariable -Prepend "C:\Tools\bin"
+
+$QemuPath = Join-Path $env:ProgramFiles "Qemu"
+if(Test-Path $QemuPath) {
+    Add-PathVariable -Prepend $QemuPath
+}
