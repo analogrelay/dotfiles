@@ -1,6 +1,12 @@
 # Make our own color tables
 typeset -A fg bg color
 
+prompt_trace() {
+    if [ "$PROMPT_TRACE" = "1" ]; then
+        echo "$@"
+    fi
+}
+
 color=(
     0 black
     1 red
@@ -93,15 +99,18 @@ next_segment() {
 }
 
 segment_time() {
+    prompt_trace "-> segment_time()"
     write_segment "$symbols[clock] $(date +"%H:%M")"
 }
 
 segment_pwd() {
+    prompt_trace "-> segment_pwd()"
     next_segment black bright_yellow
     write_segment "$symbols[folder] %~"
 }
 
 segment_hostname() {
+    prompt_trace "-> segment_hostname()"
     next_segment black bright_cyan
     if [ "$WSL" = "1" ]; then
         write_segment "$symbols[linux] (on $symbols[windows]) $(hostname)"
@@ -111,6 +120,7 @@ segment_hostname() {
 }
 
 segment_dotnet() {
+    prompt_trace "-> segment_dotnet()"
     if type dotnet >/dev/null 2>/dev/null; then
         next_segment bright_white blue
         write_segment "$symbols[dotnet] $(dotnet --version)"
@@ -118,6 +128,7 @@ segment_dotnet() {
 }
 
 segment_git() {
+    prompt_trace "-> segment_git()"
     # Do we has a git?
     if ! type git >/dev/null 2>/dev/null; then
         return
@@ -139,6 +150,7 @@ segment_git() {
 }
 
 segment_battery() {
+    prompt_trace "-> segment_battery()"
     local battery_status
     local percent
     local battery_symbol
