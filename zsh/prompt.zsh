@@ -1,6 +1,20 @@
 # Make our own color tables
 typeset -A fg bg color
 
+cache_dotnet_version=
+cache_dotnet_version_pwd=
+
+get_dotnet_version() {
+    if [ "$cache_dotnet_version_pwd" != "$PWD" ]; then
+        prompt_trace "Updating cache"
+        cache_dotnet_version=$(dotnet --version)
+        cache_dotnet_version_pwd=$PWD
+    else
+        prompt_trace "Using cache"
+    fi
+    echo "$cache_dotnet_version"
+}
+
 prompt_trace() {
     if [ "$PROMPT_TRACE" = "1" ]; then
         echo "$@"
