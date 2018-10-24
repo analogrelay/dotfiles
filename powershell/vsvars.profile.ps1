@@ -13,15 +13,17 @@ function global:_RemoveVsVarsFromPath() {
   $env:PATH = [string]::Join($PathSep, $newPath)
 }
 
-function global:Import-VsVars([string]$Architecture) {
+function global:Import-VsVars([string]$Architecture, [int]$Version = 15) {
   _RemoveVsVarsFromPath
+
+  $VersionString = "[$Version.0,$($Version + 1).0)"
 
   # Import the VS Vars
   $ArchArg = ""
   if($Architecture) {
     $ArchArg = "-arch=$Architecture "
   }
-  $installationPath = vswhere -prerelease -latest -property installationPath
+  $installationPath = vswhere -prerelease -latest -property installationPath -version $VersionString
   if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
     & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" $ArchArg-no_logo && set" | foreach-object {
       $name, $value = $_ -split '=', 2
