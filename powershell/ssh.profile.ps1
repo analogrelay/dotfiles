@@ -22,7 +22,12 @@ function AddKeyIfNotPresent($KeyFile) {
     }
 }
 
-if (Get-Service ssh-agent -ErrorAction SilentlyContinue) {
+$sshAgentService = Get-Service ssh-agent -ErrorAction SilentlyContinue
+if ($sshAgentService) {
+    if($sshAgentService.StartupType -eq "Disabled") {
+        Set-Service $sshAgentService -StartupType Automatic
+    }
+
     Start-Service ssh-agent
     $ssh = (Get-Command ssh.exe).Definition
     $env:GIT_SSH = $ssh

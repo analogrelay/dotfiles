@@ -20,6 +20,8 @@ function GetLocationWithSubstitution() {
 function global:prompt {
     $realLASTEXITCODE = $LASTEXITCODE
 
+    $ScreenBg = $host.UI.RawUI.BackgroundColor;
+
     $CurrentFg = [System.ConsoleColor]::Black;
     $CurrentBg = [System.ConsoleColor]::White;
 
@@ -64,7 +66,7 @@ function global:prompt {
         }
     }
 
-    NextSegment Black
+    NextSegment $ScreenBg
 
     Write-Host
 
