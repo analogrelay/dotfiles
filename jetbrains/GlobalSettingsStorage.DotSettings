@@ -113,7 +113,7 @@
 	<s:Int64 x:Key="/Default/Layout/MenuItem/@EntryValue">7</s:Int64>
 	<s:String x:Key="/Default/SnapshotsStore/CurrentStore/@EntryValue">C:\Users\anurse\AppData\Local\JetBrains\Shared\vAny\Sessions</s:String>
 	<s:String x:Key="/Default/Environment/UserInterface/ShortcutSchemeName/@EntryValue">VS</s:String>
-	<s:String x:Key="/Default/Environment/UpdatesManger/LastUpdateCheck/@EntryValue">07/20/2018 21:16:40</s:String>
+	<s:String x:Key="/Default/Environment/UpdatesManger/LastUpdateCheck/@EntryValue">11/26/2018 11:12:11</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Housekeeping/FeedbackReport/SelectedUserIdentificator/@EntryValue">anonymous</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UpgradeFromExceptionReport/UpgradePerformed/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>

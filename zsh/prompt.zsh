@@ -205,7 +205,7 @@ segment_battery() {
 
 write_prompt() {
     segment_time
-    segment_battery
+    # segment_battery
     segment_hostname
     segment_pwd
     segment_dotnet

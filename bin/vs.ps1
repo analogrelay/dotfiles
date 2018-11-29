@@ -63,7 +63,7 @@ if($Solution -and !$Version) {
 
 # Load the Visual Studios
 # Temporarily disable VS 2019 (16.0)
-$VisualStudios = vswhere -all -prerelease -format json -version "[15.0, 16.0)" | ConvertFrom-json
+$VisualStudios = vswhere -all -prerelease -format json | ConvertFrom-json
 
 # Filter out prereleases if they aren't allowed
 if($NoPrerelease) {
