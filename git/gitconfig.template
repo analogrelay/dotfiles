@@ -36,6 +36,8 @@
     pdi = push --delete internal
     pdp = push --delete public
     pl = pull origin
+    pli = pull internal
+    plu = pull upstream
     f = fetch origin
     fi = fetch internal
     fp = fetch public
