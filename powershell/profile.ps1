@@ -1,15 +1,5 @@
 $Global:DotFilesRoot = Convert-Path (Split-Path -Parent $PSScriptRoot)
 
-# Locate code root
-$DefaultCodeRoot = Join-Path $env:USERPROFILE "Code"
-if ($env:PROJECTS) {
-    $CodeRoot = $env:PROJECTS
-}
-elseif (Test-Path $DefaultCodeRoot) {
-    $CodeRoot = $DefaultCodeRoot
-    $env:PROJECTS = $CodeRoot
-}
-
 # Add the modules from dotfiles to the module path
 $env:PSModulePath = "$DotFilesRoot\powershell\modules;$env:PSModulePath"
 
