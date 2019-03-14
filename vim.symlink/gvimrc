@@ -1,8 +1,0 @@
-if has('nvim')
-    source ~/scoop/apps/neovim-qt/current/share/nvim-qt/runtime/plugin/nvim_gui_shim.vim
-
-    if exists('g:GuiLoaded')
-        Guifont! SauceCodePro NF:h11
-        call GuiWindowMaximized(1)
-    endif
-endif

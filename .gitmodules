@@ -1,9 +1,0 @@
-[submodule "vim.symlink/bundle/nerdtree"]
-	path = vim.symlink/bundle/nerdtree
-	url = git@github.com:scrooloose/nerdtree
-[submodule "vim.symlink/bundle/vim-airline"]
-	path = vim.symlink/bundle/vim-airline
-	url = git@github.com:vim-airline/vim-airline
-[submodule "vim.symlink/bundle/ctrlp.vim"]
-	path = vim.symlink/bundle/ctrlp.vim
-	url = git@github.com:kien/ctrlp.vim
