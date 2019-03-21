@@ -17,4 +17,3 @@ $DotFilesProfile = Join-Path $Ps1Root "profile.ps1"
 Write-Host "Installing PowerShell Modules ..."
 Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
-Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck

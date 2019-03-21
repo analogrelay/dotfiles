@@ -3,5 +3,6 @@
 
 # Install Scripts to be run (paths relative to the dotfiles root)
 $DotFilesInstallScripts = @(
-    (Join-Path "ps1" "install.ps1")
+    (Join-Path "ps1" "install.ps1"),
+    (Join-Path "git" "install.ps1")
 )

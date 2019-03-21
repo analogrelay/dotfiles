@@ -1,6 +1,5 @@
-[user]
-    name = AUTHORNAME
-    email = AUTHOREMAIL
+[include]
+    path = ~/.dotfiles/git/gitauthor.config
 
 [credential]
     helper = GIT_CREDENTIAL_HELPER

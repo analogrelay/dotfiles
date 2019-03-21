@@ -1,15 +1,15 @@
 Write-Host "Running DotFiles Profile..."
 
 $DotFilesRoot = Split-Path -Parent $PSScriptRoot
-$DotFilesBin = Join-Path $DotFilesRoot "bin"
+$DotFilesBinPath = Join-Path $DotFilesRoot "bin"
+$DotFilesPs1Path = Join-Path $DotFilesRoot "ps1"
 
 # Load Posh-Git and Oh-My-Posh
 Import-Module posh-git
 Import-Module oh-my-posh
-Set-Theme Paradox
 
 # Things that have to run before the '.profile' scripts
-. "$PSScriptROot/path.ps1"
+. "$PSScriptRoot/path.ps1"
 
 # Enlighten the PATH
 Add-PathVariable "$DotFilesRoot\bin"
