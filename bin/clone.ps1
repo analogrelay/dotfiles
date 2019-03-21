@@ -1,27 +1,25 @@
 param([string]$Repo)
 
-if ($Repo.StartsWith("http://") -or $Repo.StartsWith("https://")) {
-    throw "This script can only be used with 'ssh://' URLs or GitHub owner/repo references"
+# Detect input types.
+if ($Repo -match "(ssh://)?git@ssh.dev.azure.com:v3/(?<owner>[a-zA-Z0-9-_]+)/[a-zA-Z0-9-_]+/(?<repo>[a-zA-Z0-9-_)/?") {
+    $Owner = $matches["owner"]
+    $RepoName = $matches["repo"]
 }
-
-if (!$Repo.StartsWith("ssh://")) {
+elseif ($Repo -match "(?<owner>[a-zA-Z0-9-_]+)/(?<repo>[a-zA-Z0-9-_]+)") {
+    $Owner = $matches["owner"]
+    $RepoName = $matches["repo"]
     $Repo = "ssh://git@github.com/$Repo"
 }
-
-$RepoUri = [Uri]$Repo;
-
-# Identify the source
-if ($RepoUri.Host.EndsWith(".visualstudio.com")) {
-    # Parse the owner and repo name:
-    $Owner = "$($RepoUri.UserInfo).visualstudio.com/$($RepoUri.Segments[1].TrimEnd("/"))"
-    $RepoName = $RepoUri.Segments[-1]
+elseif ($Repo -match "(ssh://)?git@github.com/(?<owner>[a-zA-Z0-9-_]+)/(?<repo>[a-zA-Z0-9-_]+)(.git)?/?") {
+    $Owner = $matches["owner"]
+    $RepoName = $matches["repo"]
 }
-elseif (($RepoUri.Host -eq "github.com") -or ($RepoUri.Host -eq "www.github.com")) {
-    $Owner = $RepoUri.Segments[1].TrimEnd("/")
-    $RepoName = $RepoUri.Segments[2].TrimEnd("/")
+elseif ($Repo -match "https://(www\.)?github.com/(?<owner>[a-zA-Z0-9-_]+)/(?<repo>[a-zA-Z0-9-_]+)(.git)?/?") {
+    $Owner = $matches["owner"]
+    $RepoName = $matches["repo"]
 }
 else {
-    throw "Unknown repository URL. Use standard 'git clone' for this"
+    throw "This script can only be used with 'ssh://' URLs or GitHub owner/repo references"
 }
 
 $Container = Join-Path Code:\ $Owner
