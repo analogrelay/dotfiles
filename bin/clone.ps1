@@ -1,7 +1,7 @@
 param([string]$Repo)
 
 # Detect input types.
-if ($Repo -match "(ssh://)?git@ssh.dev.azure.com:v3/(?<owner>[a-zA-Z0-9-_]+)/[a-zA-Z0-9-_]+/(?<repo>[a-zA-Z0-9-_)/?") {
+if ($Repo -match "(ssh://)?git@ssh.dev.azure.com:v3/(?<owner>[a-zA-Z0-9-_]+)/[a-zA-Z0-9-_]+/(?<repo>[a-zA-Z0-9-_]+)/?") {
     $Owner = $matches["owner"]
     $RepoName = $matches["repo"]
 }
@@ -21,6 +21,8 @@ elseif ($Repo -match "https://(www\.)?github.com/(?<owner>[a-zA-Z0-9-_]+)/(?<rep
 else {
     throw "This script can only be used with 'ssh://' URLs or GitHub owner/repo references"
 }
+
+Write-Host "Cloning $Repo into Code:\$Owner\$RepoName"
 
 $Container = Join-Path Code:\ $Owner
 
