@@ -19,3 +19,13 @@ Get-ChildItem $PSScriptRoot -Filter "*.profile.ps1" | ForEach-Object {
     Write-Debug "Loading profile script: $_"
     . "$($_.FullName)"
 }
+
+# Run Post-Profile script actions
+
+# Put our dotnet.exe on the path first
+if ($PSVersionTable["Platform"] -eq "Win32NT") {
+    Add-PathVariable "$env:HOME\.dotnet\x64"
+}
+else {
+    Add-PathVariable "$env:HOME\.dotnet"
+}

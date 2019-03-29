@@ -14,7 +14,9 @@ function global:Test-PathVariable([Parameter(Mandatory = $true, Position = 0)][s
 
 function global:Add-PathVariable([Parameter(Mandatory = $true, Position = 0)][string]$Path, [switch]$Prepend) {
     if (Test-PathVariable $Path) {
-        Write-Verbose "Ignoring request to add '$Path' to PATH environment variable, it already exists"
+        # Remove it and prepend it. The request to "add" is basically a request to move it forward
+        Remove-PathVariable $Path
+        $Prepend = $true
     }
 
     $PathSep = [IO.Path]::PathSeparator
