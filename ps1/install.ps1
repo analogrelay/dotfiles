@@ -8,6 +8,13 @@ if (Test-Path $Profile) {
     }
 }
 
+$ProfileParent = Split-Path -Parent $Profile
+
+if(!(Test-Path $ProfileParent))
+{
+	mkdir $ProfileParent | Out-Null
+}
+
 $Ps1Root = Join-Path $DotFilesRoot "ps1"
 $DotFilesProfile = Join-Path $Ps1Root "profile.ps1"
 

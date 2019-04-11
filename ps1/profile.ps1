@@ -1,5 +1,7 @@
 Write-Host "Running DotFiles Profile..."
 
+$env:HOME = [Environment]::GetFolderPath("UserProfile")
+
 $DotFilesRoot = Split-Path -Parent $PSScriptRoot
 $DotFilesBinPath = Join-Path $DotFilesRoot "bin"
 $DotFilesPs1Path = Join-Path $DotFilesRoot "ps1"

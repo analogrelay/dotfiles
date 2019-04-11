@@ -26,4 +26,4 @@ if (Test-Path $gitConfig) {
     Remove-Item $gitConfig
 }
 
-New-Item -Path $gitConfig -ItemType SymbolicLink -Value $dotfilesGitConfig
+New-Item -Path $gitConfig -ItemType SymbolicLink -Value $dotfilesGitConfig | Out-Null

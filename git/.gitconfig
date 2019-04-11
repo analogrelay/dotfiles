@@ -1,12 +1,9 @@
 [include]
     path = ~/.dotfiles/git/gitauthor.config
 
-[credential]
-    helper = GIT_CREDENTIAL_HELPER
-
 [core]
     excludesfile = "~/.dotfiles/git/gitignore"
-    editor = EDITOR
+    editor = code --wait
 
 [color]
     ui = true
@@ -61,7 +58,7 @@
 
 [diff]
     algorithm = patience
-    tool = DIFFTOOL
+    tool = vscode
 
 [merge]
     tool = MERGETOOL
@@ -71,6 +68,9 @@
 
 [difftool "p4merge"]
     cmd = "p4merge" "$LOCAL" "$REMOTE"
+
+[difftool "vscode"]
+    cmd = "code --wait --diff $LOCAL $REMOTE"
 
 [difftool "vsdiffmerge"]
       cmd = '"%VSINSTALLDIR%Common7/IDE/vsdiffmerge.exe"' "$LOCAL" "$REMOTE" //t
