@@ -5,6 +5,7 @@
     excludesfile = "~/.dotfiles/git/gitignore"
     editor = code --wait
 
+	compression = 0
 [color]
     ui = true
 

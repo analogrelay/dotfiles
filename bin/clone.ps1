@@ -5,7 +5,11 @@ if ($Repo -match "(ssh://)?git@ssh.dev.azure.com:v3/(?<owner>[a-zA-Z0-9-_]+)/[a-
     $Owner = $matches["owner"]
     $RepoName = $matches["repo"]
 }
-elseif ($Repo -match "(?<owner>[a-zA-Z0-9-_]+)/(?<repo>[a-zA-Z0-9-_\.]+)") {
+elseif ($Repo -match "(ssh://)?[A-Za-z]@vs-ssh.visualstudio.com:v3/(?<owner>[a-zA-Z0-9-_]+)/[a-zA-Z0-9-_]+/(?<repo>[a-zA-Z0-9-_]+)/?") {
+    $Owner = $matches["owner"]
+    $RepoName = $matches["repo"]
+}
+elseif ($Repo -match "(?<owner>[a-zA-Z0-9-_]+)/(?<repo>[a-zA-Z0-9-_]+)") {
     $Owner = $matches["owner"]
     $RepoName = $matches["repo"]
     $Repo = "ssh://git@github.com/$Repo"
