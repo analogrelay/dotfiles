@@ -2,7 +2,7 @@ param(
     [switch]$Debug
 )
 
-if($PSVersionTable.PSEdition -ne "Core") {
+if ($PSVersionTable.PSEdition -ne "Core") {
     throw "Dotfiles requires PowerShell Core"
 }
 
