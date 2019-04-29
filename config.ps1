@@ -8,3 +8,9 @@ $DotFilesInstallScripts = @(
     (Join-Path "conemu" "install.ps1"),
     (Join-Path "fonts" "install.ps1")
 )
+
+$DotFilesPowerShellModules = @(
+    "posh-git",
+    "oh-my-posh",
+    "PS-Tokens"
+)

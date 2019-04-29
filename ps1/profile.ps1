@@ -1,14 +1,26 @@
 Write-Host "Running DotFiles Profile..."
 
+# Load config
+. "$PSScriptRoot\..\config.ps1"
+
 $env:HOME = [Environment]::GetFolderPath("UserProfile")
 
 $DotFilesRoot = Split-Path -Parent $PSScriptRoot
 $DotFilesBinPath = Join-Path $DotFilesRoot "bin"
 $DotFilesPs1Path = Join-Path $DotFilesRoot "ps1"
 
+# Configure Module Path
+$LocalModulePath = Join-Path $PSScriptRoot "modules"
+$env:PSModulePath="$(Convert-Path $LocalModulePath)$([IO.Path]::PathSeparator)$env:PSModulePath"
+
 # Load Posh-Git and Oh-My-Posh
-Import-Module posh-git
-Import-Module oh-my-posh
+$DotFilesPowerShellModules | ForEach-Object {
+    if (!(Get-Module -ListAvailable $_)) {
+        Write-Host "Installing module '$_' ..."
+        Install-Module $_ -Scope CurrentUser
+    }
+    Import-Module $_
+}
 
 # Things that have to run before the '.profile' scripts
 . "$PSScriptRoot/path.ps1"

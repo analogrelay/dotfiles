@@ -19,8 +19,3 @@ $Ps1Root = Join-Path $DotFilesRoot "ps1"
 $DotFilesProfile = Join-Path $Ps1Root "profile.ps1"
 
 ". $DotFilesProfile" | Out-File -FilePath $profile -Encoding UTF8
-
-# Install Modules
-Write-Host "Installing PowerShell Modules ..."
-Install-Module posh-git -Scope CurrentUser
-Install-Module oh-my-posh -Scope CurrentUser
