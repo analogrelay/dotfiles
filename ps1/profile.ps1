@@ -11,7 +11,7 @@ $DotFilesPs1Path = Join-Path $DotFilesRoot "ps1"
 
 # Configure Module Path
 $LocalModulePath = Join-Path $PSScriptRoot "modules"
-$env:PSModulePath="$(Convert-Path $LocalModulePath)$([IO.Path]::PathSeparator)$env:PSModulePath"
+$env:PSModulePath = "$(Convert-Path $LocalModulePath)$([IO.Path]::PathSeparator)$env:PSModulePath"
 
 # Load Posh-Git and Oh-My-Posh
 $DotFilesPowerShellModules | ForEach-Object {
@@ -38,8 +38,8 @@ Get-ChildItem $PSScriptRoot -Filter "*.profile.ps1" | ForEach-Object {
 
 # Put our dotnet.exe on the path first
 if ($PSVersionTable["Platform"] -eq "Win32NT") {
-    Add-PathVariable "$env:HOME\.dotnet\x64"
+    Add-PathVariable -Prepend "$env:HOME\.dotnet\x64"
 }
 else {
-    Add-PathVariable "$env:HOME\.dotnet"
+    Add-PathVariable -Prepend "$env:HOME\.dotnet"
 }

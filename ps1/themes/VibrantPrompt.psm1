@@ -1,6 +1,9 @@
 #requires -Version 2 -Modules posh-git
 # Based heavily on Paradox theme
 
+$programFilesPath = Join-Path $env:ProgramFiles "dotnet\dotnet.exe"
+$userLocalPath = Join-Path $env:USERPROFILE ".dotnet\x64\dotnet.exe"
+
 function Write-Theme {
     param(
         [bool]
@@ -8,6 +11,23 @@ function Write-Theme {
         [string]
         $with
     )
+
+    # Check where dotnet.exe is
+    $dotnetHive = "<none>"
+    $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
+    if ($dotnetCommand) {
+        if ($dotnetCommand.Source -eq $programFilesPath) {
+            $dotnetHive = "Machine"
+        }
+        elseif ($dotnetCommand.Source -eq $userLocalPath) {
+            $dotnetHive = "User"
+        }
+        elseif ($dotnetCommand.Source.StartsWith((Convert-Path Code:\))) {
+            # Repo-local
+            $repoName = Split-Path -Leaf (Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $dotnetCommand.Source)))
+            $dotnetHive = "Repo:$repoName"
+        }
+    }
 
     $lastColor = $sl.Colors.PromptBackgroundColor
     $prompt = Write-Prompt -Object $sl.PromptSymbols.StartSymbol -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
@@ -35,7 +55,7 @@ function Write-Theme {
     if (Get-Command dotnet -ErrorAction SilentlyContinue) {
         $dotnetVersion = dotnet --version
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.DotNetSymbol) $dotnetVersion " -ForegroundColor $sl.Colors.DotNetForegroundColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
+        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.DotNetSymbol) $dotnetVersion ($dotnetHive) " -ForegroundColor $sl.Colors.DotNetForegroundColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.DOtNetBackgroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
     }
     else {
