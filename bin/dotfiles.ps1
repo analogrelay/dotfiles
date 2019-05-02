@@ -99,6 +99,9 @@ function dotfiles-sync {
         git pull --rebase origin master
         git push origin master
     }
+
+    Write-Host "Reloading profile"
+    . $profile
 }
 
 <#
