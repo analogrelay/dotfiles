@@ -13,6 +13,19 @@ fi
 if ! has zsh; then
     echo "Installing ZSH ..."
     installpkg zsh
+else
+    echo "ZSH already installed"
 fi
 
 # Install oh-my-zsh
+if [ ! -d ~/.oh-my-zsh ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+else
+    echo "oh-my-zsh already installed"
+fi
+
+# Symlink zshrc
+if [ -e ~/.zshrc ]; then
+    rm ~/.zshrc
+fi
+ln -s ~/.dotfiles/zsh/zshrc.sh ~/.zshrc

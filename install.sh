@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 DOTFILES_ROOT="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $DOTFILES_ROOT
 
