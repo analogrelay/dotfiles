@@ -2,8 +2,8 @@ if (!$DotFilesInstalling) { throw "This script should only be run during dotfile
 
 Write-Host "Configuring Git..."
 
-$authorName = Read-Host " - What is your github author name?"
-$authorEmail = Read-Host " - What is your github author email?"
+$authorName = Read-Host " - What is your Git author name?"
+$authorEmail = Read-Host " - What is your Git author email?"
 
 $configBlob = @"
 [user]

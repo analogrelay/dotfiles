@@ -262,4 +262,4 @@ build_prompt() {
 }
 
 PROMPT=$'%{%f%b%k%}$(build_prompt) 
-\u3009 '
+zsh \u3009 '

@@ -9,14 +9,6 @@ fi
 # We're guaranteed to be running in the dotfiles repo root
 . "./zsh/_utils.sh"
 
-# Install ZSH if not already present
-if ! has zsh; then
-    echo "Installing ZSH ..."
-    installpkg zsh
-else
-    echo "ZSH already installed"
-fi
-
 # Install oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

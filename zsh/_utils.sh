@@ -45,3 +45,7 @@ installpkg() {
         echo "Unsupported OS!" 1>&2
     fi
 }
+
+confirm() {
+    read -q "?$1 [y/N]"
+}
