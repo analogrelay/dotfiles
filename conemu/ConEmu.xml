@@ -508,10 +508,10 @@
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="Cmd2" type="string" data='outbash -cur_console:p1 -c "/usr/bin/zsh"'/>
 				</key>
-				<key name="Task3" modified="2018-11-03 20:43:22" build="180626">
-					<value name="Name" type="string" data="{ubuntu}"/>
+				<key name="Task3" modified="2019-05-07 10:12:48" build="190331">
+					<value name="Name" type="string" data="{wsl}"/>
 					<value name="GuiArgs" type="string" data='-icon "%USERPROFILE%\AppData\Local\lxss\bash.ico"'/>
-					<value name="Cmd1" type="string" data="wsl.exe -d Ubuntu -new_console:p5"/>
+					<value name="Cmd1" type="string" data="wsl.exe -new_console:p5"/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Flags" type="dword" data="00000004"/>
@@ -993,6 +993,8 @@
 			<value name="StatusBar.Hide.WMode" type="hex" data="01"/>
 			<value name="Language" type="string" data="en"/>
 			<value name="RestoreInactive" type="hex" data="00"/>
+			<value name="AnsiLogCodes" type="hex" data="00"/>
+			<value name="AutoTrimSingleLine" type="hex" data="00"/>
 		</key>
 	</key>
 </key>

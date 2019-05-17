@@ -91,4 +91,5 @@
     cmd = "winmergeu" -u -e -dl \"Local\" -dr \"Remote\" "$LOCAL" "$REMOTE" "$MERGED"
 
 [http]
-    postBuffer = 524288000
+	postBuffer = 1048576000
+	maxRequestBuffer = 100M
