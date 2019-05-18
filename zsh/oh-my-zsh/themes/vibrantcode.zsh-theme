@@ -32,11 +32,40 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
+# Icons
+typeset -A vc_icons
+vc_icons=([dotnet]="\ue77f" [rust]="\ue7a8")
+
+# Color table
+typeset -A vc_color_base
+vc_color_base=([black]=0 [red]=1 [green]=2 [yellow]=3 [blue]=4 [magenta]=5 [cyan]=6 [white]=7 [default]=9)
+
+typeset -A vc_color
+for color_base in ${(k)vc_color_base}; do
+  vc_color[$color_base]=$(($vc_color_base[$color_base] + 30))
+
+  if [ "$color_name" != "default" ]; then
+    vc_color[bright_$color_base]=$(($vc_color_base[$color_base] + 90))
+  fi
+done
+
+# Don't need the color base variable anymore
+unset vc_color_base
+
+typeset -A vc_fg
+typeset -A vc_bg
+for color_name in ${(k)vc_color}; do
+  vc_fg[$color_name]=$(echo "\e[$vc_color[$color_name]m")
+  vc_bg[$color_name]=$(echo "\e[$(($vc_color[$color_name] + 10))m")
+done
+
+ansi_reset=$(echo "\e[0m")
+
 CURRENT_BG='NONE'
 
 case ${SOLARIZED_THEME:-dark} in
-    light) CURRENT_FG='white';;
-    *)     CURRENT_FG='black';;
+  light) CURRENT_FG='white';;
+  *)     CURRENT_FG='black';;
 esac
 
 # Special Powerline characters
@@ -60,26 +89,27 @@ esac
 # Takes two arguments, background and foreground. Both can be omitted,
 # rendering default background/foreground.
 prompt_segment() {
-  local bg fg
-  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
-  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  local bgc fgc
+  [[ -n $1 ]] && bgc="$1" || bgc="default"
+  [[ -n $2 ]] && fgc="$2" || fgc="default"
+
   if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
+    echo -n " $vc_fg[$CURRENT_BG]$vc_bg[$bgc]$SEGMENT_SEPARATOR $vc_fg[$fgc]"
   else
-    echo -n "%{$bg%}%{$fg%} "
+    echo -n "$vc_bg[$bgc]$vc_fg[$fgc] "
   fi
-  CURRENT_BG=$1
+  CURRENT_BG=$bgc
   [[ -n $3 ]] && echo -n $3
 }
 
 # End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+    echo -n " $vc_bg[default]$vc_fg[$CURRENT_BG]$SEGMENT_SEPARATOR"
   else
-    echo -n "%{%k%}"
+    echo -n "$vc_bg[default]"
   fi
-  echo -n "%{%f%}"
+  echo -n "$vc_fg[default]"
   CURRENT_BG=''
 }
 
@@ -89,7 +119,7 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)%n@%m"
+    prompt_segment black white "%(!.%{%F{yellow}%}.)%n@%m"
   fi
 }
 
@@ -111,7 +141,7 @@ prompt_git() {
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
     if [[ -n $dirty ]]; then
-      prompt_segment yellow black
+      prompt_segment bright_yellow black
     else
       prompt_segment green $CURRENT_FG
     fi
@@ -198,20 +228,18 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment cyan $CURRENT_FG '%~'
+  prompt_segment cyan white '%~'
+}
+
+prompt_rust() {
+  if type -p rustc >/dev/null; then
+    prompt_segment red white "$vc_icons[rust] $(rustc --version | awk '{print $2}')"
+  fi
 }
 
 prompt_dotnet() {
   if type -p dotnet >/dev/null; then
-    prompt_segment blue white "dotnet"
-  fi
-}
-
-# Virtualenv: current working virtualenv
-prompt_virtualenv() {
-  local virtualenv_path="$VIRTUAL_ENV"
-  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment blue black "(`basename $virtualenv_path`)"
+    prompt_segment blue white "$vc_icons[dotnet] $(dotnet --version)"
   fi
 }
 
@@ -223,37 +251,23 @@ prompt_status() {
   local -a symbols
 
   if [[ $RETVAL -ne 0 ]]; then
-    symbols+="%{%F{red}%}✘"
+    symbols+="$vc_fg[red]✘"
   else 
-    symbols+="%{%F{green}%}✓"
+    symbols+="$vc_fg[bright_green]✓"
   fi
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+  [[ $UID -eq 0 ]] && symbols+="$vc_fg[yellow]⚡"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="$vc_fg[cyan]⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
-}
-
-#AWS Profile:
-# - display current AWS_PROFILE name
-# - displays yellow on red if profile name contains 'production' or
-#   ends in '-prod'
-# - displays black on green otherwise
-prompt_aws() {
-  [[ -z "$AWS_PROFILE" ]] && return
-  case "$AWS_PROFILE" in
-    *-prod|*production*) prompt_segment red yellow  "AWS: $AWS_PROFILE" ;;
-    *) prompt_segment green black "AWS: $AWS_PROFILE" ;;
-  esac
+  [[ -n "$symbols" ]] && prompt_segment black white "$symbols"
 }
 
 ## Main prompt
 build_prompt() {
   RETVAL=$?
   prompt_status
-  prompt_virtualenv
-  prompt_aws
   prompt_context
   prompt_dotnet
+  prompt_rust
   prompt_dir
   prompt_git
   prompt_bzr
