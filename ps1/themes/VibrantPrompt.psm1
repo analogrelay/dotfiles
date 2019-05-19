@@ -12,6 +12,20 @@ function Write-Theme {
         $with
     )
 
+    $OsSymbol = $sl.PromptSymbols.WindowsSymbol
+    if ($PsVersionTable.Platform -eq "Unix") {
+        $uname = uname
+        if ($uname -eq "Linux") {
+            $OsSymbol = $sl.PromptSymbols.LinuxSymbol
+            if ((uname -r) -match ".*Microsoft$") {
+                $OsSymbol = "$OsSymbol on $($sl.PromptSymbols.WindowsSymbol)"
+            }
+        }
+        elseif ($uname -eq "Darwin") {
+            $OsSymbol = $sl.PromptSymbols.AppleSymbol
+        }
+    }
+
     # Check where dotnet.exe is
     $dotnetHive = "<none>"
     $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
@@ -49,7 +63,7 @@ function Write-Theme {
     $computer = [System.Environment]::MachineName
     $path = Get-FullPath -dir $pwd
     if (Test-NotDefaultUser($user)) {
-        $prompt += Write-Prompt -Object "$user@$computer " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+        $prompt += Write-Prompt -Object "$user@$computer $OsSymbol " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
     }
 
     if (Get-Command dotnet -ErrorAction SilentlyContinue) {
@@ -87,16 +101,20 @@ function Write-Theme {
     if ($with) {
         $prompt += Write-Prompt -Object "$($with.ToUpper()) " -BackgroundColor $sl.Colors.WithBackgroundColor -ForegroundColor $sl.Colors.WithForegroundColor
     }
-    $prompt += Write-Prompt -Object ($sl.PromptSymbols.PromptIndicator) -ForegroundColor $sl.Colors.PromptBackgroundColor
+    $prompt += Write-Prompt -Object "ps1 $($sl.PromptSymbols.PromptIndicator)" -ForegroundColor $sl.Colors.PromptBackgroundColor
     $prompt += ' '
     $prompt
 }
 
 $sl = $global:ThemeSettings #local settings
 $sl.PromptSymbols.StartSymbol = ''
-$sl.PromptSymbols.PromptIndicator = [char]::ConvertFromUtf32(0x3009)
+$sl.PromptSymbols.PromptIndicator = "$"
 $sl.PromptSymbols.SegmentForwardSymbol = [char]::ConvertFromUtf32(0xE0B0)
-$sl.PromptSymbols.DotNetSymbol = [char]::ConvertFromUtf32(0xE70C)
+$sl.PromptSymbols.DotNetSymbol = [char]::ConvertFromUtf32(0xE77F)
+$sl.PromptSymbols.RustSymbol = [char]::ConvertFromUtf32(0xE7A8)
+$sl.PromptSymbols.WindowsSymbol = [char]::ConvertFromUtf32(0xE70F)
+$sl.PromptSymbols.LinuxSymbol = [char]::ConvertFromUtf32(0xE712)
+$sl.PromptSymbols.AppleSymbol = [char]::ConvertFromUtf32(0xE711)
 $sl.PromptSymbols.SucceededCommandSymbol = [char]::ConvertFromUtf32(0x2713)
 $sl.PromptSymbols.FailedCommandSymbol = [char]"x"
 $sl.Colors.PromptForegroundColor = [ConsoleColor]::White
