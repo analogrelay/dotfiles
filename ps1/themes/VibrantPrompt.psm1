@@ -66,24 +66,32 @@ function Write-Theme {
         $prompt += Write-Prompt -Object "$user@$computer $OsSymbol " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
     }
 
+    $lastColor = $sl.Colors.SessionInfoBackgroundColor
     if (Get-Command dotnet -ErrorAction SilentlyContinue) {
         $dotnetVersion = dotnet --version
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
+        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $lastColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
+        $lastColor = $sl.Colors.DotNetBackgroundColor
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.DotNetSymbol) $dotnetVersion ($dotnetHive) " -ForegroundColor $sl.Colors.DotNetForegroundColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.DOtNetBackgroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
-    }
-    else {
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
     }
 
+    if (Get-Command rustc -ErrorAction SilentlyContinue) {
+        $rustVersion = (rustc --version).Split()[1]
+        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $lastColor -BackgroundColor $sl.Colors.RustBackgroundColor
+        $lastColor = $sl.Colors.RustBackgroundColor
+        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.RustSymbol) $rustVersion " -ForegroundColor $sl.Colors.RustForegroundColor -BackgroundColor $sl.Colors.RustBackgroundColor
+    }
+
+    $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $lastColor -BackgroundColor $sl.Colors.PathBackgroundColor
+    $lastColor = $sl.Colors.PathBackgroundColor
+
     # Writes the drive portion
-    $prompt += Write-Prompt -Object "$path " -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
+    $prompt += Write-Prompt -Object "$path " -ForegroundColor $sl.Colors.PathForegroundColor -BackgroundColor $sl.Colors.PathBackgroundColor
 
     $status = Get-VCSStatus
     if ($status) {
         $themeInfo = Get-VcsInfo -status ($status)
         $lastColor = $themeInfo.BackgroundColor
-        $prompt += Write-Prompt -Object $($sl.PromptSymbols.SegmentForwardSymbol) -ForegroundColor $sl.Colors.PromptBackgroundColor -BackgroundColor $lastColor
+        $prompt += Write-Prompt -Object $($sl.PromptSymbols.SegmentForwardSymbol) -ForegroundColor $sl.Colors.PathBackgroundColor -BackgroundColor $lastColor
         $prompt += Write-Prompt -Object " $($themeInfo.VcInfo) " -BackgroundColor $lastColor -ForegroundColor $sl.Colors.GitForegroundColor
     }
 
@@ -128,3 +136,7 @@ $sl.Colors.VirtualEnvForegroundColor = [System.ConsoleColor]::White
 $sl.Colors.DotNetBackgroundColor = [System.ConsoleColor]::DarkBlue
 $sl.Colors.DotNetForegroundColor = [System.ConsoleColor]::White
 $sl.Colors.CommandSucceededIconForegroundColor = [System.ConsoleColor]::Green
+$sl.Colors.PathForegroundColor = [ConsoleColor]::White
+$sl.Colors.PathBackgroundColor = [ConsoleColor]::DarkCyan
+$sl.Colors.RustForegroundColor = [ConsoleColor]::White
+$sl.Colors.RustBackgroundColor = [ConsoleColor]::DarkRed
