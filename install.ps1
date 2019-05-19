@@ -6,6 +6,10 @@ if ($PSVersionTable.PSEdition -ne "Core") {
     throw "Dotfiles requires PowerShell Core"
 }
 
+if($PSVersionTable.Platform -eq "Unix") {
+    throw "Use the 'install.sh' script to install on Unix. After installing, the PowerShell profile in .dotfiles WILL STILL apply to PowerShell on Unix!"
+}
+
 $env:HOME = [Environment]::GetFolderPath("UserProfile")
 
 . "$PSScriptRoot/ps1/utils.ps1"

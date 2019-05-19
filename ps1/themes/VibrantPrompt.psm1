@@ -1,8 +1,13 @@
 #requires -Version 2 -Modules posh-git
 # Based heavily on Paradox theme
 
-$programFilesPath = Join-Path $env:ProgramFiles "dotnet\dotnet.exe"
-$userLocalPath = Join-Path $env:USERPROFILE ".dotnet\x64\dotnet.exe"
+if($PsVersionTable.Platform -eq "Win32NT") {
+    $machinePath = Join-Path $env:ProgramFiles "dotnet\dotnet.exe"
+    $userLocalPath = Join-Path $env:USERPROFILE ".dotnet\x64\dotnet.exe"
+} else {
+    $machinePath = "/usr/bin/dotnet"
+    $userLocalPath = "$env:HOME/.dotnet/dotnet"
+}
 
 function Write-Theme {
     param(
@@ -18,7 +23,7 @@ function Write-Theme {
         if ($uname -eq "Linux") {
             $OsSymbol = $sl.PromptSymbols.LinuxSymbol
             if ((uname -r) -match ".*Microsoft$") {
-                $OsSymbol = "$OsSymbol on $($sl.PromptSymbols.WindowsSymbol)"
+                $OsSymbol = "$OsSymbol (on $($sl.PromptSymbols.WindowsSymbol))"
             }
         }
         elseif ($uname -eq "Darwin") {
@@ -30,7 +35,7 @@ function Write-Theme {
     $dotnetHive = "<none>"
     $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
     if ($dotnetCommand) {
-        if ($dotnetCommand.Source -eq $programFilesPath) {
+        if ($dotnetCommand.Source -eq $machinePath) {
             $dotnetHive = "Machine"
         }
         elseif ($dotnetCommand.Source -eq $userLocalPath) {

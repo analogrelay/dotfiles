@@ -1,27 +1,23 @@
 # Setup drives
-New-PSDrive -Name Home -Root "$env:USERPROFILE" -PSProvider FileSystem | Out-Null
-
-if ($DotFilesRoot) {
+if ($DotFilesRoot -and (!(Test-Path DotFiles:\))) {
     New-PSDrive -Name DotFiles -Root $DotFilesRoot -PSProvider FileSystem | Out-Null
 }
 
-if (Test-Windows) {
+if($PSVersionTable.Platform -eq "Win32NT") {
     $CodeDir = "C:\Code"
+    $ProfileCodeDir = Join-Path $env:USERPROFILE "Code"
+    if (Test-Path $ProfileCodeDir) {
+        Write-Warning "Code directory is in $ProfileCodeDir. This is deprecated as it has long path problems on Windows."
+        $CodeDir = $ProfileCodeDir
+    }
+} else {
+    $CodeDir = "$env:HOME/code"
+}
+
+if(!(Test-Path Code:\)) {
     if (!(Test-Path $CodeDir)) {
-        $ProfileCodeDir = Join-Path $env:USERPROFILE "Code"
-        if (Test-Path $ProfileCodeDir) {
-            Write-Warning "Code directory is in $ProfileCodeDir. This is deprecated as it has long path problems on Windows."
-            $CodeDir = $ProfileCodeDir
-        } else {
-            Write-Host "Creating code directory: $CodeDir"
-            mkdir $CodeDir | Out-Null
-        }
+        Write-Host "Creating code directory: $CodeDir"
+        New-Item -Type Directory $CodeDir | Out-Null
     }
     New-PSDrive -Name Code -Root $CodeDir -PSProvider FileSystem | Out-Null
 }
-
-if ($env:ACQYRE_LIBRARY -and (Test-Path "$env:ACQYRE_LIBRARY")) {
-    New-PSDrive -Name Library -Root "$env:ACQYRE_LIBRARY" -PSProvider FileSystem | Out-Null
-}
-
-New-PSDrive -Name Desktop -Root ([Environment]::GetFolderPath("Desktop")) -PSProvider FileSystem | Out-Null

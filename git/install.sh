@@ -23,5 +23,5 @@ if [ -f ~/.gitconfig ]; then
 fi
 
 if [ ! -f ~/.gitconfig ]; then
-    ln ~/.dotfiles/git/.gitconfig ~/.gitconfig
+    ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
 fi

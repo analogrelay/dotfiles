@@ -1,3 +1,7 @@
+if ($PSVersionTable.Platform -ne "Win32NT") {
+    return;
+}
+
 $VsWhereUrl = "https://github.com/Microsoft/vswhere/releases/download/2.6.7/vswhere.exe"
 if (!(Get-Command vswhere -ErrorAction SilentlyContinue)) {
     Write-Host "Installing vswhere..."
