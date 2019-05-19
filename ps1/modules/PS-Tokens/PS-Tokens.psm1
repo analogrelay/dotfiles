@@ -18,8 +18,10 @@ if ($PSVersionTable.Platform -eq "Win32NT") {
     }
 }
 else {
-    Write-Warning "WARNING: ProtectedData is not supported on non-Windows platforms. Tokens will be stored in plaintext."
-    function _ProtectValue([string]$input) { $input }
+    function _ProtectValue([string]$input) {
+        Write-Warning "ProtectedData is not supported on non-Windows platforms. Tokens are stored in plaintext."
+        $input
+    }
     function _UnprotectValue([string]$input) { $input }
 }
 
