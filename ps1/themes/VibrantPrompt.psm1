@@ -130,6 +130,7 @@ $sl.Colors.PromptSymbolColor = [ConsoleColor]::White
 $sl.Colors.PromptHighlightColor = [ConsoleColor]::DarkBlue
 $sl.Colors.GitForegroundColor = [ConsoleColor]::Black
 $sl.Colors.GitNoLocalChangesAndAheadColor = [ConsoleColor]::Green
+$sl.Colors.GitDefaultColor = [ConsoleColor]::Green
 $sl.Colors.WithForegroundColor = [ConsoleColor]::DarkRed
 $sl.Colors.WithBackgroundColor = [ConsoleColor]::Magenta
 $sl.Colors.VirtualEnvBackgroundColor = [System.ConsoleColor]::Red
