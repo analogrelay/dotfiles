@@ -216,5 +216,9 @@ build_prompt() {
   prompt_end
 }
 
+final_prompt() {
+  echo -n "$vc_fg[magenta]zsh \$$vc_fg[default]"
+}
+
 PROMPT=$'%{%f%b%k%}$(build_prompt) 
-zsh $ '
+$(final_prompt) '
