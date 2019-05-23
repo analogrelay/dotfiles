@@ -7,13 +7,16 @@ $DefaultGitHubEndpoint = "https://api.github.com/graphql"
 
 $UnixEpoch = [DateTimeOffset]"01-01-1970Z"
 
-function _InvokeGql([PsGitHub.GitHubContext]$context, [Parameter(ValueFromPipeline = $true)]$query) {
+function _InvokeGql([PsGitHub.GitHubContext]$context, [Parameter(ValueFromPipeline = $true)]$query, [Hashtable]$Parameters) {
     $headers = @{
         "Authorization" = "Bearer $($context.AccessToken)";
     }
     $request = @{
         "query" = $query;
+        "variables" = $Parameters;
     } | ConvertTo-Json
+
+    Write-Debug "Sending GraphQL Request: $request"
 
     $response = Invoke-WebRequest "$($context.Endpoints.GraphQl)" -Headers $headers -Body $request -Method POST
 
@@ -126,16 +129,21 @@ function Get-GitHubContext() {
 .SYNOPSIS
     Executes a GraphQL query or mutation against the provided GitHub context.
 .PARAMETER Query
-    The GraphQL query or mutation to perform.
+    The GraphQL query or mutation to perform, or the path to to a file containing a query.
 .PARAMETER Context
     The GitHub context to use to invoke the query. Defaults to the active context, as returned by 'Get-GitHubContext'
 #>
 function Get-GitHubGraphQlObject() {
     param(
-        [Parameter(Mandatory = $true)][string]$Query,
-        [Parameter(Mandatory = $false)][GitHubContext]$Context
+        [Parameter(Mandatory = $true, Position = 0)][string]$Query,
+        [Parameter(Mandatory = $false)][PsGitHub.GitHubContext]$Context,
+        [Parameter(Mandatory = $false)][Hashtable]$Parameters = @{ }
     )
 
+    if (Test-Path $Query) {
+        $Query = Get-Content -Raw $Query
+    }
+
     $Context = _EnsureContext $Context
-    _InvokeGql $Context $Query
+    _InvokeGql $Context $Query $Parameters
 }
