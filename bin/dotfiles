@@ -15,6 +15,23 @@ global_usage() {
     err "Commands:"
     err "  help        Shows this help message, or help for a specific command."
     err "  sync        Synchronizes the latest changes from the origin."
+    err "  commit      Commits changes to the dotfiles to the Git repo."
+    err "  edit        Opens the dotfiles in Visual Studio Code."
+    err "  exec        Executes a command in the dotfiles folder."
+}
+
+command_exec_usage() {
+    err "Executes a command in the dotfiles folder."
+    err ""
+    err "Usage: dotfiles exec <COMMAND...>"
+    err ""
+    err "Arguments:"
+    err "   <COMMAND...>   The command to execute"
+}
+
+command_exec() {
+    cd ~/.dotfiles
+    "$@"
 }
 
 command_commit_usage() {
@@ -36,6 +53,17 @@ command_commit() {
     git add -An
     git add -A
     git commit -m"$message"
+}
+
+command_edit_usage() {
+    err "Opens the dotfiles in Visual Studio Code."
+    err ""
+    err "Usage: dotfiles edit"
+}
+
+command_edit() {
+    cd ~/.dotfiles
+    code-insiders .
 }
 
 command_sync_usage() {
@@ -73,6 +101,12 @@ command_help() {
             "commit")
                 command_commit_usage
                 ;;
+            "edit")
+                command_edit_usage
+                ;;
+            "exec")
+                command_exec_usage
+                ;;
         esac
     fi
 }
@@ -93,6 +127,12 @@ case "$command" in
         ;;
     "commit")
         command_commit "$@"
+        ;;
+    "edit")
+        command_edit "$@"
+        ;;
+    "exec")
+        command_exec "$@"
         ;;
     *)
         global_usage
