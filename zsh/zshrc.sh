@@ -94,3 +94,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Run other ZSH scripts
+for file in `find "$HOME/.dotfiles/zsh/zshrc.d" -type f -name "*.sh"`; do
+    source $file
+done

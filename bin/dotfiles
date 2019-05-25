@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+err() {
+    echo "$@" 1>&2
+}
+
+fail() {
+    err "$@"
+    exit 1
+}
+
+global_usage() {
+    err "Usage: dotfiles [command] [options]"
+    err ""
+    err "Commands:"
+    err "  help        Shows this help message, or help for a specific command."
+    err "  sync        Synchronizes the latest changes from the origin."
+}
+
+command_commit_usage() {
+    err "Commits changes to the dotfiles to the Git repo."
+    err ""
+    err "Usage: dotfiles commit <MESSAGE>"
+    err ""
+    err "Arguments:"
+    err "   <MESSAGE>   The commit message to use. Defaults to 'dotfiles changes'"
+}
+
+command_commit() {
+    local message="$1"
+    if [ -z "$message" ]; then
+        message="dotfiles changes"
+    fi
+
+    cd ~/.dotfiles
+    git add -A
+    git commit -m"$message"
+}
+
+command_sync_usage() {
+    err "Synchronizes the latest changes from the origin"
+    err ""
+    err "Usage: dotfiles sync"
+}
+
+command_sync() {
+    err "TODO"
+}
+
+command_help_usage() {
+    err "Shows a list of commands, or help for a specific command."
+    err ""
+    err "Usage: dotfiles help <COMMAND>"
+    err ""
+    err "Arguments:"
+    err "  <COMMAND>   If specified, gets help for a specific command"
+}
+
+command_help() {
+    if [ -z "$1" ]; then
+        global_usage
+    else
+        case "$1" in
+            "help")
+                command_help_usage
+                ;;
+            "sync")
+                command_sync_usage
+                ;;
+            "commit")
+                command_commit_usage
+                ;;
+        esac
+    fi
+}
+## Parse the command
+if [ $# == 0 ]; then
+    global_usage
+    fail "error: Please specify a command"
+fi
+
+command="$1"
+shift
+case "$command" in
+    "help") 
+        command_help "$@"
+        ;;
+    "sync")
+        command_sync "$@"
+        ;;
+    "commit")
+        command_commit "$@"
+        ;;
+    *)
+        global_usage
+        fail "error: Unknown command: $command"
+esac
