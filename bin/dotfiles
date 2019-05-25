@@ -33,6 +33,7 @@ command_commit() {
     fi
 
     cd ~/.dotfiles
+    git add -An
     git add -A
     git commit -m"$message"
 }
@@ -44,7 +45,9 @@ command_sync_usage() {
 }
 
 command_sync() {
-    err "TODO"
+    cd ~/.dotfiles
+    git pull --rebase origin master
+    git push origin master
 }
 
 command_help_usage() {
