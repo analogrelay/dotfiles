@@ -7,6 +7,7 @@ $DotFilesInstallScripts = @(
     (Join-Path "git" "install.ps1"),
     (Join-Path "conemu" "install.ps1"),
     (Join-Path "fonts" "install.ps1")
+    (Join-Path "vscode" "install.ps1")
 )
 
 $DotFilesPowerShellModules = @(

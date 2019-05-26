@@ -5,7 +5,11 @@
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
     "editor.formatOnPaste": true,
-    "editor.fontFamily": "SauceCodePro NF, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontWeight": "200",
+    "debug.allowBreakpointsEverywhere": true,
+    "terminal.integrated.fontFamily": "'FuraCode NF', 'Fira Code', Consolas, 'Courier New', monospace",
     "editor.codeLens": false,
     "csharp.suppressDotnetRestoreNotification": true,
     "typescript.check.tscVersion": false,
@@ -25,5 +29,5 @@
     "vim.enableNeovim": true,
     "vim.neovimPath": "C:\\Users\\anurse\\scoop\\apps\\neovim\\current\\Neovim\\bin\\nvim.exe",
     "editor.minimap.enabled": false,
-    "C_Cpp.loggingLevel": "Debug"
+    "C_Cpp.loggingLevel": "Debug",
 }
