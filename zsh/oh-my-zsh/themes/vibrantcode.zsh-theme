@@ -176,7 +176,12 @@ prompt_dir() {
 
 prompt_rust() {
   if type -p rustc >/dev/null; then
-    prompt_segment red white "$vc_icons[rust] $(rustc --version | awk '{print $2}')"
+    if rustc --version | grep nightly >/dev/null; then
+      rustver=$(rustc --version | awk '{print $2, $3, $4}')
+    else
+      rustver=$(rustc --version | awk '{print $2}')
+    fi
+    prompt_segment red white "$vc_icons[rust] $rustver"
   fi
 }
 

@@ -95,6 +95,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# If we're in WSL, source the wsl script
+if uname -r | grep Microsoft >/dev/null; then
+    source "$HOME/.dotfiles/zsh/wsl.zshrc"
+fi
+
 # Run other ZSH scripts
 for file in `find "$HOME/.dotfiles/zsh/zshrc.d" -type f -name "*.sh"`; do
     source $file
