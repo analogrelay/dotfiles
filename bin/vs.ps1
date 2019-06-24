@@ -3,7 +3,8 @@ param(
     [Parameter(Mandatory = $false, Position = 1)][string]$Version,
     [Parameter(Mandatory = $false)][switch]$Elevated,
     [Parameter(Mandatory = $false)][switch]$WhatIf,
-    [Parameter(Mandatory = $false)][switch]$NoPrerelease)
+    [Parameter(Mandatory = $false)][switch]$NoPrerelease,
+    [Parameter(Mandatory = $false)][switch]$DoNotLoadProjects)
 
 function VersionSegmentMatch([int]$requirement, [int]$target) {
     ($requirement -eq -1) -or ($requirement -eq $target)
@@ -35,7 +36,16 @@ elseif (!$Solution.EndsWith(".sln")) {
 
 $devenvargs = @();
 if (!(Test-Path $Solution)) {
-    Write-Host "Could not find any solutions. Launching VS without opening a solution."
+    $projs = @(dir "*.csproj")
+    if($projs.Length -eq 1) {
+        $Solution = $projs[0]
+    }
+    elseif($projs.Length -gt 1) {
+        throw "Found multiple csproj files."
+    }
+    else {
+        throw "Could not find any solutions or csprojs. Launching VS without opening a solution."
+    }
 }
 else {
     $slns = @(dir $Solution)
@@ -45,6 +55,12 @@ else {
     }
     $Solution = $slns[0]
     $devenvargs = @($slns[0])
+}
+
+Write-Host "Launching project: $Solution"
+
+if ($DoNotLoadProjects) {
+    $devenvargs += @("/DoNotLoadProjects")
 }
 
 # Check if the solution specifies a version
