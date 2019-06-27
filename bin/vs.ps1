@@ -23,10 +23,6 @@ function VersionMatch([Version]$requirement, [Version]$target) {
     (VersionSegmentMatch $requirement.Revision $target.Revision)
 }
 
-if (!(Get-Command vswhere -ErrorAction SilentlyContinue)) {
-    throw "This command requires 'vswhere'"
-}
-
 if ([String]::IsNullOrEmpty($Solution)) {
     $Solution = "*.sln"
 }
@@ -36,7 +32,7 @@ elseif (!$Solution.EndsWith(".sln")) {
 
 $devenvargs = @();
 if (!(Test-Path $Solution)) {
-    $projs = @(dir "*.csproj")
+    $projs = @(Get-ChildItem "*.csproj")
     if($projs.Length -eq 1) {
         $Solution = $projs[0]
     }
@@ -48,9 +44,9 @@ if (!(Test-Path $Solution)) {
     }
 }
 else {
-    $slns = @(dir $Solution)
+    $slns = @(Get-ChildItem $Solution)
     if ($slns.Length -gt 1) {
-        $names = [String]::Join(",", @($slns | foreach { $_.Name }))
+        $names = [String]::Join(",", @($slns | ForEach-Object { $_.Name }))
         throw "Ambiguous matches for $($Solution): $names";
     }
     $Solution = $slns[0]
@@ -65,7 +61,7 @@ if ($DoNotLoadProjects) {
 
 # Check if the solution specifies a version
 if ($Solution -and !$Version) {
-    $line = cat $Solution | where { $_.StartsWith("VisualStudioVersion") } | select -first 1
+    $line = Get-Content $Solution | Where-Object { $_.StartsWith("VisualStudioVersion") } | Select-Object -first 1
     if ($line) {
         $ver = [System.Version]($line.Split("=")[1].Trim())
 
@@ -78,27 +74,25 @@ if ($Solution -and !$Version) {
 }
 
 # Load the Visual Studios
-$VisualStudios = vswhere -all -prerelease -format json | ConvertFrom-json
+$VisualStudios = Get-VSSetupInstance -All -Prerelease
 
 # Filter out prereleases if they aren't allowed
 if ($NoPrerelease) {
-    $VisualStudios = $VisualStudios | Where-Object { !$_.isPrerelease }
+    $VisualStudios = $VisualStudios | Where-Object { !$_.IsPrerelease }
 }
 
 # Determine the appropriate version
 if ($Version) {
     # A specific version was requested.
     $VisualStudios = $VisualStudios | Where-Object {
-        $ver = [Version]::Parse($_.installationVersion)
-        VersionMatch $Version $ver
+        VersionMatch $Version $_.InstallationVersion
     }
 }
 elseif ($MinVersion) {
     # A minimum version was requested.
     $VisualStudios = $VisualStudios | Where-Object {
         if ($MinVersion) {
-            $ver = [Version]::Parse($_.installationVersion)
-            $ver -ge $MinVersion
+            $_.InstallationVersion -ge $MinVersion
         }
         else {
             $true
@@ -108,8 +102,8 @@ elseif ($MinVersion) {
 
 # Take the highest version available after filtering
 $Vs = $VisualStudios | 
-    Sort-Object @{Expression = {[Version]$_.installationVersion}} -Descending |
-    Select -First 1
+    Sort-Object InstallationVersion -Descending |
+    Select-Object -First 1
 
 if (!$Vs) {
     $ver = "";
@@ -126,7 +120,7 @@ elseif (@($Vs).Length -gt 1) {
 }
 
 # Find devenv
-$devenv = $Vs.productPath
+$devenv = $Vs.ProductPath
 
 if ($devenv) {
     if ($WhatIf) {

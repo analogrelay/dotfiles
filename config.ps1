@@ -14,5 +14,6 @@ $DotFilesPowerShellModules = @(
     "posh-git",
     "oh-my-posh",
     "PS-Tokens",
-    "PS-GitHub"
+    "PS-GitHub",
+    "VSSetup"
 )
