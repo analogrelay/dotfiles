@@ -1,6 +1,3 @@
-[include]
-    path = ~/.dotfiles/git/gitauthor.config
-
 [core]
     autocrlf = false
     excludesfile = "~/.dotfiles/git/gitignore"

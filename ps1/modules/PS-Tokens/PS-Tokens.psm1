@@ -55,7 +55,8 @@ function Get-Token {
         [string]$Filter,
 
         [Parameter(Mandatory = $true, ParameterSetName = "IncludeValue")][switch]$IncludeValue,
-        [Parameter(Mandatory = $true, ParameterSetName = "ExpandValue")][switch]$ExpandValue)
+        [Parameter(Mandatory = $true, ParameterSetName = "ExpandValue")][switch]$ExpandValue,
+        [Parameter(Mandatory = $false, ParameterSetName = "ExpandValue")][switch]$SecureString)
 
     if ($ExpandValue) {
         $IncludeValue = $true
@@ -82,7 +83,12 @@ function Get-Token {
                 throw "Ambiguous match! Multiple tokens matched the filter '$Name'"
             }
             elseif ($results.Count -gt 0) {
-                $results[0].Value
+                $val = $results[0].Value
+                if ($SecureString) {
+                    # Some APIs require SecureString, so fine, just convert it.
+                    $val = $val | ConvertTo-SecureString -AsPlainText -Force
+                }
+                $val
             }
         }
         else {

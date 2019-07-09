@@ -14,11 +14,11 @@ $configBlob = @"
 $dotfilesGitPath = Join-Path $DotfilesRoot "git"
 $gitAuthorFile = Join-Path $dotfilesGitPath "gitauthor.config"
 $gitConfig = Join-Path $env:HOME ".gitconfig"
-$dotfilesGitConfig = Join-Path $dotfilesGitPath ".gitconfig"
+$gitConfigTemplate = Join-Path $dotfilesGitPath ".gitconfig"
 
 $configBlob | Out-File $gitAuthorFile -Encoding UTF8
 
-# Symlink the git config in place
+# Write the git config in place
 if (Test-Path $gitConfig) {
     if (!(Confirm "Remove existing gitconfig" "A git config file already exists in '$gitConfig'. Remove it?")) {
         throw "User cancelled installation"
@@ -26,4 +26,5 @@ if (Test-Path $gitConfig) {
     Remove-Item $gitConfig
 }
 
-New-Item -Path $gitConfig -ItemType SymbolicLink -Value $dotfilesGitConfig | Out-Null
+Copy-Item $gitConfigTemplate $gitConfig
+$configBlob | Out-File -Append -Encoding UTF8 -FilePath $gitConfig
