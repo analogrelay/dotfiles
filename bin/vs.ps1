@@ -33,10 +33,11 @@ elseif (!$Solution.EndsWith(".sln")) {
 $devenvargs = @();
 if (!(Test-Path $Solution)) {
     $projs = @(Get-ChildItem "*.csproj")
-    if($projs.Length -eq 1) {
+    if ($projs.Length -eq 1) {
         $Solution = $projs[0]
+        $devenvargs = @($Solution)
     }
-    elseif($projs.Length -gt 1) {
+    elseif ($projs.Length -gt 1) {
         throw "Found multiple csproj files."
     }
     else {
@@ -102,8 +103,8 @@ elseif ($MinVersion) {
 
 # Take the highest version available after filtering
 $Vs = $VisualStudios | 
-    Sort-Object InstallationVersion -Descending |
-    Select-Object -First 1
+Sort-Object InstallationVersion -Descending |
+Select-Object -First 1
 
 if (!$Vs) {
     $ver = "";
