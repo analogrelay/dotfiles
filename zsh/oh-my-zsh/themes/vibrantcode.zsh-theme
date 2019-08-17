@@ -23,7 +23,11 @@
 
 # Icons
 typeset -A vc_icons
-vc_icons=([dotnet]="\ue77f" [rust]="\ue7a8" [windows]="\ue70f" [linux]="\ue712" [mac]="\ue711")
+vc_icons[dotnet]="\ue77f"
+vc_icons[rust]="\ue7a8"
+vc_icons[windows]="\ue70f"
+vc_icons[linux]="\ue712"
+vc_icons[mac]="\ue711"
 
 if [ "$(uname)" = "Linux" ]; then
   os_icon="$vc_icons[linux]"
@@ -36,7 +40,15 @@ fi
 
 # Color table
 typeset -A vc_color_base
-vc_color_base=([black]=0 [red]=1 [green]=2 [yellow]=3 [blue]=4 [magenta]=5 [cyan]=6 [white]=7 [default]=9)
+vc_color_base[black]=0
+vc_color_base[red]=1
+vc_color_base[green]=2
+vc_color_base[yellow]=3
+vc_color_base[blue]=4
+vc_color_base[magenta]=5
+vc_color_base[cyan]=6
+vc_color_base[white]=7
+vc_color_base[default]=9
 
 typeset -A vc_color
 for color_base in ${(k)vc_color_base}; do
