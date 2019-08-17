@@ -17,7 +17,7 @@ echo "    email = $AUTHOR_EMAIL" >> ./git/gitauthor.config
 
 # Symlink the git config in place
 if [ -f ~/.gitconfig ]; then
-    if confirm "A git config file already exists in '$gitConfig'. Remove it?"; then
+    if confirm "A git config file already exists in '~/.gitconfig'. Remove it?"; then
         rm ~/.gitconfig
     fi
 fi
