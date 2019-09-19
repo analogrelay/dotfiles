@@ -1,34 +1,37 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "editor.wordWrap": false,
-    "editor.wordBasedSuggestions": false,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true,
-    "editor.formatOnPaste": true,
-    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
-    "editor.fontLigatures": true,
-    "debug.allowBreakpointsEverywhere": true,
-    "terminal.integrated.fontFamily": "'FuraCode NF', 'Fira Code', Consolas, 'Courier New', monospace",
-    "editor.codeLens": false,
-    "csharp.suppressDotnetRestoreNotification": true,
-    "typescript.check.tscVersion": false,
-    "workbench.iconTheme": "vs-seti",
-    "vim.leader": " ",
-    "window.zoomLevel": 0,
-    "[cpp]": {
+    "[c]": {
         "editor.quickSuggestions": false
     },
-    "[c]": {
+    "[cpp]": {
         "editor.quickSuggestions": false
     },
     "[json]": {
         "editor.formatOnSave": false
     },
+    "C_Cpp.loggingLevel": "Debug",
+    "csharp.suppressDotnetRestoreNotification": true,
+    "debug.allowBreakpointsEverywhere": true,
+    "editor.codeLens": false,
+    "editor.find.addExtraSpaceOnTop": false,
+    "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.minimap.enabled": false,
+    "editor.suggestSelection": "first",
+    "editor.wordBasedSuggestions": false,
+    "editor.wordWrap": false,
+    "terminal.integrated.fontFamily": "'CascadiaCode Nerd Font', 'Cascadia Code', Consolas, 'Courier New', monospace",
+    "typescript.check.tscVersion": false,
     "vim.disableAnnoyingNeovimMessage": true,
     "vim.enableNeovim": true,
+    "vim.leader": " ",
     "vim.neovimPath": "C:\\Users\\anurse\\scoop\\apps\\neovim\\current\\Neovim\\bin\\nvim.exe",
-    "editor.minimap.enabled": false,
-    "C_Cpp.loggingLevel": "Debug",
-    "editor.find.addExtraSpaceOnTop": false,
-    "editor.fontSize": 16,
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.iconTheme": "vs-seti"
 }
