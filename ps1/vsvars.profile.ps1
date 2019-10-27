@@ -4,19 +4,20 @@ if ($PSVersionTable.Platform -ne "Win32NT") {
 
 # Find the latest VS version, including prereleases
 $vsInstance = Get-VSSetupInstance -All -Prerelease | Sort-Object -Descending InstallationVersion | Select-Object -First 1
-if(!$vsInstance) {
+if (!$vsInstance) {
     Write-Debug "No Visual Studio Instances found. Skipping the import of VsVars."
     return;
 }
 
 # Try the new hotness, check for the devshell module
 $DevShellModule = Join-Path $vsInstance.InstallationPath "Common7\Tools\vsdevshell\Microsoft.VisualStudio.DevShell.dll"
-if(Test-Path $DevShellModule) {
+if (Test-Path $DevShellModule) {
     Write-Debug "Using built-in Visual Studio PowerShell module."
     Import-Module $DevShellModule
     try {
         Enter-VsDevShell -InstanceId $vsInstance.InstanceId -StartInPath (Get-Location)
-    } catch {
+    }
+    catch {
         # Seems there are issues in PowerShell Core :(.
     }
 }
@@ -26,7 +27,7 @@ else {
     $InstallationPath = vswhere -prerelease -latest -property installationPath
 
     if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
-        & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" $ArchArg-no_logo && set" | foreach-object {
+        & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo -arch=amd64 && set" | foreach-object {
             $name, $value = $_ -split '=', 2
 
             # Special handling for PATH to ensure we don't just keep increasing the size of the variable as we switch architectures
