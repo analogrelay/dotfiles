@@ -36,5 +36,8 @@
     "workbench.iconTheme": "vs-seti",
     "editor.renderWhitespace": "none",
     "go.formatTool": "goimports",
-    "go.useLanguageServer": true
+    "go.useLanguageServer": true,
+    "vs-kubernetes": {
+        "disable-lint": true
+    }
 }
