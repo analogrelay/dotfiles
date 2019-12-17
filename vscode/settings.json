@@ -24,7 +24,7 @@
     "editor.suggestSelection": "first",
     "editor.wordBasedSuggestions": false,
     "editor.wordWrap": false,
-    "terminal.integrated.fontFamily": "'CascadiaCode Nerd Font', 'Cascadia Code', Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "'Delugia Nerd Font', 'Cascadia Code', Consolas, 'Courier New', monospace",
     "typescript.check.tscVersion": false,
     "vim.disableAnnoyingNeovimMessage": true,
     "vim.enableNeovim": true,
