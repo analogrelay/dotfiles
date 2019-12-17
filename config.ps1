@@ -10,10 +10,17 @@ $DotFilesInstallScripts = @(
     (Join-Path "vscode" "install.ps1")
 )
 
+# Core-only modules
+$DotFilesPowerShellCoreModules = @(
+    "PS-GitHub"
+)
 $DotFilesPowerShellModules = @(
     "posh-git",
     "oh-my-posh",
     "PS-Tokens",
-    "PS-GitHub",
     "VSSetup"
 )
+
+if ($PSVersionTable.PSEdition -eq "Core") {
+    $DotFilesPowerShellModules += $DotFilesPowerShellCoreModules
+}
