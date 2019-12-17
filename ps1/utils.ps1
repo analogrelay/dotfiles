@@ -14,3 +14,7 @@ function Confirm(
         $false
     }
 }
+
+function Test-Command([Parameter(Mandatory = $true, Position = 0)][string]$Command) {
+    [bool](Get-Command "$Command*" | Where-Object { [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq "$Command" })
+}

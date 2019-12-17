@@ -1,10 +1,13 @@
 #requires -Version 2 -Modules posh-git
 # Based heavily on Paradox theme
 
-if($PsVersionTable.Platform -eq "Win32NT") {
+. "$PSScriptRoot\..\utils.ps1"
+
+if ($PsVersionTable.Platform -eq "Win32NT") {
     $machinePath = Join-Path $env:ProgramFiles "dotnet\dotnet.exe"
     $userLocalPath = Join-Path $env:USERPROFILE ".dotnet\x64\dotnet.exe"
-} else {
+}
+else {
     $machinePath = "/usr/bin/dotnet"
     $userLocalPath = "$env:HOME/.dotnet/dotnet"
 }
@@ -33,8 +36,8 @@ function Write-Theme {
 
     # Check where dotnet.exe is
     $dotnetHive = "<none>"
-    $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
-    if ($dotnetCommand) {
+    if (Test-Command dotnet) {
+        $dotnetCommand = Get-Command dotnet
         if ($dotnetCommand.Source -eq $machinePath) {
             $dotnetHive = "Machine"
         }
@@ -72,14 +75,14 @@ function Write-Theme {
     }
 
     $lastColor = $sl.Colors.SessionInfoBackgroundColor
-    if (Get-Command dotnet -ErrorAction SilentlyContinue) {
+    if (Test-Command dotnet) {
         $dotnetVersion = dotnet --version
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $lastColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
         $lastColor = $sl.Colors.DotNetBackgroundColor
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.DotNetSymbol) $dotnetVersion ($dotnetHive) " -ForegroundColor $sl.Colors.DotNetForegroundColor -BackgroundColor $sl.Colors.DotNetBackgroundColor
     }
 
-    if (Get-Command rustc -ErrorAction SilentlyContinue) {
+    if (Test-Command rustc) {
         $rustVersion = (rustc --version).Split()[1]
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $lastColor -BackgroundColor $sl.Colors.RustBackgroundColor
         $lastColor = $sl.Colors.RustBackgroundColor

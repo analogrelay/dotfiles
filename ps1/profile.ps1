@@ -1,6 +1,6 @@
 Write-Host "Running DotFiles Profile..."
 
-# Load config
+# Load config and utils
 . "$PSScriptRoot\..\config.ps1"
 
 $env:HOME = [Environment]::GetFolderPath("UserProfile")
