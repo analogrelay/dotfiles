@@ -12,7 +12,7 @@ if (!$vsInstance) {
 Write-Host -ForegroundColor Green "Configuring $($vsInstance.DisplayName) ($($vsInstance.InstallationVersion)) Dev Shell"
 
 # Try the new hotness, check for the devshell module
-$DevShellModule = Join-Path $vsInstance.InstallationPath "Common7\Tools\vsdevshell\Microsoft.VisualStudio.DevShell.dll"
+$DevShellModule = Join-Path $vsInstance.InstallationPath "Common7\Tools\Microsoft.VisualStudio.DevShell.dll"
 if (Test-Path $DevShellModule) {
     Write-Debug "Using built-in Visual Studio PowerShell module."
     Import-Module $DevShellModule
