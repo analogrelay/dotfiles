@@ -49,9 +49,9 @@ elseif (!$Solution.EndsWith(".sln")) {
     $Solution = "*" + $Solution + "*.sln";
 }
 
-$devenvargs = @();
-
 Write-Host "Launching project: $Solution"
+$devenvargs = @($Solution);
+
 
 if ($DoNotLoadProjects) {
     $devenvargs += @("/DoNotLoadProjects")
