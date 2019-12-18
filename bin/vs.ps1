@@ -23,36 +23,33 @@ function VersionMatch([Version]$requirement, [Version]$target) {
     (VersionSegmentMatch $requirement.Revision $target.Revision)
 }
 
+function TryFindSingleFile($pattern) {
+    $Candidates = @(Get-ChildItem $pattern)
+    if ($Candidates.Count -eq 1) {
+        $Candidates[0]
+    }
+    elseif ($Candidates.Count -gt 1) {
+        throw "Ambiguous matches for '$pattern': $Candidates"
+    }
+}
+
 if ([String]::IsNullOrEmpty($Solution)) {
-    $Solution = "*.sln"
+    $Solution = TryFindSingleFile "*.sln"
+    if (!$Solution) {
+        $Solution = TryFindSingleFile "*.slnf"
+    }
+    if (!$Solution) {
+        $Solution = TryFindSingleFile "*.csproj"
+    }
+    if (!$Solution) {
+        $Solution = TryFindSingleFile "*.*proj"
+    }
 }
 elseif (!$Solution.EndsWith(".sln")) {
     $Solution = "*" + $Solution + "*.sln";
 }
 
 $devenvargs = @();
-if (!(Test-Path $Solution)) {
-    $projs = @(Get-ChildItem "*.csproj")
-    if ($projs.Length -eq 1) {
-        $Solution = $projs[0]
-        $devenvargs = @($Solution)
-    }
-    elseif ($projs.Length -gt 1) {
-        throw "Found multiple csproj files."
-    }
-    else {
-        throw "Could not find any solutions or csprojs. Launching VS without opening a solution."
-    }
-}
-else {
-    $slns = @(Get-ChildItem $Solution)
-    if ($slns.Length -gt 1) {
-        $names = [String]::Join(",", @($slns | ForEach-Object { $_.Name }))
-        throw "Ambiguous matches for $($Solution): $names";
-    }
-    $Solution = $slns[0]
-    $devenvargs = @($slns[0])
-}
 
 Write-Host "Launching project: $Solution"
 
