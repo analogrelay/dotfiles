@@ -1,5 +1,9 @@
 param([string]$Repo)
 
+if (!$CodeRoot) {
+    throw "Code root is unknown, cannot auto-clone."
+}
+
 # Detect input types.
 if ($Repo -match "(ssh://)?git@ssh.dev.azure.com:v3/(?<owner>[a-zA-Z0-9-_\.]+)/[a-zA-Z0-9-_\.]+/(?<repo>[a-zA-Z0-9-_\.]+)/?") {
     $Owner = $matches["owner"]
@@ -26,11 +30,11 @@ else {
     throw "This script can only be used with 'ssh://' URLs or GitHub owner/repo references"
 }
 
-$Container = Join-Path Code:\ $Owner
+$Container = Join-Path $CodeRoot $Owner
 $RepoPath = Join-Path $Container $RepoName
 
 if (!(Test-Path $RepoPath)) {
-    Write-Host "Cloning $Repo into Code:\$Owner\$RepoName"
+    Write-Host "Cloning $Repo into $RepoPath"
 
     if (!(Test-Path $Container)) {
         mkdir $Container | Out-Null
