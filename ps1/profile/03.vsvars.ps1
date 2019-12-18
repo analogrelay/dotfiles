@@ -9,6 +9,8 @@ if (!$vsInstance) {
     return;
 }
 
+Write-Host -ForegroundColor Green "Configuring $($vsInstance.DisplayName) ($($vsInstance.InstallationVersion)) Dev Shell"
+
 # Try the new hotness, check for the devshell module
 $DevShellModule = Join-Path $vsInstance.InstallationPath "Common7\Tools\vsdevshell\Microsoft.VisualStudio.DevShell.dll"
 if (Test-Path $DevShellModule) {
@@ -22,7 +24,7 @@ if (Test-Path $DevShellModule) {
     }
 }
 else {
-    Write-Host "Visual Studio version does not contain PowerShell Module. Using fallback."
+    Write-Warning "Visual Studio version does not contain PowerShell Module. Using fallback."
 
     $InstallationPath = vswhere -prerelease -latest -property installationPath
 
@@ -38,7 +40,7 @@ else {
                 $env:PATH = $value
             }
             else {
-                set-content env:\"$name" $value
+                Set-Content env:\"$name" $value
             }
         }
     }

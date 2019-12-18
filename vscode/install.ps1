@@ -9,7 +9,7 @@ $CodeVersions | ForEach-Object {
     Write-Host "Installing Settings symlinks for $_"
     $UserSettingsRoot = Join-Path (Join-Path $env:APPDATA $_) "User"
 
-    if(!(Test-Path $UserSettingsRoot)) {
+    if (!(Test-Path $UserSettingsRoot)) {
         New-Item -Type Directory $UserSettingsRoot | Out-Null
     }
 
@@ -17,7 +17,7 @@ $CodeVersions | ForEach-Object {
     $KeybindingsFile = Join-Path $UserSettingsRoot "keybindings.json"
 
     # Create Symlinks
-    if(Test-Path $SettingsFile) {
+    if (Test-Path $SettingsFile) {
         if (!(Confirm "Remove existing settings" "A VS Code settings file already exists in '$SettingsFile'. Remove it?")) {
             throw "User cancelled installation"
         }
@@ -25,7 +25,7 @@ $CodeVersions | ForEach-Object {
     }
     New-Item -Path $SettingsFile -ItemType SymbolicLink -Value $DotFilesSettings | Out-Null
 
-    if(Test-Path $KeybindingsFile) {
+    if (Test-Path $KeybindingsFile) {
         if (!(Confirm "Remove existing keybindings" "A VS Code keybindings file already exists in '$KeybindingsFile'. Remove it?")) {
             throw "User cancelled installation"
         }

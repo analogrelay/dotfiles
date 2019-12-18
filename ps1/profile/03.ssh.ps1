@@ -8,19 +8,16 @@ function AddKeyIfNotPresent($KeyFile) {
     if ($KeyGenInfo) {
         $fingerprint = $KeyGenInfo.Split(" ")[1]
 
-        if (ssh-add -l | select-string $fingerprint -SimpleMatch) {
-            Write-Host "$KeyFile already registered in SSH agent"
-        }
-        else {
+        if (!(ssh-add -l | select-string $fingerprint -SimpleMatch)) {
             ssh-add $KeyFile
         }
     }
     else {
-        Write-Host "$KeyFile does not exist"
+        Write-Warning "$KeyFile does not exist"
     }
 }
 
-if($PSVersionTable.Platform -eq "Win32NT") {
+if ($PSVersionTable.Platform -eq "Win32NT") {
     $sshAgentService = Get-Service ssh-agent -ErrorAction SilentlyContinue
     if ($sshAgentService) {
         if ($sshAgentService.StartupType -eq "Disabled") {

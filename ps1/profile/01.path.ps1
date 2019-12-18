@@ -33,3 +33,6 @@ function global:Remove-PathVariable([Parameter(Mandatory = $true, Position = 0)]
     $newPath = [string[]]@(Get-PathVariable | Where-Object { ![string]::IsNullOrWhitespace($_) -and ($_ -ne $Path) })
     Set-PathVariable -PathValues $newPath
 }
+
+# Enlighten the PATH
+Add-PathVariable "$DotFilesRoot\bin"

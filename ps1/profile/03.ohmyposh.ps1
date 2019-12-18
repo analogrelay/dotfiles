@@ -1,5 +1,5 @@
 # Relocate themes
-$ThemeSettings.MyThemesLocation = Join-Path $DotFilesPs1Path "themes"
+$ThemeSettings.MyThemesLocation = Join-Path (Split-Path -Parent $PSScriptRoot) "themes"
 
 Set-Theme VibrantPrompt
 
