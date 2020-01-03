@@ -27,17 +27,15 @@
     "terminal.integrated.fontFamily": "'Delugia Nerd Font', 'Cascadia Code', Consolas, 'Courier New', monospace",
     "typescript.check.tscVersion": false,
     "vim.disableAnnoyingNeovimMessage": true,
-    "vim.enableNeovim": true,
     "vim.leader": " ",
-    "vim.neovimPath": "C:\\Users\\anurse\\scoop\\apps\\neovim\\current\\Neovim\\bin\\nvim.exe",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "window.zoomLevel": 0,
-    "workbench.colorTheme": "GitHub Sharp Dark",
     "workbench.iconTheme": "vs-seti",
     "editor.renderWhitespace": "none",
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
     "vs-kubernetes": {
         "disable-lint": true
-    }
+    },
+    "workbench.colorTheme": "GitHub Sharp Dark"
 }

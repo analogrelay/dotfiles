@@ -13,6 +13,5 @@ else {
 }
 
 Write-Host -ForegroundColor Green "Code Root: $CodeRoot"
-$env:PROJECTS = $CodeRoot
 $env:CODE_ROOT = $CodeRoot
 $global:CodeRoot = $CodeRoot

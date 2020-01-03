@@ -25,7 +25,7 @@ fi
 export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$HOME/.cargo/bin:$HOME/.dotfiles/bin:$PATH"
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
+export CODE_ROOT=~/Code
 
 if [[ $(uname) == "Darwin" ]]; then
     export VAGRANT_DEFAULT_PROVIDER="parallels"
