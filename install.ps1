@@ -1,12 +1,12 @@
 param(
-    [switch]$Debug
+    [Parameter(Mandatory = $false)][string[]]$Profiles
 )
 
 if ($PSVersionTable.PSEdition -ne "Core") {
     throw "Dotfiles requires PowerShell Core"
 }
 
-if($PSVersionTable.Platform -eq "Unix") {
+if ($PSVersionTable.Platform -eq "Unix") {
     throw "Use the 'install.sh' script to install on Unix. After installing, the PowerShell profile in .dotfiles WILL STILL apply to PowerShell on Unix!"
 }
 
@@ -72,6 +72,10 @@ if ($Debug) {
 try {
     $DotFilesInstalling = $true
     Install-DotFiles
+
+    if ($Profiles.Count -gt 0) {
+        Write-Host "Installing profiles: $Profiles"
+    }
 }
 finally {
     Remove-Item -Path variable:\DotFilesInstalling -ErrorAction SilentlyContinue

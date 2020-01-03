@@ -1,4 +1,7 @@
 # Bootstraps the installation of the dotfiles scripts from scratch
+param(
+    [Parameter(Mandatory = $false)][string[]]$Profiles
+)
 
 function Test-Command($CommandName) {
     # Calling Get-Command, even with ErrorAction SilentlyContinue, spams
@@ -32,8 +35,8 @@ if ($PSVersionTable.PSEdition -ne "Core") {
     if (!(Test-Command pwsh)) {
         scoop install pwsh
     }
-    pwsh $InstallScript
+    pwsh $InstallScript -Profiles:$Profiles
 }
 else {
-    & $InstallScript
+    & $InstallScript -Profiles:$Profiles
 }
