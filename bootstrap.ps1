@@ -25,5 +25,15 @@ if (!(Test-Path $DotFilesRoot)) {
     git clone "https://github.com/anurse/dotfiles" $DotFilesRoot
 }
 
-# Check if we're running out of the repo
-Write-Host "Script Root: $PSScriptRoot"
+$InstallScript = Join-Path $DotFilesRoot "install.ps1"
+
+# Ensure we have powershell core installed
+if ($PSVersionTable.PSEdition -ne "Core") {
+    if (!(Test-Command pwsh)) {
+        scoop install pwsh
+    }
+    pwsh $InstallScript
+}
+else {
+    & $InstallScript
+}
