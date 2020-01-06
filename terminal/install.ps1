@@ -1,18 +1,28 @@
-function Test-Command($CommandName) {
-    # Calling Get-Command, even with ErrorAction SilentlyContinue, spams
-    # $error with errors. This avoids that.
-    !!(Get-Command "$CommandName*" | 
-        Where-Object {
-            [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $CommandName
-        })
-}
+if (!$DotFilesInstalling) { throw "This script should only be run during dotfiles installation!" }
 
 if(!(Test-Command colortool)) {
-	scoop install colortool
+    scoop install colortool
 }
 
 $ColorProfile = Convert-Path (Join-Path $PSScriptRoot "vibrantcode.itermcolors")
-colortool -b $ColorProfile
+colortool -q -b $ColorProfile
 
-Write-Host -ForegroundColor Green "Launching Windows Store to recommend installation of Windows Terminal"
-Start-Process "ms-windows-store://pdp/?ProductId=9N0DX20HK701"
+# Configure profiles script
+$ParentPath = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+$TargetPath = Join-Path $ParentPath "profiles.json"
+$SourcePath = Convert-Path (Join-Path $PSScriptRoot "profiles.json")
+if(Test-Path $TargetPath) {
+    if (Confirm "Remove existing Windows Terminal Profiles" "A Windows Terminal profiles file already exists in '$TargetPath'. Remove it?") {
+        Remove-Item $TargetPath
+    }
+}
+if(!(Test-Path $TargetPath)) {
+    if(!(Test-Path $ParentPath)) {
+        New-Item -ItemType Directory $ParentPath | Out-Null
+    }
+    New-Item -ItemType SymbolicLink -Target $SourcePath -Path $TargetPath
+}
+
+if(!(Get-AppxPackage "Microsoft.WindowsTerminal")) {
+    Write-Host -ForegroundColor Yellow "Windows Terminal is not installed. Install it from the Microsoft Store!"
+}

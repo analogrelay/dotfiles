@@ -1,3 +1,5 @@
+if (!$DotFilesInstalling) { throw "This script should only be run during dotfiles installation!" }
+
 # Install to both Code and Code - Insiders
 $CodeVersions = @("Code", "Code - Insiders")
 
@@ -18,18 +20,20 @@ $CodeVersions | ForEach-Object {
 
     # Create Symlinks
     if (Test-Path $SettingsFile) {
-        if (!(Confirm "Remove existing settings" "A VS Code settings file already exists in '$SettingsFile'. Remove it?")) {
-            throw "User cancelled installation"
+        if (Confirm "Remove existing settings" "A VS Code settings file already exists in '$SettingsFile'. Remove it?") {
+            Remove-Item $SettingsFile
         }
-        Remove-Item $SettingsFile
     }
-    New-Item -Path $SettingsFile -ItemType SymbolicLink -Value $DotFilesSettings | Out-Null
+    if (!(Test-Path $SettingsFile)) {
+        New-Item -Path $SettingsFile -ItemType SymbolicLink -Value $DotFilesSettings | Out-Null
+    }
 
     if (Test-Path $KeybindingsFile) {
-        if (!(Confirm "Remove existing keybindings" "A VS Code keybindings file already exists in '$KeybindingsFile'. Remove it?")) {
-            throw "User cancelled installation"
+        if (Confirm "Remove existing keybindings" "A VS Code keybindings file already exists in '$KeybindingsFile'. Remove it?") {
+            Remove-Item $KeybindingsFile
         }
-        Remove-Item $KeybindingsFile
     }
-    New-Item -Path $KeybindingsFile -ItemType SymbolicLink -Value $DotFilesKeybinds | Out-Null
+    if (!(Test-Path $KeybindingsFile)) {
+        New-Item -Path $KeybindingsFile -ItemType SymbolicLink -Value $DotFilesKeybinds | Out-Null
+    }
 }

@@ -3,19 +3,21 @@ if (!$DotFilesInstalling) { throw "This script should only be run during dotfile
 Write-Host "Installing PowerShell Profile ..."
 
 if (Test-Path $Profile) {
-    if (!(Confirm "Remove existing profile" "A profile script already exists in '$Profile'. Remove it?")) {
-        throw "User cancelled installation"
+    if (Confirm "Remove existing profile" "A profile script already exists in '$Profile'. Remove it?") {
+        Remove-Item $Profile
     }
 }
 
-$ProfileParent = Split-Path -Parent $Profile
+if (!(Test-Path $Profile)) {
+    $ProfileParent = Split-Path -Parent $Profile
 
-if(!(Test-Path $ProfileParent))
-{
-	mkdir $ProfileParent | Out-Null
+    if(!(Test-Path $ProfileParent))
+    {
+        mkdir $ProfileParent | Out-Null
+    }
+
+    $Ps1Root = Join-Path $DotFilesRoot "ps1"
+    $DotFilesProfile = Join-Path $Ps1Root "profile.ps1"
+
+    ". $DotFilesProfile" | Out-File -FilePath $profile -Encoding UTF8
 }
-
-$Ps1Root = Join-Path $DotFilesRoot "ps1"
-$DotFilesProfile = Join-Path $Ps1Root "profile.ps1"
-
-". $DotFilesProfile" | Out-File -FilePath $profile -Encoding UTF8
