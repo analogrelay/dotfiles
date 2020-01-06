@@ -6,8 +6,9 @@ $DotFilesInstallScripts = @(
     (Join-Path "ps1" "install.ps1"),
     (Join-Path "git" "install.ps1"),
     (Join-Path "conemu" "install.ps1"),
-    (Join-Path "fonts" "install.ps1")
-    (Join-Path "vscode" "install.ps1")
+    (Join-Path "fonts" "install.ps1"),
+    (Join-Path "vscode" "install.ps1"),
+    (Join-Path "terminal" "install.ps1")
 )
 
 # Core-only modules
