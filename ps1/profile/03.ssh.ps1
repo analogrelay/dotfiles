@@ -21,9 +21,11 @@ if ($PSVersionTable.Platform -eq "Win32NT") {
     $sshAgentService = Get-Service ssh-agent -ErrorAction SilentlyContinue
     if ($sshAgentService) {
         if ($sshAgentService.StartupType -eq "Disabled") {
-            Set-Service $sshAgentService -StartupType Automatic
+            if(Confirm "SSH Agent disabled" "SSH Agent is disabled, enable it?") {
+                $scriptPath = Convert-Path (Join-Path (Split-Path -Parent $PSScriptRoot) "fix-ssh-agent.ps1")
+                Start-Process -Verb RunAs ((Get-Command pwsh).Definition) -Args "-executionpolicy bypass -noprofile -nologo -file $scriptPath" -Wait
+            }
         }
-
         Start-Service ssh-agent
         $ssh = (Get-Command ssh.exe).Definition
         $env:GIT_SSH = $ssh
