@@ -3,6 +3,9 @@ Write-Host -ForegroundColor Green "Running DotFiles Profile..."
 # Load config
 . "$PSScriptRoot\..\config.ps1"
 
+# Load utils
+. "$PSScriptRoot\utils.ps1"
+
 # Gather scripts and run them
 Get-ChildItem (Join-Path $PSScriptRoot "profile") -Filter *.ps1 | ForEach-Object {
     $matches = [Regex]::Match($_.Name, "(\d+)\.[^\.]+.ps1")
