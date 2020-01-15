@@ -2,6 +2,11 @@ if (!$DotFilesInstalling) { throw "This script should only be run during dotfile
 
 Write-Host "Configuring Git..."
 
+$dotfilesGitPath = Join-Path $DotfilesRoot "git"
+$gitAuthorFile = Join-Path $dotfilesGitPath "gitauthor.config"
+$gitConfig = Join-Path $env:HOME ".gitconfig"
+$gitConfigTemplate = Join-Path $dotfilesGitPath ".gitconfig"
+
 # Write the git config in place
 if (Test-Path $gitConfig) {
     if (Confirm "Remove existing gitconfig" "A git config file already exists in '$gitConfig'. Remove it?") {
@@ -17,12 +22,7 @@ if (!(Test-Path $gitConfig)) {
     [user]
         name = $authorName
         email = $authorEmail
-    "@
-
-    $dotfilesGitPath = Join-Path $DotfilesRoot "git"
-    $gitAuthorFile = Join-Path $dotfilesGitPath "gitauthor.config"
-    $gitConfig = Join-Path $env:HOME ".gitconfig"
-    $gitConfigTemplate = Join-Path $dotfilesGitPath ".gitconfig"
+"@
 
     $configBlob | Out-File $gitAuthorFile -Encoding UTF8
 

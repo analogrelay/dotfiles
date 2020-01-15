@@ -76,6 +76,8 @@ try {
     if ($Profiles.Count -gt 0) {
         Write-Host "Installing profiles: $Profiles"
     }
+} catch {
+    throw
 }
 finally {
     Remove-Item -Path variable:\DotFilesInstalling -ErrorAction SilentlyContinue

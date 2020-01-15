@@ -29,8 +29,8 @@ function Write-Theme {
         [string]
         $with
     )
-    TimeBlock "prompt" {
 
+    TimeBlock "prompt" {
         $OsSymbol = TimeBlock "os" {
             if ($PsVersionTable.Platform -eq "Unix") {
                 $uname = uname
@@ -71,30 +71,24 @@ function Write-Theme {
 
         $lastColor = $sl.Colors.PromptBackgroundColor
         $prompt = Write-Prompt -Object $sl.PromptSymbols.StartSymbol -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-
+        
         #check the last command state and indicate if failed
-        TimeBlock "lastCommand" {
-            if ($lastCommandFailed) {
-                $prompt += Write-Prompt -Object "$($sl.PromptSymbols.FailedCommandSymbol) " -ForegroundColor $sl.Colors.CommandFailedIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-            }
-            else {
-                $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SucceededCommandSymbol) " -ForegroundColor $sl.Colors.CommandSucceededIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-            }
+        if ($lastCommandFailed) {
+            $prompt += Write-Prompt -Object "$($sl.PromptSymbols.FailedCommandSymbol) " -ForegroundColor $sl.Colors.CommandFailedIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+        }
+        else {
+            $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SucceededCommandSymbol) " -ForegroundColor $sl.Colors.CommandSucceededIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
         }
 
         #check for elevated prompt
-        TimeBlock "isAdmin" {
-            If (Test-Administrator) {
-                $prompt += Write-Prompt -Object "$($sl.PromptSymbols.ElevatedSymbol) " -ForegroundColor $sl.Colors.AdminIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-            }
+        If (Test-Administrator) {
+            $prompt += Write-Prompt -Object "$($sl.PromptSymbols.ElevatedSymbol) " -ForegroundColor $sl.Colors.AdminIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
         }
 
-        TimeBlock "user" {
-            $user = [System.Environment]::UserName
-            $computer = [System.Environment]::MachineName
-            if (Test-NotDefaultUser($user)) {
-                $prompt += Write-Prompt -Object "$user@$computer $OsSymbol " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-            }
+        $user = [System.Environment]::UserName
+        $computer = [System.Environment]::MachineName
+        if (Test-NotDefaultUser($user)) {
+            $prompt += Write-Prompt -Object "$user@$computer $OsSymbol " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
         }
 
         $lastColor = $sl.Colors.SessionInfoBackgroundColor
@@ -116,10 +110,8 @@ function Write-Theme {
         $lastColor = $sl.Colors.PathBackgroundColor
 
         # Writes the drive portion
-        TimeBlock "path" {
-            $path = Get-FullPath -dir $pwd
-            $prompt += Write-Prompt -Object "$path " -ForegroundColor $sl.Colors.PathForegroundColor -BackgroundColor $sl.Colors.PathBackgroundColor
-        }
+        $path = Get-FullPath -dir $pwd
+        $prompt += Write-Prompt -Object "$path " -ForegroundColor $sl.Colors.PathForegroundColor -BackgroundColor $sl.Colors.PathBackgroundColor
 
         $themeInfo = TimeBlock "git" {
             $status = Get-VCSStatus
@@ -136,13 +128,11 @@ function Write-Theme {
         # Writes the postfix to the prompt
         $prompt += Write-Prompt -Object $sl.PromptSymbols.SegmentForwardSymbol -ForegroundColor $lastColor
 
-        TimeBlock "timestamp" {
-            $timeStamp = Get-Date -UFormat %R
-            $timestamp = "[$timeStamp]"
+        $timeStamp = Get-Date -UFormat %R
+        $timestamp = "[$timeStamp]"
 
-            $prompt += Set-CursorForRightBlockWrite -textLength ($timestamp.Length + 1)
-            $prompt += Write-Prompt $timeStamp -ForegroundColor $sl.Colors.PromptForegroundColor
-        }
+        $prompt += Set-CursorForRightBlockWrite -textLength ($timestamp.Length + 1)
+        $prompt += Write-Prompt $timeStamp -ForegroundColor $sl.Colors.PromptForegroundColor
 
         $prompt += Set-Newline
 

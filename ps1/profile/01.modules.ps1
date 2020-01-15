@@ -6,7 +6,7 @@ $env:PSModulePath = "$(Convert-Path $LocalModulePath)$([IO.Path]::PathSeparator)
 $DotFilesPowerShellModules | ForEach-Object {
     if (!(Get-Module -ListAvailable $_)) {
         Write-Host "Installing module '$_' ..."
-        Install-Module $_ -Scope CurrentUser
+        Install-Module $_ -Scope CurrentUser -AllowPrerelease
     }
     Import-Module $_
 }
