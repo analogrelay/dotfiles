@@ -22,7 +22,7 @@ elseif ($Target -eq "dotfiles") {
 elseif ($Target -eq "desktop") {
     Push-Location -StackName "goto" ([System.Environment]::GetFolderPath("Desktop"))
 }
-elseif ($Target -match "(?<owner>[a-zA-Z0-9-_]+)/(?<repo>[a-zA-Z0-9-_]+)") {
+elseif ($Target -match "(?<owner>[a-zA-Z0-9-_\.]+)/(?<repo>[a-zA-Z0-9-_\.]+)") {
     $Path = Join-Path (Join-Path $env:CODE_ROOT $matches["owner"]) $matches["repo"]
     if (Test-Path $Path) {
         Push-Location -StackName "goto" $Path

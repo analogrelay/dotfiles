@@ -37,5 +37,6 @@
     "vs-kubernetes": {
         "disable-lint": true
     },
-    "workbench.colorTheme": "GitHub Sharp Dark"
+    "workbench.colorTheme": "GitHub Sharp Dark",
+    "vsonline.planFilter": "/subscriptions/3b4aaa78-174e-46a1-bee0-cb85849bda49/resourceGroups/anurse-vsop-rg/providers/Microsoft.VSOnline/plans/anurse-vsop"
 }

@@ -17,7 +17,7 @@ if (Test-Path $DevShellModule) {
     Write-Debug "Using built-in Visual Studio PowerShell module."
     Import-Module $DevShellModule
     try {
-        Enter-VsDevShell -InstanceId $vsInstance.InstanceId -StartInPath (Get-Location)
+        Enter-VsDevShell -InstanceId $vsInstance.InstanceId -StartInPath (Get-Location) -DevCmdArguments "-arch=amd64"
     }
     catch {
         # Seems there are issues in PowerShell Core :(.
