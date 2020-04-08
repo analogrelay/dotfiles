@@ -1,3 +1,5 @@
+. Join-Path (Split-Path -Parent $PSScriptRoot) "utils.ps1"
+
 $KeysToAdd = @(
     "id_rsa"
 )
@@ -17,24 +19,27 @@ function AddKeyIfNotPresent($KeyFile) {
     }
 }
 
+if (!(Test-Path env:\SSH_AUTH_SOCK)) {
+    if ($PSVersionTable.Platform -eq "Win32NT") {
+        $gitBin = Join-Path $env:USERPROFILE "scoop\apps\git\current\usr\bin"
+        if (Test-Path $gitBin) {
+            Add-PathVariable -Prepend $gitBin
+        }
+    }
 
+    if (Test-Command ssh-agent) {
+        ssh-agent | ForEach-Object {
+            if($_ -match "([A-Za-z0-9_]*)=([^;]*); export \1;") { 
+                Set-Content "env:\$($matches[1])" $matches[2]
+            }
+        }
 
-# if ($PSVersionTable.Platform -eq "Win32NT") {
-#     $sshAgentService = Get-Service ssh-agent -ErrorAction SilentlyContinue
-#     if ($sshAgentService) {
-#         if ($sshAgentService.StartupType -eq "Disabled") {
-#             if (Confirm "SSH Agent disabled" "SSH Agent is disabled, enable it? A UAC prompt is required.") {
-#                 $scriptPath = Convert-Path (Join-Path (Split-Path -Parent $PSScriptRoot) "fix-ssh-agent.ps1")
-#                 Start-Process -Verb RunAs ((Get-Command pwsh).Definition) -Args "-executionpolicy bypass -noprofile -nologo -file $scriptPath" -Wait
-#             }
-#         }
-#         Start-Service ssh-agent
-#         $ssh = (Get-Command ssh.exe).Definition
-#         $env:GIT_SSH = $ssh
+        $KeysToAdd | ForEach-Object {
+            $KeyFile = Join-Path (Join-Path $env:USERPROFILE ".ssh") $_
+            AddKeyIfNotPresent $KeyFile
+        }
+    }
 
-#         $KeysToAdd | ForEach-Object {
-#             $KeyFile = Join-Path (Join-Path $env:USERPROFILE ".ssh") $_
-#             AddKeyIfNotPresent $KeyFile
-#         }
-#     }
-# }
+    $ssh = (Get-Command ssh).Definition
+    $env:GIT_SSH = $ssh
+}
