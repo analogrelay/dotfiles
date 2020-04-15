@@ -100,6 +100,8 @@ if uname -r | grep Microsoft >/dev/null; then
     source "$HOME/.dotfiles/zsh/wsl.zshrc"
 fi
 
+source "$HOME/.dotfiles/zsh/_utils.sh"
+
 # Run other ZSH scripts
 for file in `find "$HOME/.dotfiles/zsh/zshrc.d" -type f -name "*.sh"`; do
     source $file

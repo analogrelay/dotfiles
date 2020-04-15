@@ -47,5 +47,6 @@ installpkg() {
 }
 
 confirm() {
-    read -q "?$1 [y/N]"
+    read -q "?$1 [y/N] "
+    echo
 }
