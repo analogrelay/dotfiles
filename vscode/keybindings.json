@@ -3,5 +3,9 @@
     {
         "key": "ctrl+shift+;",
         "command": "workbench.files.action.showActiveFileInExplorer"
+    },
+    {
+        "key": "shift+cmd+i",
+        "command": "editor.action.inspectTMScopes"
     }
 ]

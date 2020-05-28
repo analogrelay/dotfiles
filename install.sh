@@ -5,8 +5,8 @@
 DOTFILES_ROOT="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $DOTFILES_ROOT
 
-. "./config.sh"
 . "./zsh/_utils.sh"
+. "./config.sh"
 
 # Generate a "Machine Name"
 MACHINE_NAME=$HOSTNAME

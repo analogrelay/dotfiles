@@ -14,4 +14,5 @@ if [ ! -d ~/.config/powershell ]; then
 fi
 
 # Generate a linking profile script
+trace_out "Generating profile script"
 echo ". $DOTFILES_ROOT/ps1/profile.ps1" > ~/.config/powershell/Microsoft.PowerShell_profile.ps1

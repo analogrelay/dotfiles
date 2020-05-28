@@ -8,10 +8,9 @@ fi
 
 if [ -f ~/.gitconfig ]; then
     if confirm "A git config file already exists in '~/.gitconfig'. Remove it?"; then
-        echo
+        trace_out "Removing ~/.gitconfig"
         rm ~/.gitconfig
     else
-        echo
         echo "Skipping git configuration"
     fi
 fi
@@ -23,8 +22,10 @@ if [ ! -f ~/.gitconfig ]; then
     read "? - What is your Git author email? " AUTHOR_EMAIL
 
     # Copy the git config in
+    trace_out "Copying gitconfig file"
     cp ~/.dotfiles/git/.gitconfig ~/.gitconfig
 
+    trace_out "Patching gitconfig with author info"
     echo "[user]" >> ~/.gitconfig
     echo "    name = $AUTHOR_NAME" >> ~/.gitconfig
     echo "    email = $AUTHOR_EMAIL" >> ~/.gitconfig

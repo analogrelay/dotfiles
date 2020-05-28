@@ -1,4 +1,12 @@
+# We should be inside the DOTFILES_INSTALL context
+if [ "$DOTFILES_INSTALL" != "1" ]; then
+    echo "This script should be run during Dotfiles Installation only!" 1>&2
+    exit 1
+fi
+
 if [ -e ~/.tmux.conf ]; then
+    trace_out "Removing existing tmux.conf symlink"
     rm ~/.tmux.conf
 fi
-ln -s ~/.dotfiles/tmux/tmux.conf ~/.tmux.conf
+
+link_file ~/.dotfiles/tmux/tmux.conf ~/.tmux.conf

@@ -6,18 +6,15 @@ if [ "$DOTFILES_INSTALL" != "1" ]; then
     exit 1
 fi
 
-# We're guaranteed to be running in the dotfiles repo root
-. "./zsh/_utils.sh"
-
 # Install oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 else
-    echo "oh-my-zsh already installed"
+    trace_out "oh-my-zsh already installed"
 fi
 
 # Symlink zshrc
 if [ -e ~/.zshrc ]; then
     rm ~/.zshrc
 fi
-ln -s ~/.dotfiles/zsh/zshrc.sh ~/.zshrc
+link_file ~/.dotfiles/zsh/zshrc.sh ~/.zshrc

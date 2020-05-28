@@ -8,31 +8,32 @@ clone() {
     fi
 
     # Detect input types.
-    if [[ $repo =~ "^(ssh://)?git@ssh.dev.azure.com:v3/([a-zA-Z0-9\-_]+)/[a-zA-Z0-9\-_]+/([a-zA-Z0-9\-_\.]+)/?$" ]]; then
+    if [[ $repo =~ "^\s*(ssh://)?git@ssh.dev.azure.com:v3/([a-zA-Z0-9\-_]+)/[a-zA-Z0-9\-_]+/([a-zA-Z0-9\-_\.]+)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^(ssh://)?[A-Za-z]@vs-ssh.visualstudio.com:v3/([a-zA-Z0-9\-_]+)/[a-zA-Z0-9\-_]+/([a-zA-Z0-9\-_]+)/?$" ]]; then
+    elif [[ $repo =~ "^\s*(ssh://)?[A-Za-z]@vs-ssh.visualstudio.com:v3/([a-zA-Z0-9\-_]+)/[a-zA-Z0-9\-_]+/([a-zA-Z0-9\-_]+)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_]+)$" ]]; then
+    # It is important that '-' be first in the '[]'s below because that means it will be treated literally.
+    elif [[ $repo =~ "^\s*([-a-zA-Z0-9_]+)/([-a-zA-Z0-9_]+)\s*$" ]]; then
         owner=$match[1]
         repoName=$match[2]
         repo="git@github.com:$owner/$repoName.git"
-    elif [[ $repo =~ "^(ssh://)git@github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)\.git/?$" ]]; then
+    elif [[ $repo =~ "^\s*(ssh://)git@github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)\.git/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^(ssh://)git@github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)/?$" ]]; then
+    elif [[ $repo =~ "^\s*(ssh://)git@github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^https://(www\.)?github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)\.git/?$" ]]; then
+    elif [[ $repo =~ "^\s*https://(www\.)?github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)\.git/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^https://(www\.)?github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)/?$" ]]; then
+    elif [[ $repo =~ "^\s*https://(www\.)?github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
     else
         echo "This script can only be used with 'ssh://' URLs or GitHub owner/repo references" 1>&2
-        exit 1
+        return 1
     fi
 
     dest=~/code/$owner/$repoName
