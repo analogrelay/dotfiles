@@ -1,24 +1,187 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "alwaysShowTabs": true,
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "initialCols": 120,
     "initialRows": 30,
+    "keybindings": [
+        {
+            "command": "closeTab",
+            "keys": [
+                "ctrl+w"
+            ]
+        },
+        {
+            "command": "newTab",
+            "keys": [
+                "ctrl+t"
+            ]
+        },
+        {
+            "command": "newTabProfile0",
+            "keys": [
+                "ctrl+shift+1"
+            ]
+        },
+        {
+            "command": "newTabProfile1",
+            "keys": [
+                "ctrl+shift+2"
+            ]
+        },
+        {
+            "command": "newTabProfile2",
+            "keys": [
+                "ctrl+shift+3"
+            ]
+        },
+        {
+            "command": "newTabProfile3",
+            "keys": [
+                "ctrl+shift+4"
+            ]
+        },
+        {
+            "command": "newTabProfile4",
+            "keys": [
+                "ctrl+shift+5"
+            ]
+        },
+        {
+            "command": "newTabProfile5",
+            "keys": [
+                "ctrl+shift+6"
+            ]
+        },
+        {
+            "command": "newTabProfile6",
+            "keys": [
+                "ctrl+shift+7"
+            ]
+        },
+        {
+            "command": "newTabProfile7",
+            "keys": [
+                "ctrl+shift+8"
+            ]
+        },
+        {
+            "command": "newTabProfile8",
+            "keys": [
+                "ctrl+shift+9"
+            ]
+        },
+        {
+            "command": "nextTab",
+            "keys": [
+                "ctrl+tab"
+            ]
+        },
+        {
+            "command": "openSettings",
+            "keys": [
+                "ctrl+,"
+            ]
+        },
+        {
+            "command": "prevTab",
+            "keys": [
+                "ctrl+shift+tab"
+            ]
+        },
+        {
+            "command": "scrollDown",
+            "keys": [
+                "ctrl+shift+down"
+            ]
+        },
+        {
+            "command": "scrollDownPage",
+            "keys": [
+                "ctrl+shift+pgdn"
+            ]
+        },
+        {
+            "command": "scrollUp",
+            "keys": [
+                "ctrl+shift+up"
+            ]
+        },
+        {
+            "command": "scrollUpPage",
+            "keys": [
+                "ctrl+shift+pgup"
+            ]
+        },
+        {
+            "command": "switchToTab0",
+            "keys": [
+                "alt+1"
+            ]
+        },
+        {
+            "command": "switchToTab1",
+            "keys": [
+                "alt+2"
+            ]
+        },
+        {
+            "command": "switchToTab2",
+            "keys": [
+                "alt+3"
+            ]
+        },
+        {
+            "command": "switchToTab3",
+            "keys": [
+                "alt+4"
+            ]
+        },
+        {
+            "command": "switchToTab4",
+            "keys": [
+                "alt+5"
+            ]
+        },
+        {
+            "command": "switchToTab5",
+            "keys": [
+                "alt+6"
+            ]
+        },
+        {
+            "command": "switchToTab6",
+            "keys": [
+                "alt+7"
+            ]
+        },
+        {
+            "command": "switchToTab7",
+            "keys": [
+                "alt+8"
+            ]
+        },
+        {
+            "command": "switchToTab8",
+            "keys": [
+                "alt+9"
+            ]
+        }
+    ],
     "requestedTheme": "system",
     "showTabsInTitlebar": true,
     "showTerminalTitleInTitlebar": true,
-    "wordDelimiters": " ./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}~?\u2502",
     "profiles": [
         {
-            "source": "Windows.Terminal.PowershellCore",
             "acrylicOpacity": 0.5,
             "closeOnExit": true,
-            "colorScheme": "VibrantCode",
+            "colorScheme": "PrimeTerm",
+            "commandline": "pwsh.exe",
             "cursorColor": "#FFFFFF",
             "cursorShape": "bar",
-            "fontFace": "Delugia Nerd Font",
+            "fontFace": "SauceCodePro NF",
             "fontSize": 10,
-            "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+            "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
             "historySize": 9001,
             "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
             "name": "PowerShell",
@@ -30,11 +193,11 @@
         {
             "acrylicOpacity": 0.5,
             "closeOnExit": true,
-            "colorScheme": "VibrantCode",
+            "colorScheme": "PrimeTerm",
             "commandline": "wsl.exe -d WLinux",
             "cursorColor": "#FFFFFF",
             "cursorShape": "bar",
-            "fontFace": "Delugia Nerd Font",
+            "fontFace": "SauceCodePro NF",
             "fontSize": 10,
             "guid": "{7f586916-8357-53d4-bb2b-ca96f639898a}",
             "historySize": 9001,
@@ -46,52 +209,40 @@
             "useAcrylic": false
         },
         {
+            "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+            "hidden": false,
+            "name": "PowerShell",
+            "source": "Windows.Terminal.PowershellCore"
+        },
+        {
             "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
             "hidden": false,
-            "fontFace": "Delugia Nerd Font",
             "name": "Azure Cloud Shell",
             "source": "Windows.Terminal.Azure"
-        },
-        {
-            "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-            "acrylicOpacity": 0.5,
-            "closeOnExit": true,
-            "name": "Windows PowerShell",
-            "cursorColor": "#FFFFFF",
-            "cursorShape": "bar",
-            "fontFace": "Delugia Nerd Font",
-            "fontSize": 10,
-            "historySize": 9001,
-            "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
-            "padding": "0, 0, 0, 0",
-            "snapOnInput": true,
-            "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": false
-        },
-        {
-            "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-            "acrylicOpacity": 0.5,
-            "closeOnExit": true,
-            "name": "cmd",
-            "cursorColor": "#FFFFFF",
-            "cursorShape": "bar",
-            "fontFace": "Delugia Nerd Font",
-            "fontSize": 10,
-            "historySize": 9001,
-            "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
-            "padding": "0, 0, 0, 0",
-            "snapOnInput": true,
-            "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": false
-        },
-        {
-            "guid": "{d8afdc0e-a636-5b68-89dd-50a9d0b54349}",
-            "hidden": false,
-            "name": "docker-desktop-data",
-            "source": "Windows.Terminal.Wsl"
         }
     ],
     "schemes": [
+        {
+            "name": "PrimeTerm",
+            "background": "#24292E",
+            "foreground": "#FEFFFF",
+            "black": "#24292E",
+            "blue": "#005CC5",
+            "green": "#22863A",
+            "cyan": "#5A32A3",
+            "red": "#CB2431",
+            "purple": "#D03592",
+            "yellow": "#F9C513",
+            "white": "#D1D5DA",
+            "brightBlack": "#586069",
+            "brightBlue": "#79B8FF",
+            "brightGreen": "#85E89D",
+            "brightCyan": "#B392F0",
+            "brightRed": "#F97583",
+            "brightPurple": "#F692CE",
+            "brightYellow": "#FFEA7F",
+            "brightWhite": "#FEFFFF"
+        },
         {
             "background": "#2C001E",
             "black": "#4E9A06",
