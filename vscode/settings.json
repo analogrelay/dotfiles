@@ -29,7 +29,6 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "window.zoomLevel": 0,
     "workbench.iconTheme": "vs-seti",
-    "editor.renderWhitespace": "none",
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
     "vs-kubernetes": {
@@ -37,5 +36,6 @@
     },
     "vsonline.planFilter": "/subscriptions/3b4aaa78-174e-46a1-bee0-cb85849bda49/resourceGroups/anurse-vsop-rg/providers/Microsoft.VSOnline/plans/anurse-vsop",
     "vsonline.authentication.accountProvider": "Microsoft",
-    "workbench.colorTheme": "GitHub Dark"
+    "workbench.colorTheme": "GitHub Dark",
+    "editor.renderWhitespace": "boundary"
 }

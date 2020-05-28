@@ -8,6 +8,7 @@ fi
 # The base set of packages depended upon by dotfiles
 BASE_PACKAGES=(
     "jq"
+    "tmux"
 )
 
 BASE_CASKS=(
