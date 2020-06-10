@@ -12,18 +12,21 @@ echo "Configuring Git..."
 link_file ~/.dotfiles/git/gitconfig ~/.gitconfig
 
 # Check if we need to generate a new author config
-AUTHOR_NAME=$(git config user.name)
-AUTHOR_EMAIL=$(git config user.email)
 
+GITHUB_USER=$(git config github.user)
+if [ -z "$GITHUB_USER" ]; then
+    read "? - What is your GitHub user name? " GITHUB_USER
+    git config --file ~/.gitauthor github.user $GITHUB_USER
+fi
+
+AUTHOR_NAME=$(git config user.name)
 if [ -z "$AUTHOR_NAME" ]; then
     read "? - What is your Git author name? " AUTHOR_NAME
+    git config --file ~/.gitauthor user.name $AUTHOR_NAME
 fi
 
+AUTHOR_EMAIL=$(git config user.email)
 if [ -z "$AUTHOR_EMAIL" ]; then
     read "? - What is your Git author email? " AUTHOR_EMAIL
+    git config --file ~/.gitauthor user.email $AUTHOR_EMAIL
 fi
-
-trace_out "Installing gitauthor file"
-echo "[user]" > ~/.gitauthor
-echo "    name = $AUTHOR_NAME" >> ~/.gitauthor
-echo "    email = $AUTHOR_EMAIL" >> ~/.gitauthor
