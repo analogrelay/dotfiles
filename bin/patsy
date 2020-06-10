@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+usage() {
+    echo "Usage: patsy <NAME> <VALUE>"
+    echo "Usage: patsy <NAME>"
+}
+
+die() {
+    usage
+    echo "$1" 1>&2
+    exit 1
+}
+
+NAME=
+VALUE=
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    shift
+    case $key in
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            if [ -z $NAME ]; then
+                NAME="$key"
+            elif [ -z $VALUE ]; then
+                VALUE="$key"
+            else
+                die "Too many arguments specified!"
+            fi
+    esac
+done
+
+if [ -z $NAME ]; then
+    die "Missing required argument '<NAME>'"
+fi
+
+if [ -z $VALUE ]; then
+    security find-generic-password -D "patsy token" -l "$NAME" -w
+else
+    security add-generic-password -a "patsy" -s "patsy" -D "patsy token" -l "$NAME" -w "$VALUE"
+fi

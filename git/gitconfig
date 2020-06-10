@@ -93,7 +93,5 @@
 [http]
 	postBuffer = 1048576000
 	maxRequestBuffer = 100M
-[github]
-	user = anurse
 [credential]
 	helper = osxkeychain

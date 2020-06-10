@@ -20,7 +20,7 @@ if ! has code; then
 else
     INSTALLED=`code --list-extensions`
     for extension in `cat ./vscode/extensions.txt | egrep "^[^#]+$"`; do
-        if echo $INSTALLED | grep -i -F "$extension"; then
+        if echo $INSTALLED | grep -i -F "$extension" >/dev/null; then
             trace_out "Skipping installed extension $extension"
         else
             INSTALLED_ANY=1

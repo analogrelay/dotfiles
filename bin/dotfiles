@@ -63,7 +63,7 @@ command_edit_usage() {
 
 command_edit() {
     cd ~/.dotfiles
-    code-insiders .
+    code .
 }
 
 command_sync_usage() {
