@@ -1,5 +1,4 @@
 tap "homebrew/cask"
-tap "homebrew/code"
 tap "homebrew/services"
 
 brew "gh"
