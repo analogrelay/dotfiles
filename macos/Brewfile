@@ -1,0 +1,20 @@
+tap "homebrew/cask"
+tap "homebrew/code"
+tap "homebrew/services"
+
+brew gh
+brew tmux
+brew node
+brew ruby
+brew mas
+
+cask iterm2
+cask visual-studio-code
+cask 1password
+cask 1password-cli
+cask microsoft-edge
+cask docker
+cask zoomus
+
+mas "Slack", id: 803453959
+mas "iMovie", id: 408981434

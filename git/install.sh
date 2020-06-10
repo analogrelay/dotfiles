@@ -6,27 +6,24 @@ if [ "$DOTFILES_INSTALL" != "1" ]; then
     exit 1
 fi
 
-if [ -f ~/.gitconfig ]; then
-    if confirm "A git config file already exists in '~/.gitconfig'. Remove it?"; then
-        trace_out "Removing ~/.gitconfig"
-        rm ~/.gitconfig
-    else
-        echo "Skipping git configuration"
-    fi
-fi
+echo "Configuring Git..."
 
-if [ ! -f ~/.gitconfig ]; then
-    echo "Configuring Git..."
+# Link gitconfig
+link_file ~/.dotfiles/git/gitconfig ~/.gitconfig
 
+# Check if we need to generate a new author config
+AUTHOR_NAME=$(git config user.name)
+AUTHOR_EMAIL=$(git config user.email)
+
+if [ -z "$AUTHOR_NAME" ]; then
     read "? - What is your Git author name? " AUTHOR_NAME
-    read "? - What is your Git author email? " AUTHOR_EMAIL
-
-    # Copy the git config in
-    trace_out "Copying gitconfig file"
-    cp ~/.dotfiles/git/.gitconfig ~/.gitconfig
-
-    trace_out "Patching gitconfig with author info"
-    echo "[user]" >> ~/.gitconfig
-    echo "    name = $AUTHOR_NAME" >> ~/.gitconfig
-    echo "    email = $AUTHOR_EMAIL" >> ~/.gitconfig
 fi
+
+if [ -z "$AUTHOR_EMAIL" ]; then
+    read "? - What is your Git author email? " AUTHOR_EMAIL
+fi
+
+trace_out "Installing gitauthor file"
+echo "[user]" > ~/.gitauthor
+echo "    name = $AUTHOR_NAME" >> ~/.gitauthor
+echo "    email = $AUTHOR_EMAIL" >> ~/.gitauthor

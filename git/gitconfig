@@ -1,3 +1,6 @@
+[include]
+    path = "~/.gitauthor"
+
 [core]
     autocrlf = false
     excludesfile = "~/.dotfiles/git/gitignore"
@@ -90,3 +93,7 @@
 [http]
 	postBuffer = 1048576000
 	maxRequestBuffer = 100M
+[github]
+	user = anurse
+[credential]
+	helper = osxkeychain

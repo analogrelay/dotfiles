@@ -74,20 +74,23 @@ confirm() {
 
 trace_out() {
     if [ "$DOTFILES_TRACE" = "1" ]; then
-        echo "$ANSI_FG_PURPLE$1$ANSI_RESET"
+        echo "${ANSI_FG_PURPLE}trace:$ANSI_RESET $1"
     fi
+}
+
+warn() {
+    echo "${ANSI_FG_YELLOW}warn :$ANSI_RESET $1"
 }
 
 link_file() {
     local SRC=$1
     local TGT=$2
     if [ -e $TGT ]; then
-        if confirm "File '$TGT' already exists. Replace it?"; then
-            trace_out "Removing '$TGT'"
-            rm $TGT
-        else
-            return 0
-        fi
+        # Back up the file
+        local TMP=$(mktemp -d -t "dotfiles-backup-$(basename $TGT)")
+        warn "Replacing $TGT. Backed up original to $TMP"
+        cp $TGT $TMP
+        rm $TGT
     fi  
     ln -s $SRC $TGT
 }
