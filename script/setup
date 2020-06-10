@@ -38,7 +38,7 @@ fi
 # If we're in ZSH, continue. Otherwise, set up ZSH
 if [ "$ZSH_VERSION" = "" ]; then
     # Restart this script in ZSH
-    DEBUG=$DEBUG exec zsh "$HOME/.dotfiles/scripts/setup"
+    DEBUG=$DEBUG exec zsh "$HOME/.dotfiles/script/setup"
 fi
 
 # Run install scripts
