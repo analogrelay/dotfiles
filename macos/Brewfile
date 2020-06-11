@@ -16,6 +16,8 @@ cask "1password-cli"
 cask "microsoft-edge"
 cask "docker"
 cask "zoomus"
+cask "keybase"
+cask "gpg-suite-pinentry"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434
