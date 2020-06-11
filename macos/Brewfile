@@ -2,10 +2,12 @@ tap "homebrew/cask"
 tap "homebrew/services"
 
 brew "gh"
+brew "jq"
 brew "tmux"
 brew "node"
 brew "ruby"
 brew "mas"
+brew "rbenv"
 
 cask "iterm2"
 cask "visual-studio-code"
