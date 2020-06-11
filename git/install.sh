@@ -16,17 +16,17 @@ link_file ~/.dotfiles/git/gitconfig ~/.gitconfig
 GITHUB_USER=$(git config github.user)
 if [ -z "$GITHUB_USER" ]; then
     read "? - What is your GitHub user name? " GITHUB_USER
-    git config --file ~/.gitauthor github.user $GITHUB_USER
+    git config --file ~/.gitlocal github.user $GITHUB_USER
 fi
 
 AUTHOR_NAME=$(git config user.name)
 if [ -z "$AUTHOR_NAME" ]; then
     read "? - What is your Git author name? " AUTHOR_NAME
-    git config --file ~/.gitauthor user.name $AUTHOR_NAME
+    git config --file ~/.gitlocal user.name $AUTHOR_NAME
 fi
 
 AUTHOR_EMAIL=$(git config user.email)
 if [ -z "$AUTHOR_EMAIL" ]; then
     read "? - What is your Git author email? " AUTHOR_EMAIL
-    git config --file ~/.gitauthor user.email $AUTHOR_EMAIL
+    git config --file ~/.gitlocal user.email $AUTHOR_EMAIL
 fi

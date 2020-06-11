@@ -18,4 +18,5 @@ if ! gpg --list-secret-keys $KEYID 2>&1 >/dev/null; then
     rm ~/.gnupg/andrew@stanton-nurse.com_gitsigning.private.gpg-key
 fi
 
-git config --file ~/.gitauthor user.signingkey "$KEYID"
+git config --file ~/.gitlocal user.signingkey "$KEYID"
+git config --file ~/.gitlocal commit.gpgsign true
