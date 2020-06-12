@@ -95,3 +95,8 @@
 	maxRequestBuffer = 100M
 [credential]
 	helper = osxkeychain
+[user]
+	name = Andrew Stanton-Nurse
+	email = anurse@github.com
+[github]
+	user = anurse

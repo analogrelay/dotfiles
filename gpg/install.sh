@@ -5,6 +5,7 @@ fi
 
 KEYID=B86EA7CF15CD9B8CF46BA31862ADE1FEC51F9A1A
 
+[ -d ~/.gnupg ] || mkdir ~/.gnupg
 link_file ~/.dotfiles/gpg/andrew@stanton-nurse.com_gitsigning.public.gpg-key ~/.gnupg/andrew@stanton-nurse.com_gitsigning.public.gpg-key
 gpg --import ~/.gnupg/andrew@stanton-nurse.com_gitsigning.public.gpg-key
 

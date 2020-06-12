@@ -1,0 +1,2 @@
+source ~/.dotfiles/zsh/_utils.sh
+source ~/.dotfiles/gpg/install.sh

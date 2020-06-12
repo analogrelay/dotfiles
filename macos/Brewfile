@@ -8,6 +8,7 @@ brew "node"
 brew "ruby"
 brew "mas"
 brew "rbenv"
+brew "gpg"
 
 cask "iterm2"
 cask "visual-studio-code"
