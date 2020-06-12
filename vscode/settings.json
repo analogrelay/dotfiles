@@ -43,4 +43,6 @@
     "rust-analyzer.inlayHints.enable": false,
     "ruby.useLanguageServer": true,
     "ruby.format": "rubocop",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.fontSize": 14,
 }

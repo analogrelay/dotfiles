@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [ ! -t 0 ]; then
+    # Try loading text up from stdin
+    stdin=("$(tail -n 1 <&0)")
+fi
+
+title=Terminal
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    shift
+
+    case $key in
+        -t|--title)
+            title="$1"
+            shift
+            ;;
+        *)
+            text+=($key)
+            ;;
+    esac
+done
+
+[ -z "$text" ] && text=$stdin
+[ -z "$text" ] && text="Terminal Notification!"
+
+# Deliver the actual notification
+if [ $(uname) = "Darwin" ]; then
+    afplay /System/Library/Sounds/Sosumi.aiff -v 4 &
+    osascript -e "display notification \"${text[@]}\" with title \"$title\"" &
+else
+    echo "Terminal Notifications not supported on $(uname)!"
+fi
