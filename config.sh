@@ -11,5 +11,5 @@ DOTFILES_INSTALL_SCRIPTS=(
 )
 
 if ismacos; then
-    DOTFILES_INSTALL_SCRIPTS=( "./macos/install.sh" $DOTFILES_INSTALL_SCRIPTS[@] )
+    DOTFILES_INSTALL_SCRIPTS=( "./macos/install.sh" $DOTFILES_INSTALL_SCRIPTS[@] "./macos/iterm/install.sh" )
 fi
