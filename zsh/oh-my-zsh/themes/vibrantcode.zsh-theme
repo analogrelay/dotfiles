@@ -28,6 +28,7 @@ vc_icons[rust]="\ue7a8"
 vc_icons[windows]="\ue70f"
 vc_icons[linux]="\ue712"
 vc_icons[mac]="\ue711"
+vc_icons[ruby]="\ue605"
 
 if [ "$(uname)" = "Linux" ]; then
   os_icon="$vc_icons[linux]"
@@ -203,6 +204,12 @@ prompt_dotnet() {
   fi
 }
 
+prompt_rbenv() {
+  if type -p rbenv >/dev/null; then
+    prompt_segment red white "$vc_icons[ruby] $(rbenv version-name)"
+  fi
+}
+
 # Status:
 # - was there an error
 # - am I root
@@ -227,6 +234,7 @@ build_prompt() {
   prompt_status
   prompt_context
   prompt_dotnet
+  prompt_rbenv
   prompt_rust
   prompt_dir
   prompt_git

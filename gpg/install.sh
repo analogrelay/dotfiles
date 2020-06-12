@@ -20,4 +20,3 @@ if ! gpg --list-secret-keys $KEYID 2>&1 >/dev/null; then
 fi
 
 git config --file ~/.gitlocal user.signingkey "$KEYID"
-git config --file ~/.gitlocal commit.gpgsign true

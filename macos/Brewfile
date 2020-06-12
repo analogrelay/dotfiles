@@ -9,6 +9,8 @@ brew "ruby"
 brew "mas"
 brew "rbenv"
 brew "gpg"
+brew "ctags"
+brew "yarn"
 
 cask "iterm2"
 cask "visual-studio-code"
@@ -19,6 +21,8 @@ cask "docker"
 cask "zoomus"
 cask "keybase"
 cask "gpg-suite-pinentry"
+cask "divvy"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434
+mas "OneDrive", id: 823766827
