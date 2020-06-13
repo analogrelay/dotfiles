@@ -22,17 +22,23 @@ if (!(Test-Command git)) {
 }
 
 # Configure an SSH key
-ssh-keygen -t rsa -b 4096 -C "$([Environment]::MachineName)"
+$sshKey = Join-Path $env:USERPROFILE ".ssh/id_rsa"
+if(!(Test-Path $sshKey)) {
+    Write-Host -ForegroundColor Green "Generating SSH key."
+    ssh-keygen -t rsa -b 4096 -C "$([Environment]::MachineName)"
 
-# Put it in the clipboard and then launch GitHub to set up the key
-Write-Host -ForegroundColor Yellow "You need to install the key into your SSH Keys on GitHub before we can continue."
-Write-Host -ForegroundColor Yellow "The public key is in your clipboard, launching the browser to the GitHub page to configure it."
-Get-Content "~/.ssh/id_rsa.pub" | clip.exe
-Start-Process "https://github.com/settings/ssh/new"
+    # Put it in the clipboard and then launch GitHub to set up the key
+    Write-Host -ForegroundColor Yellow "You need to install the key into your SSH Keys on GitHub before we can continue."
+    Write-Host -ForegroundColor Yellow "The public key is in your clipboard, launching the browser to the GitHub page to configure it."
+    Get-Content "~/.ssh/id_rsa.pub" | clip.exe
+    Start-Process "https://github.com/settings/ssh/new"
 
-$response = "n"
-while($response.ToLowerInvariant() -ne "y") {
-    $response = Read-Host "Have you configured the SSH key in GitHub? [y/N]"
+    $response = "n"
+    while($response.ToLowerInvariant() -ne "y") {
+        $response = Read-Host "Have you configured the SSH key in GitHub? [y/N]"
+    }
+} else {
+    Write-Host -ForegroundColor Green "Using existing SSH key."
 }
 
 # Git won't be in the PATH yet
