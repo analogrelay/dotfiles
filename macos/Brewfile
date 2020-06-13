@@ -24,6 +24,7 @@ cask "zoomus"
 cask "keybase"
 cask "gpg-suite-pinentry"
 cask "divvy"
+cask "parsec"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434

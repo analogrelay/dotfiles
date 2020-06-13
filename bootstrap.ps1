@@ -1,7 +1,4 @@
 # Bootstraps the installation of the dotfiles scripts from scratch
-param(
-    [Parameter(Mandatory = $false)][string[]]$Profiles
-)
 
 function Test-Command($CommandName) {
     # Calling Get-Command, even with ErrorAction SilentlyContinue, spams
@@ -12,31 +9,39 @@ function Test-Command($CommandName) {
         })
 }
 
-# Ensure scoop and git are installed
-if (!(Test-Command "scoop")) {
-    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+# First, check for the App Installer package
+if(!(Test-Command winget)) {
+    throw "The dotfiles bootstrapper requires that you configure 'winget' manually. See https://github.com/microsoft/winget-cli for details."
 }
 
-if (!(Test-Command "git")) {
-    scoop install git
+# Install git so we can get the dotfiles repo down
+Write-Host -ForegroundColor Green "Installing Git."
+winget install Git.Git
+
+# Ask for a machine name
+$response = "n"
+while($response.ToLowerInvariant() -ne "y") {
+    $MachineName = Read-Host "What do you want the machine name to be? "
+    $response = Read-Host "Great, '$MachineName'. Is that correct? [y/N]"
+}
+Rename-Computer -NewName $MachineName
+
+# Configure an SSH key
+ssh-keygen -t rsa -b 4096 -C "$MachineName"
+
+# Put it in the clipboard and then launch GitHub to set up the key
+Write-Host -ForegroundColor Yellow "You need to install the key into your SSH Keys on GitHub before we can continue."
+Write-Host -ForegroundColor Yellow "The public key is in your clipboard, launching the browser to the GitHub page to configure it."
+Get-Content "~/.ssh/id_rsa.pub" | clip.exe
+Start-Process "https://github.com/settings/ssh/new"
+
+$response = "n"
+while($response.ToLowerInvariant() -ne "y") {
+    $response = Read-Host "Have you configured the SSH key in GitHub? [y/N]"
 }
 
-# First, check if it's already cloned
-$DotFilesRoot = Join-Path ([Environment]::GetFolderPath("UserProfile")) ".dotfiles"
-if (!(Test-Path $DotFilesRoot)) {
-    # It doesn't exist, clone it
-    git clone "https://github.com/anurse/dotfiles" $DotFilesRoot
-}
+Write-Host -ForegroundColor Green "Cloning the dotfiles now!"
+git clone git@github.com:anurse/dotfiles.git ~/.dotfiles
 
-$InstallScript = Join-Path $DotFilesRoot "install.ps1"
-
-# Ensure we have powershell core installed
-if ($PSVersionTable.PSEdition -ne "Core") {
-    if (!(Test-Command pwsh)) {
-        scoop install pwsh
-    }
-    pwsh $InstallScript -Profiles:$Profiles
-}
-else {
-    & $InstallScript -Profiles:$Profiles
-}
+Write-Host -ForegroundColor Green "Launching setup script!"
+& "~/.dotfiles/script/setup.ps1"
