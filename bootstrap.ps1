@@ -16,19 +16,13 @@ if(!(Test-Command winget)) {
 }
 
 # Install git so we can get the dotfiles repo down
-Write-Host -ForegroundColor Green "Installing Git."
-winget install --exact --id Git.Git
-
-# Ask for a machine name
-$response = "n"
-while($response.ToLowerInvariant() -ne "y") {
-    $MachineName = Read-Host "What do you want the machine name to be?"
-    $response = Read-Host "Great, '$MachineName'. Is that correct? [y/N]"
+if (!(Test-Command git)) {
+    Write-Host -ForegroundColor Green "Installing Git."
+    winget install --exact --id Git.Git
 }
-Rename-Computer -NewName $MachineName
 
 # Configure an SSH key
-ssh-keygen -t rsa -b 4096 -C "$MachineName"
+ssh-keygen -t rsa -b 4096 -C "$([Environment]::MachineName)"
 
 # Put it in the clipboard and then launch GitHub to set up the key
 Write-Host -ForegroundColor Yellow "You need to install the key into your SSH Keys on GitHub before we can continue."
@@ -41,11 +35,23 @@ while($response.ToLowerInvariant() -ne "y") {
     $response = Read-Host "Have you configured the SSH key in GitHub? [y/N]"
 }
 
+# Git won't be in the PATH yet
+if(Test-Command git) {
+    $gitExe = "git"
+} else {
+    $gitExe = Join-Path $env:PROGRAMFILES "Git/bin/git.exe"
+    if (!(Test-Path $gitExe)) {
+        throw "Could not find 'git.exe' despite it being installed!"
+    }
+}
+
 Write-Host -ForegroundColor Green "Cloning the dotfiles now!"
-git clone git@github.com:anurse/dotfiles.git ~/.dotfiles
+& $gitExe clone git@github.com:anurse/dotfiles.git ~/.dotfiles
 
 # Install pwsh to run the setup script
-winget install --exact --id Microsoft.PowerShell
+if (!(Test-Command pwsh)) {
+    winget install --exact --id Microsoft.PowerShell
+}
 
 Write-Host -ForegroundColor Green "Launching setup script!"
 pwsh.exe "~/.dotfiles/script/setup.ps1"
