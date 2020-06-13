@@ -51,8 +51,15 @@ if(Test-Command git) {
     }
 }
 
-Write-Host -ForegroundColor Green "Cloning the dotfiles now!"
-& $gitExe clone git@github.com:anurse/dotfiles.git ~/.dotfiles
+if(Test-Path ~/.dotfiles) {
+    Write-Host -ForegroundColor Green "Updating the dotfiles."
+    cd ~/.dotfiles
+    git pull --rebase --autostash
+}
+else {
+    Write-Host -ForegroundColor Green "Cloning the dotfiles."
+    & $gitExe clone git@github.com:anurse/dotfiles.git ~/.dotfiles
+}
 
 # Install pwsh to run the setup script
 if (!(Test-Command pwsh)) {
