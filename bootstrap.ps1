@@ -51,14 +51,16 @@ if(Test-Command git) {
     }
 }
 
-if(Test-Path ~/.dotfiles) {
+$DotfilesPath = Join-Path $env:USERPROFILE ".dotfiles"
+
+if(Test-Path $DotfilesPath)
     Write-Host -ForegroundColor Green "Updating the dotfiles."
     cd ~/.dotfiles
     git pull --rebase --autostash
 }
 else {
     Write-Host -ForegroundColor Green "Cloning the dotfiles."
-    & $gitExe clone git@github.com:anurse/dotfiles.git ~/.dotfiles
+    & $gitExe clone git@github.com:anurse/dotfiles.git $DotfilesPath
 }
 
 # Install pwsh to run the setup script
@@ -67,4 +69,4 @@ if (!(Test-Command pwsh)) {
 }
 
 Write-Host -ForegroundColor Green "Launching setup script!"
-pwsh.exe "~/.dotfiles/script/setup.ps1"
+pwsh.exe (Join-Path $DotfilesPath "/script/setup.ps1")
