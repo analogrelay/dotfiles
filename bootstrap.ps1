@@ -11,7 +11,7 @@ function Test-Command($CommandName) {
 }
 
 # First, check for the App Installer package
-if(!(Test-Command winget)) {
+if (!(Test-Command winget)) {
     throw "The dotfiles bootstrapper requires that you configure 'winget' manually. See https://github.com/microsoft/winget-cli for details."
 }
 
@@ -23,7 +23,7 @@ if (!(Test-Command git)) {
 
 # Configure an SSH key
 $sshKey = Join-Path $env:USERPROFILE ".ssh/id_rsa"
-if(!(Test-Path $sshKey)) {
+if (!(Test-Path $sshKey)) {
     Write-Host -ForegroundColor Green "Generating SSH key."
     ssh-keygen -t rsa -b 4096 -C "$([Environment]::MachineName)"
 
@@ -42,7 +42,7 @@ if(!(Test-Path $sshKey)) {
 }
 
 # Git won't be in the PATH yet
-if(Test-Command git) {
+if (Test-Command git) {
     $gitExe = "git"
 } else {
     $gitExe = Join-Path $env:PROGRAMFILES "Git/bin/git.exe"
@@ -53,7 +53,7 @@ if(Test-Command git) {
 
 $DotfilesPath = Join-Path $env:USERPROFILE ".dotfiles"
 
-if(Test-Path $DotfilesPath)
+if (Test-Path $DotfilesPath) {
     Write-Host -ForegroundColor Green "Updating the dotfiles."
     cd ~/.dotfiles
     git pull --rebase --autostash
