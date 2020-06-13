@@ -1,4 +1,5 @@
 # Bootstraps the installation of the dotfiles scripts from scratch
+$ErrorPreference="Stop"
 
 function Test-Command($CommandName) {
     # Calling Get-Command, even with ErrorAction SilentlyContinue, spams
