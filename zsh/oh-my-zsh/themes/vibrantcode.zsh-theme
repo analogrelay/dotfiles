@@ -242,7 +242,7 @@ build_prompt() {
 }
 
 final_prompt() {
-  echo -n "$vc_fg[bright_blue]zsh \$$vc_fg[default]"
+  echo -n "zsh \$"
 }
 
 PROMPT=$'%{%f%b%k%}$(build_prompt) 
