@@ -16,12 +16,12 @@ if(!(Test-Command winget)) {
 
 # Install git so we can get the dotfiles repo down
 Write-Host -ForegroundColor Green "Installing Git."
-winget install Git.Git
+winget install --exact --id Git.Git
 
 # Ask for a machine name
 $response = "n"
 while($response.ToLowerInvariant() -ne "y") {
-    $MachineName = Read-Host "What do you want the machine name to be? "
+    $MachineName = Read-Host "What do you want the machine name to be?"
     $response = Read-Host "Great, '$MachineName'. Is that correct? [y/N]"
 }
 Rename-Computer -NewName $MachineName
@@ -43,5 +43,8 @@ while($response.ToLowerInvariant() -ne "y") {
 Write-Host -ForegroundColor Green "Cloning the dotfiles now!"
 git clone git@github.com:anurse/dotfiles.git ~/.dotfiles
 
+# Install pwsh to run the setup script
+winget install --exact --id Microsoft.PowerShell
+
 Write-Host -ForegroundColor Green "Launching setup script!"
-& "~/.dotfiles/script/setup.ps1"
+pwsh.exe "~/.dotfiles/script/setup.ps1"
