@@ -13,6 +13,7 @@ brew "gpg"
 brew "ctags"
 brew "yarn"
 brew "heroku"
+brew "mysql"
 
 cask "iterm2"
 cask "visual-studio-code"
