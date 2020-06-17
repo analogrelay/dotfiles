@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
 usage() {
-    echo "Usage: patsy <NAME> <VALUE>"
+    echo "Usage: patsy"
+    echo "  Lists all available tokens"
     echo "Usage: patsy <NAME>"
+    echo "  Gets the token with the specified name"
+    echo "Usage: patsy -d|--delete <NAME>"
+    echo "  Deletes the token with the specified name"
+    echo "Usage: patsy <NAME> <VALUE>"
+    echo "  Sets (overwriting if it already exists) a token with the specified name and value"
 }
 
 die() {
@@ -21,10 +27,13 @@ while [[ $# -gt 0 ]]; do
             usage
             exit 0
             ;;
+        -d|--delete)
+            DEL=1
+            ;;
         *)
-            if [ -z $NAME ]; then
+            if [ -z "$NAME" ]; then
                 NAME="$key"
-            elif [ -z $VALUE ]; then
+            elif [ -z "$VALUE" ]; then
                 VALUE="$key"
             else
                 die "Too many arguments specified!"
@@ -32,12 +41,19 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if [ -z $NAME ]; then
-    die "Missing required argument '<NAME>'"
+if [ "$DEL" = 1 ]; then
+    if [ -z "$NAME" ]; then
+        die "The '<NAME>' value must be specified when deleting"
+    fi
+    security delete-generic-password -a "patsy::$NAME" -s "patsy::$NAME" -D "patsy token" -l "$NAME" >/dev/null
+    exit $?
 fi
 
-if [ -z $VALUE ]; then
+if [ -z "$NAME" ]; then
+    security dump-keychain | grep "acct.*patsy::" | sed "s/^.*patsy:://g" | sed "s/\"$//g"
+elif [ -z "$VALUE" ]; then
     security find-generic-password -D "patsy token" -l "$NAME" -w
 else
-    security add-generic-password -a "patsy" -s "patsy" -D "patsy token" -l "$NAME" -w "$VALUE"
+    security add-generic-password -a "patsy::$NAME" -s "patsy::$NAME" -D "patsy token" -l "$NAME" -w "$VALUE"
+    echo "added patsy token '$NAME'"
 fi
