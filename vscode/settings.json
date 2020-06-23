@@ -27,7 +27,7 @@
     "vim.disableAnnoyingNeovimMessage": true,
     "vim.leader": " ",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "workbench.iconTheme": "vs-seti",
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
@@ -36,7 +36,6 @@
     },
     "vsonline.planFilter": "/subscriptions/3b4aaa78-174e-46a1-bee0-cb85849bda49/resourceGroups/anurse-vsop-rg/providers/Microsoft.VSOnline/plans/anurse-vsop",
     "vsonline.authentication.accountProvider": "Microsoft",
-    "workbench.colorTheme": "GitHub Dark",
     "editor.renderWhitespace": "boundary",
     "codespaces.accountProvider": "Microsoft",
     "codespaces.planFilter": "/subscriptions/3b4aaa78-174e-46a1-bee0-cb85849bda49/resourceGroups/anurse-vsop-rg/providers/Microsoft.VSOnline/plans/anurse-vsop",
@@ -46,4 +45,5 @@
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.fontSize": 14,
     "git.enableSmartCommit": true,
+    "workbench.colorTheme": "GitHub PINK!"
 }

@@ -17,5 +17,15 @@
         "key": "ctrl+`",
         "command": "workbench.action.focusActiveEditorGroup",
         "when": "terminalFocus"
+    },
+    {
+        "key": "alt+ctrl+right",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+ctrl+left",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
     }
 ]
