@@ -4,7 +4,7 @@ if(!(Test-Command colortool)) {
     scoop install colortool
 }
 
-$ColorProfile = "./terminal/PrimeTerm.itermcolors"
+$ColorProfile = "./terminal/PinkTerm.itermcolors"
 colortool -q -b $ColorProfile
 
 # Configure profiles script
