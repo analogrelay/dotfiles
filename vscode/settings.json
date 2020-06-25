@@ -45,5 +45,25 @@
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.fontSize": 14,
     "git.enableSmartCommit": true,
-    "workbench.colorTheme": "GitHub Light"
+    "workbench.colorTheme": "GitHub Light",
+    "workbench.colorCustomizations": {
+        "terminal.ansiRed": "#CB2431",
+        "terminal.ansiBrightBlack": "#41474E",
+        "terminal.ansicyan": "#5A32A3",
+        "terminal.ansiWhite": "#D1D5DA",
+        "terminal.ansiBrightCyan": "#B392F0",
+        "terminal.ansiBlue": "#005CC5",
+        "terminal.ansiBrightYellow": "#FFEA7F",
+        "terminal.ansiYellow": "#F9C513",
+        "terminal.ansiGreen": "#22863A",
+        "terminal.ansiBrightGreen": "#85E89D",
+        "terminal.ansiBrightMagenta": "#F692CE",
+        "terminal.ansiBrightBlue": "#79B8FF",
+        "terminal.ansiBrightWhite": "#FFFFFF",
+        "terminal.ansiBlack": "#24292E",
+        "terminal.background": "#24292E",
+        "terminal.ansiBrightRed": "#F97583",
+        "terminal.foreground": "#FAFBFC",
+        "terminal.ansiMagenta": "#D03592"
+    }
 }
