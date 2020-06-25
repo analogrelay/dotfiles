@@ -22,8 +22,12 @@
 	<string>1</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~</string>
+	<key>NSNavLastUserSetHideExtensionButtonState</key>
+	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{799, 448}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -66,9 +70,9 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>2480 458 799 448 1920 0 1920 1057 </string>
+	<string>850 807 347 181 0 0 2048 1257 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>297 305 1081 792 0 0 1792 1097 </string>
+	<string>-596 1427 2048 1234 -960 1280 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>345 105 2145 945 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
@@ -1379,26 +1383,26 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.61568627450980395</real>
+				<real>0.45605160851783921</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.90980392156862744</real>
+				<real>0.90980392694473267</real>
 				<key>Red Component</key>
-				<real>0.52156862745098043</real>
+				<real>0.10313313863025542</real>
 			</dict>
 			<key>Ansi 11 Color</key>
 			<dict>
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.046875</real>
+				<real>0.0117950439453125</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>1</real>
+				<real>0.98455929756164551</real>
 				<key>Red Component</key>
-				<real>0.97108745574951172</real>
+				<real>1</real>
 			</dict>
 			<key>Ansi 12 Color</key>
 			<dict>
@@ -1418,13 +1422,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.8784313725490196</real>
+				<real>0.87843137979507446</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.69411764705882351</real>
+				<real>0.32598039484582841</real>
 				<key>Red Component</key>
-				<real>0.87058823529411766</real>
+				<real>0.83527114659591462</real>
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
@@ -1559,13 +1563,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.87890625</real>
+				<real>0.99676513671875</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.69701224565505981</real>
+				<real>0.79296875</real>
 				<key>Red Component</key>
-				<real>0.87322206236422062</real>
+				<real>1</real>
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
@@ -2028,9 +2032,9 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{-960, 1280}, {3008, 1692}}</string>
+		<string>{{0, 0}, {2048, 1280}}</string>
 		<key>topLeft</key>
-		<string>{843, 2819}</string>
+		<string>{1070, 1170}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>49BC2308-5C29-464F-9041-3B4323BAD7C5</string>
@@ -2826,7 +2830,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-06-23T16:30:21Z</date>
+	<date>2020-06-24T16:30:22Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>

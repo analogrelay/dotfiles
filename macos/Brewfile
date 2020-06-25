@@ -26,6 +26,8 @@ cask "keybase"
 cask "gpg-suite-pinentry"
 cask "divvy"
 cask "parsec"
+cask "powershell"
+cask "github"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434

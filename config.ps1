@@ -17,16 +17,14 @@ $DotFilesInstallScripts += @(
 )
 
 # Core-only modules
-$DotFilesPowerShellCoreModules = @(
-    "PS-GitHub"
-)
 $DotFilesPowerShellModules = @(
     "posh-git",
     "oh-my-posh",
-    "PS-Tokens",
-    "VSSetup"
+    "PS-Tokens"
 )
 
-if ($PSVersionTable.PSEdition -eq "Core") {
-    $DotFilesPowerShellModules += $DotFilesPowerShellCoreModules
+if ($IsWindows) {
+    $DotFilesPowerShellModules += @(
+        "VSSetup"
+    )
 }

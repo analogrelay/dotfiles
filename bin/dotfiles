@@ -74,7 +74,7 @@ command_sync_usage() {
 
 command_sync() {
     cd ~/.dotfiles
-    git pull --rebase origin master
+    git pull --rebase --autostash origin master
     git push origin master
 }
 

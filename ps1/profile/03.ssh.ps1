@@ -21,7 +21,7 @@ function AddKeyIfNotPresent($KeyFile) {
 
 if (!(Test-Path env:\SSH_AUTH_SOCK)) {
     if ($PSVersionTable.Platform -eq "Win32NT") {
-        $gitBin = Join-Path $env:USERPROFILE "scoop\apps\git\current\usr\bin"
+        $gitBin = Join-Path $env:HOME "scoop\apps\git\current\usr\bin"
         if (Test-Path $gitBin) {
             Add-PathVariable -Prepend $gitBin
         }
@@ -35,7 +35,7 @@ if (!(Test-Path env:\SSH_AUTH_SOCK)) {
         }
 
         $KeysToAdd | ForEach-Object {
-            $KeyFile = Join-Path (Join-Path $env:USERPROFILE ".ssh") $_
+            $KeyFile = Join-Path (Join-Path $env:HOME ".ssh") $_
             AddKeyIfNotPresent $KeyFile
         }
     }

@@ -70,6 +70,11 @@ for color_name in ${(k)vc_color}; do
   vc_bg[$color_name]=$(echo "\e[$(($vc_color[$color_name] + 10))m")
 done
 
+# Set a special "background" color using 24-bit color since we intentionally don't
+# configure it as a valid ANSI color in the color table to avoid text getting hidden
+vc_bg[background]=$(echo "\e[48;2;254;243;255m")
+vc_fg[background]=$(echo "\e[38;2;254;243;255m")
+
 ansi_reset=$(echo "\e[0m")
 
 CURRENT_BG='NONE'
@@ -132,7 +137,7 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment bright_magenta black "%(!.$vc_fg[yellow].)%n@%m $os_icon"
+    prompt_segment background black "%(!.$vc_fg[yellow].)%n@%m $os_icon"
   fi
 }
 
@@ -225,7 +230,7 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="$vc_fg[yellow]⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="$vc_fg[cyan]⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment bright_magenta black "$symbols"
+  [[ -n "$symbols" ]] && prompt_segment background black "$symbols"
 }
 
 ## Main prompt

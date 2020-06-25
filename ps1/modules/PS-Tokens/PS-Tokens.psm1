@@ -4,25 +4,16 @@ $TokensDirectory = Join-Path ([Environment]::GetFolderPath("LocalApplicationData
 # Generate a "purpose" (aka "optional entropy") value so that our protected data doesn't look like other protected data.
 $protectedDataEntropy = [System.Text.Encoding]::UTF8.GetBytes("PS-Tokens:V1")
 
-if ($PSVersionTable.Platform -eq "Win32NT") {
-    function _ProtectValue([string]$val) {
-        $inputBytes = [System.Text.Encoding]::UTF8.GetBytes($val)
-        $protectedBytes = [System.Security.Cryptography.ProtectedData]::Protect($inputBytes, $protectedDataEntropy, "CurrentUser")
-        [Convert]::ToBase64String($protectedBytes)
-    }
-
-    function _UnprotectValue([string]$val) {
-        $protectedBytes = [Convert]::FromBase64String($val)
-        $outputBytes = [System.Security.Cryptography.ProtectedData]::Unprotect($protectedBytes, $protectedDataEntropy, "CurrentUser")
-        [System.Text.Encoding]::UTF8.GetString($outputBytes)
-    }
+function _ProtectValue([string]$val) {
+    $inputBytes = [System.Text.Encoding]::UTF8.GetBytes($val)
+    $protectedBytes = [System.Security.Cryptography.ProtectedData]::Protect($inputBytes, $protectedDataEntropy, "CurrentUser")
+    [Convert]::ToBase64String($protectedBytes)
 }
-else {
-    function _ProtectValue([string]$input) {
-        Write-Warning "ProtectedData is not supported on non-Windows platforms. Tokens are stored in plaintext."
-        $input
-    }
-    function _UnprotectValue([string]$input) { $input }
+
+function _UnprotectValue([string]$val) {
+    $protectedBytes = [Convert]::FromBase64String($val)
+    $outputBytes = [System.Security.Cryptography.ProtectedData]::Unprotect($protectedBytes, $protectedDataEntropy, "CurrentUser")
+    [System.Text.Encoding]::UTF8.GetString($outputBytes)
 }
 
 function _EnsureDir($name) {
@@ -46,6 +37,26 @@ function Remove-Token {
 }
 
 function Get-Token {
+    [CmdletBinding(DefaultParameterSetName = "ExcludeValue")]
+
+    param(
+        [Parameter(Mandatory = $false, Position = 0, ParameterSetName = "IncludeValue")]
+        [Parameter(Mandatory = $false, Position = 0, ParameterSetName = "ExcludeValue")]
+        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = "ExpandValue")]
+        [string]$Filter,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "IncludeValue")][switch]$IncludeValue,
+        [Parameter(Mandatory = $true, ParameterSetName = "ExpandValue")][switch]$ExpandValue,
+        [Parameter(Mandatory = $false, ParameterSetName = "ExpandValue")][switch]$SecureString)
+
+    if($IsWindows) {
+        _Win_GetToken -Filter:$Filter -IncludeValue:$IncludeValue -ExpandValue:$ExpandValue -SecureString:$SecureString
+    } else {
+        throw "This module is not supported on Linux/macOS yet"
+    }
+}
+
+function _Win_GetToken {
     [CmdletBinding(DefaultParameterSetName = "ExcludeValue")]
 
     param(
@@ -101,6 +112,19 @@ function Set-Token(
     [Parameter(Mandatory = $true)][string]$TokenName,
     [Parameter(Mandatory = $true)][string]$TokenValue,
     [Parameter(Mandatory = $false)][string]$TokenDescription) {
+
+    if ($IsMacOS) {
+        _Mac_SetToken $TokenName $TokenValue $TokenDescription
+    } else {
+        throw "This module is not supported on Linux/macOS yet"
+    }
+}
+
+function _Win_SetToken(
+    [Parameter(Mandatory = $true)][string]$TokenName,
+    [Parameter(Mandatory = $true)][string]$TokenValue,
+    [Parameter(Mandatory = $false)][string]$TokenDescription) {
+
     $TokenObj = [PSCustomObject]@{
         Name        = $TokenName;
         Description = $TokenDescription;

@@ -1,3 +1,8 @@
+# Disable Console Title on iTerm2
+if($env:LC_TERMINAL -eq "iTerm2") {
+    $ThemeSettings.Options.ConsoleTitle = $false
+}
+
 # Relocate themes
 $ThemeSettings.MyThemesLocation = Join-Path (Split-Path -Parent $PSScriptRoot) "themes"
 

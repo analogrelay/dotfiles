@@ -38,5 +38,7 @@ function global:Remove-PathVariable([Parameter(Mandatory = $true, Position = 0)]
 Add-PathVariable "$DotFilesRoot\bin"
 
 # Scoop *ALWAYS* wins, even when there's a machine-level PATH value ahead.
-$ScoopDir = Join-Path $env:USERPROFILE "scoop\shims"
-Add-PathVariable $ScoopDir -Prepend
+if ($IsWindows) {
+    $ScoopDir = Join-Path $env:USERPROFILE "scoop\shims"
+    Add-PathVariable $ScoopDir -Prepend
+}

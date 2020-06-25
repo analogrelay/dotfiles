@@ -1,4 +1,4 @@
-if ($PSVersionTable.Platform -ne "Win32NT") {
+if (!$IsWindows) {
     return;
 }
 

@@ -9,7 +9,8 @@ goto() {
         return 1
     fi
 
-    if [[ $target =~ "^([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_]+)$" ]]; then
+    local PATH_SEGMENT="[-a-zA-Z0-9_\.]+"
+    if [[ $target =~ "^($PATH_SEGMENT)/($PATH_SEGMENT)$" ]]; then
         owner=$match[1]
         repo=$match[2]
         dest=~/code/$owner/$repo

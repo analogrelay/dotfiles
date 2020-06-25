@@ -7,28 +7,30 @@ clone() {
         return 1
     fi
 
+    local PATH_SEGMENT="[-a-zA-Z0-9_\.]+"
+
     # Detect input types.
-    if [[ $repo =~ "^\s*(ssh://)?git@ssh.dev.azure.com:v3/([a-zA-Z0-9\-_]+)/[a-zA-Z0-9\-_]+/([a-zA-Z0-9\-_\.]+)/?\s*$" ]]; then
+    if [[ $repo =~ "^\s*(ssh://)?git@ssh.dev.azure.com:v3/($PATH_SEGMENT)/$PATH_SEGMENT/($PATH_SEGMENT)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^\s*(ssh://)?[A-Za-z]@vs-ssh.visualstudio.com:v3/([a-zA-Z0-9\-_]+)/[a-zA-Z0-9\-_]+/([a-zA-Z0-9\-_]+)/?\s*$" ]]; then
+    elif [[ $repo =~ "^\s*(ssh://)?[A-Za-z]@vs-ssh.visualstudio.com:v3/($PATH_SEGMENT)/$PATH_SEGMENT/($PATH_SEGMENT)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
     # It is important that '-' be first in the '[]'s below because that means it will be treated literally.
-    elif [[ $repo =~ "^\s*([-a-zA-Z0-9_]+)/([-a-zA-Z0-9_]+)\s*$" ]]; then
+    elif [[ $repo =~ "^\s*($PATH_SEGMENT)/($PATH_SEGMENT)\s*$" ]]; then
         owner=$match[1]
         repoName=$match[2]
         repo="git@github.com:$owner/$repoName.git"
-    elif [[ $repo =~ "^\s*(ssh://)git@github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)\.git/?\s*$" ]]; then
+    elif [[ $repo =~ "^\s*(ssh://)git@github.com/($PATH_SEGMENT)/($PATH_SEGMENT)\.git/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^\s*(ssh://)git@github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)/?\s*$" ]]; then
+    elif [[ $repo =~ "^\s*(ssh://)git@github.com/($PATH_SEGMENT)/($PATH_SEGMENT)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^\s*https://(www\.)?github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)\.git/?\s*$" ]]; then
+    elif [[ $repo =~ "^\s*https://(www\.)?github.com/($PATH_SEGMENT)/($PATH_SEGMENT)\.git/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
-    elif [[ $repo =~ "^\s*https://(www\.)?github.com/([a-zA-Z0-9\-_]+)/([a-zA-Z0-9\-_\.]+)/?\s*$" ]]; then
+    elif [[ $repo =~ "^\s*https://(www\.)?github.com/($PATH_SEGMENT)/($PATH_SEGMENT)/?\s*$" ]]; then
         owner=$match[2]
         repoName=$match[3]
     else
