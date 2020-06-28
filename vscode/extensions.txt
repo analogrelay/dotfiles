@@ -5,3 +5,5 @@
 github.github-vscode-theme
 vscodevim.vim
 ms-vscode.powershell
+golang.go
+ms-dotnettools.csharp
