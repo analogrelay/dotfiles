@@ -28,6 +28,7 @@ cask "divvy"
 cask "parsec"
 cask "powershell"
 cask "github"
+cask "ngrok"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434

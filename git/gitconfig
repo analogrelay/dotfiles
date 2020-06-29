@@ -97,6 +97,11 @@
 	helper = osxkeychain
 [user]
 	name = Andrew Stanton-Nurse
-	email = anurse@github.com
+	email = andrew@stanton-nurse.com
 [github]
 	user = anurse
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
