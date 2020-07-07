@@ -18,18 +18,5 @@ link_file ~/.dotfiles/vscode/keybindings.json "$SETTINGS_ROOT/keybindings.json"
 if ! has code; then
     echo "Skipping extension install. VS Code is not yet installed."
 else
-    INSTALLED=`code --list-extensions`
-    for extension in `cat ./vscode/extensions.txt | egrep "^[^#]+$"`; do
-        if echo $INSTALLED | grep -i -F "$extension" >/dev/null; then
-            trace_out "Skipping installed extension $extension"
-        else
-            INSTALLED_ANY=1
-            echo "Installing VS Code extension $extension"
-            code --install-extension $extension
-        fi
-    done
-
-    if [ "$INSTALLED_ANY" = "1" ]; then
-        echo "Note: Existing VSCode instances may need to be restarted!"
-    fi
+    "$HOME/.dotfiles/vscode/install-extensions.sh"
 fi

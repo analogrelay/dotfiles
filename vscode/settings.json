@@ -27,7 +27,7 @@
     "vim.disableAnnoyingNeovimMessage": true,
     "vim.leader": " ",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 0,
     "workbench.iconTheme": "vs-seti",
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
@@ -68,5 +68,7 @@
     },
     "powershell.integratedConsole.showOnStartup": false,
     "sde.languageServerMode": "sourcekit-lsp",
-    "sourcekit-lsp.serverPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
+    "sourcekit-lsp.serverPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false
 }
