@@ -9,3 +9,4 @@ ms-vscode.powershell
 golang.go
 ms-dotnettools.csharp
 eamodio.gitlens
+zxh404.vscode-proto3

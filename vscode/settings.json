@@ -45,7 +45,7 @@
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.fontSize": 14,
     "git.enableSmartCommit": true,
-    "workbench.colorTheme": "GitHub Light",
+    "workbench.colorTheme": "GitHub Dark",
     "workbench.colorCustomizations": {
         "terminal.ansiRed": "#CB2431",
         "terminal.ansiBrightBlack": "#41474E",

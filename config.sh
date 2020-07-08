@@ -8,6 +8,7 @@ DOTFILES_INSTALL_SCRIPTS=(
     "./tmux/install.sh"
     "./fonts/install.sh"
     "./vscode/install.sh"
+    "./ruby/install.sh"
 )
 
 if ismacos; then

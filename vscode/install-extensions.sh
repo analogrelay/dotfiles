@@ -2,7 +2,7 @@
 source "$HOME/.dotfiles/zsh/_utils.sh"
 
 INSTALLED=`code --list-extensions`
-for extension in `cat ./vscode/extensions.txt | egrep "^[^#]+$"`; do
+for extension in `cat $HOME/.dotfiles/vscode/extensions.txt | egrep "^[^#]+$"`; do
     if echo $INSTALLED | grep -i -F "$extension" >/dev/null; then
         echo "Using $extension"
     else
