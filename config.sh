@@ -4,6 +4,7 @@ DOTFILES_REPO="git@github.com:anurse/dotfiles.git"
 DOTFILES_INSTALL_SCRIPTS=(
     "./zsh/install.sh"
     "./git/install.sh"
+    "./gpg/install.sh"
     "./ps1/install.sh"
     "./tmux/install.sh"
     "./fonts/install.sh"

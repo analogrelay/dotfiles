@@ -62,9 +62,6 @@
     algorithm = patience
     tool = vscode
 
-[merge]
-    tool = MERGETOOL
-
 [difftool "winmerge"]
     cmd = "winmergeu" -u -e "$LOCAL" "$REMOTE"
 
@@ -93,13 +90,6 @@
 [http]
 	postBuffer = 1048576000
 	maxRequestBuffer = 100M
-[credential]
-	helper = osxkeychain
-[user]
-	name = Andrew Stanton-Nurse
-	email = andrew@stanton-nurse.com
-[github]
-	user = anurse
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
