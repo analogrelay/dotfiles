@@ -114,9 +114,8 @@ if (!(Test-Command pwsh)) {
 }
 else {
     AlreadyDone "Using already-installed PowerShell Core..."
-    $pwshExe = "pwsh"
 }
 
 Doing "Launching setup script!"
 $setupScriptPath = Join-Path $DotfilesPath "/script/setup.ps1"
-& "$pwshExe" "$setupScriptPath"
+& pwsh.exe "$setupScriptPath"
