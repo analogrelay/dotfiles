@@ -4,7 +4,7 @@ function exe {
     param(
         [Parameter(Mandatory = $true, Position = 0)][string]$Name,
         [Parameter(Mandatory = $true)][string]$Url,
-        [Parameter(Mandatory = false)][switch]$Repath,
+        [Parameter(Mandatory = $false)][switch]$Repath,
         [Alias("cmd", "c")][Parameter(Mandatory = $false)][string]$Command,
         [Alias("path", "p")][Parameter(Mandatory = $false)][string]$TestPath,
         [Alias("args", "a")][Parameter(Mandatory = $false)][string[]]$Arguments
