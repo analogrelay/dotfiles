@@ -83,10 +83,20 @@ else {
 # Install pwsh if necessary
 if (!(Test-Command pwsh)) {
     Doing "Installing PowerShell Core..."
-    scoop install pwsh
-    $pwshExe = scoop which pwsh
+    # Don't use scoop to install pwsh. Use the msix
+    $release = (Invoke-WebRequest "https://api.github.com/repos/powershell/powershell/releases/latest").Content | ConvertFrom-Json
+    $msixAsset = $release.assets | Where-Object { $_.name.EndsWith("-win-x64.msix") }
+
+    # Download the MSIX
+    $downloadedMsix = Join-Path ([System.IO.Path]::GetTempPath()) "powershell-installer.msix"
+    if (Test-Path $downloadedMsix) {
+        Remove-Item $downloadedMsix
+    }
+    Invoke-WebRequest $msixAsset.browser_download_url -OutFile $downloadedMsix
+    Add-AppxPackage -Path $downloadedMsix
 }
 else {
+    AlreadyDone "Using already-installed PowerShell Core..."
     $pwshExe = "pwsh"
 }
 
