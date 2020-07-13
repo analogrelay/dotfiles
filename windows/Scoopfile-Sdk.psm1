@@ -18,7 +18,20 @@ function exe {
         Arguments = $Arguments;
         Repath    = $Repath;
 
-        Check     = $null;
+        Check     = {
+            param($def)
+            if ($def.TestPath) {
+                Write-Debug "Testing path $($def.TestPath)"
+                Test-Path $def.TestPath
+            }
+            elseif ($def.Command) {
+                Write-Debug "Testing command $($def.Command)"
+                !!(Get-Command "$($def.Command)*" | 
+                    Where-Object {
+                        [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $($def.Command)
+                    })
+            }
+        };
         Install   = { 
             param($def)
 
@@ -47,22 +60,6 @@ function exe {
                         $env:PATH = "$_$Sep$env:PATH"
                     }
                 }
-            }
-        }
-    }
-    if ($Command) {
-        $Definition.Check = {
-            param($def)
-            if ($def.TestPath) {
-                Write-Debug "Testing path $($def.TestPath)"
-                Test-Path $def.TestPath
-            }
-            elseif ($def.Command) {
-                Write-Debug "Testing command $($def.Command)"
-                !!(Get-Command "$($def.Command)*" | 
-                    Where-Object {
-                        [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $($def.Command)
-                    })
             }
         }
     }
