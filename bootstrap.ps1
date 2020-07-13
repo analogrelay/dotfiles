@@ -32,7 +32,8 @@ if (!(Test-Command scoop)) {
     Doing "Installing Scoop..."
 
     # We check the install script against a known hash to make sure it's what we think it is.
-    $ScoopInstallerHash = "M3y+81KJQhr+CMw1cTL7TG8kbXYp4yLg9jiwZVgWSisKGuKFb6EMPwfgRIbiQQ1t+L0LVFHmi4Ua9YoKq/RIbA==";
+    # Actual Hash 'M3y+81KJQhr+CMw1cTL7TG8kbXYp4yLg9jiwZVgWSisKGuKFb6EMPwfgRIbiQQ1t+L0LVFHmi4Ua9YoKq/RIbA=='
+    $ScoopInstallerHash = "";
     $client = New-Object System.Net.WebClient
     $content = $client.DownloadString("https://get.scoop.sh");
     $sha = [System.Security.Cryptography.SHA512]::Create()
