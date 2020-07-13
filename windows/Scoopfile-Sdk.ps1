@@ -10,6 +10,8 @@ function exe {
         [Alias("args", "a")][Parameter(Mandatory = $false)][string[]]$Arguments
     )
 
+    Write-Host "DebugPref: $DebugPreference"
+
     $Definition = [PSCustomObject]@{
         Name      = $Name;
         Url       = $Url;
@@ -20,6 +22,7 @@ function exe {
 
         Check     = {
             param($def)
+            Write-Host "DBGPref: $DebugPreference"
             if ($def.TestPath) {
                 Write-Debug "Testing path $($def.TestPath)"
                 Test-Path $def.TestPath

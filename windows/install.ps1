@@ -7,7 +7,7 @@ if(!$IsWindows -and !$WhatIf) {
 }
 
 Write-Debug "Loading scoopfile..."
-$Definitions = & "$PSScriptRoot/Get-Scoopfile.ps1"
+$Definitions = & "$PSScriptRoot/Get-Scoopfile.ps1" -Debug:$DebugPreference
 
 Write-Debug "Running items..."
 $Definitions | ForEach-Object {
@@ -16,7 +16,7 @@ $Definitions | ForEach-Object {
     $isInstalled = $false
     if ($_.Check -ne $null) {
         Write-Debug "Running checker for $name ..."
-        $isInstalled = & $_.Check -Debug:$Debug $_
+        $isInstalled = & $_.Check $_
     } else {
         Write-Debug "No checker for $name!"
     }
@@ -32,7 +32,7 @@ $Definitions | ForEach-Object {
         elseif (!$WhatIf) {
             try {
                 Write-Debug "Running installer for $name ..."
-                & $_.Install -Debug:$Debug $_
+                & $_.Install $_
             } catch {
                 Write-Error "Installing $name failed with $($error[0])"
             }

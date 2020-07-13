@@ -1,6 +1,3 @@
-Import-Module "$PSScriptRoot/Scoopfile-Sdk.psm1"
+. "$PSScriptRoot/Scoopfile-Sdk.ps1"
 . "$PSScriptRoot/scoopfile.ps1"
-$Defs = Get-Definitions
-Remove-Module "Scoopfile-Sdk"
-
-$Defs
+Get-Definitions
