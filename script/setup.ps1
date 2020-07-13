@@ -12,7 +12,9 @@ if ($PSVersionTable.Platform -eq "Unix") {
 
 $env:HOME = [Environment]::GetFolderPath("UserProfile")
 
-. "$PSScriptRoot/ps1/utils.ps1"
+$DotFilesRoot = Split-Path -Parent $PSScriptRoot
+
+. "$DotFilesRoot/ps1/utils.ps1"
 
 function Install-DotFiles() {
     $DevModeRegPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
@@ -32,22 +34,16 @@ function Install-DotFiles() {
     }
 
     # Check Windows Pre-requisites
-    if ($PSVersionTable.Platform -eq "Win32NT") {
-        $Global:PlatformIsWindows = $true
-        Write-Debug "Running on Windows"
-        if (Test-DeveloperMode) {
-            Write-Debug "Developer mode is ENABLED!"
+    if ($IsWindows) {
+        $RegKeyPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\AppModelUnlock"
+        if (!(Test-Path $RegKeyPath)) {
+            New-Item -Path $RegKeyPath -ItemType Directory -Force
         }
-        else {
-            Write-Host "Developer mode must be enabled to create symbolic links."
-            Write-Host "Launching Windows Settings to enable Developer Mode."
-            Write-Host "Re-run this script after enabling Developer Mode to continue."
-            Start-Process "ms-settings:developers"
-            return
+
+        if ((Get-ItemProperty $RegKeyPath).AllowDevelopmentWithoutDevLicense -ne 1) {
+            Doing "Enabling Developer Mode..."
+            New-ItemProperty -Path $RegKeyPath -Name AllowDevelopmentWithoutDevLicense -PropertyType DWORD -Value 1 
         }
-    }
-    else {
-        $Global:PlatformIsOther = $true
     }
 
     # Run all Install scripts

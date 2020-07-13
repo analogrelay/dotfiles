@@ -18,3 +18,7 @@ function Confirm(
 function Test-Command([Parameter(Mandatory = $true, Position = 0)][string]$Command) {
     [bool](Get-Command "$Command*" | Where-Object { [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq "$Command" })
 }
+
+function Doing($action) {
+    Write-Host -ForegroundColor Green $action
+}
