@@ -6,12 +6,15 @@ $Definitions = & "$PSScriptRoot/Get-Scoopfile.ps1"
 
 $Definitions | ForEach-Object {
     $name = $_.Name
-    $shouldInstall = $true
+    $isInstalled = $false
     if ($_.Check -ne $null) {
-        $shouldInstall = & $_.Check
+        $isInstalled = & $_.Check
     }
 
-    if ($shouldInstall) {
+    if ($isInstalled) {
+        Write-Host "Using $name"
+    }
+    else {
         Write-Host -ForegroundColor Green "Installing $name ..."
         if ($_.Install -eq $null) {
             Write-Error "No install command defined for $name!"
@@ -23,8 +26,5 @@ $Definitions | ForEach-Object {
                 Write-Error "Installing $name failed with $($error[0])"
             }
         }
-    }
-    else {
-        Write-Host "Using $name"
     }
 }
