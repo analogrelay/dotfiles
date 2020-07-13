@@ -47,7 +47,7 @@ function exe {
             }
             Write-Debug "Running installer ..."
             $arguments = $def.Arguments
-            Start-Process -FilePath "$tempFile" -ArgumentList @arguments -Wait
+            Start-Process -FilePath "$tempFile" -ArgumentList $arguments -Wait
             Write-Debug "Installer complete."
 
             if ($def.Repath) {
