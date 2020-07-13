@@ -15,7 +15,7 @@ function Doing($action) {
 }
 
 function AlreadyDone($action) {
-    Wrhite-Host -ForegroundColor Magenta $action
+    Write-Host -ForegroundColor Magenta $action
 }
 
 function Test-Command($CommandName) {
