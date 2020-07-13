@@ -10,24 +10,31 @@ function exe {
 
     $Definition = [PSCustomObject]@{
         Name = $Name;
+        Url = $Url;
+        Command = $Command;
+        Arguments = $Arguments;
+
         Check = $null;
-        Install = {
+        Install = { 
+            param($def)
             $tempId = [Guid]::NewGuid().ToString("N")
             $tempFile = Join-Path ([System.IO.Path]::GetTempPath()) "$tempId.exe"
-            Write-Debug "Downloading '$uri' to '$tempFile'"
-            Invoke-WebRequest -Uri $url -OutFile $tempFile
+            Write-Debug "Downloading '$($def.Url)' to '$tempFile'"
+            Invoke-WebRequest -Uri $def.Url -OutFile $tempFile
             if (!(Test-Path $tempFile)) {
                 throw "Download failed!"
             }
             Write-Debug "Running installer"
-            & "$tempFile" @Arguments
+            $arguments = $def.Arguments
+            & "$tempFile" @arguments
         }
     }
     if ($Command) {
         $Definition.Check = {
-            !!(Get-Command "$Command*" | 
+            param($def)
+            !!(Get-Command "$($def.Command)*" | 
                 Where-Object {
-                    [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $Command
+                    [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $($def.Command)
                 })
         }
     }

@@ -8,7 +8,7 @@ $Definitions | ForEach-Object {
     $name = $_.Name
     $isInstalled = $false
     if ($_.Check -ne $null) {
-        $isInstalled = & $_.Check
+        $isInstalled = & $_.Check $_
     }
 
     if ($isInstalled) {
@@ -21,7 +21,7 @@ $Definitions | ForEach-Object {
         }
         elseif (!$WhatIf) {
             try {
-                & $_.Install
+                & $_.Install $_
             } catch {
                 Write-Error "Installing $name failed with $($error[0])"
             }
