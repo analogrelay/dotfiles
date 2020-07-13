@@ -1,0 +1,1 @@
+exe "vscode" -Command "code" -Url "https://aka.ms/win32-x64-user-stable" -Arguments @("/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode")

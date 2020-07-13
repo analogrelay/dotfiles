@@ -4,16 +4,17 @@ $DotFilesInstallScripts = @()
 
 if ($PSVersionTable.Platform -eq "Win32NT") {
     $DotFilesInstallScripts += @(
+        "./windows/install.ps1",
         "./windows/winterm/install.ps1"
     )
 }
 
 # Install Scripts to be run (paths relative to the dotfiles root)
 $DotFilesInstallScripts += @(
-    (Join-Path "ps1" "install.ps1"),
-    (Join-Path "git" "install.ps1"),
-    (Join-Path "conemu" "install.ps1"),
-    (Join-Path "vscode" "install.ps1")
+    "./ps1/install.ps1",
+    "./git/install.ps1",
+    "./conemu/install.ps1",
+    "./vscode/install.ps1"
 )
 
 # Core-only modules
