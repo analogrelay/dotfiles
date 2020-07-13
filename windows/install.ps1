@@ -16,7 +16,7 @@ $Definitions | ForEach-Object {
     $isInstalled = $false
     if ($_.Check -ne $null) {
         Write-Debug "Running checker for $name ..."
-        $isInstalled = & $_.Check $_
+        $isInstalled = & $_.Check -Debug:$Debug $_
     } else {
         Write-Debug "No checker for $name!"
     }
@@ -32,7 +32,7 @@ $Definitions | ForEach-Object {
         elseif (!$WhatIf) {
             try {
                 Write-Debug "Running installer for $name ..."
-                & $_.Install $_
+                & $_.Install -Debug:$Debug $_
             } catch {
                 Write-Error "Installing $name failed with $($error[0])"
             }
