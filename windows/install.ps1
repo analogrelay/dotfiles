@@ -10,6 +10,7 @@ Write-Debug "Loading scoopfile..."
 $Definitions = & "$PSScriptRoot/Get-Scoopfile.ps1" -Debug:$DebugPreference
 
 Write-Debug "Running items..."
+. "$PSScriptRoot/Scoopfile-Sdk.ps1"
 $Definitions | ForEach-Object {
     $name = $_.Name
     Write-Debug "Processing $name"

@@ -1,1 +1,2 @@
-exe "vscode" -TestPath "$env:LOCALAPPDATA/Programs/Microsoft VS Code/Code.exe" -Url "https://aka.ms/win32-x64-user-stable" -Arguments @("/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode") -Repath
+exe "vscode" -TestPath "$env:LOCALAPPDATA/Programs/Microsoft VS Code/Code.exe" -Source "https://aka.ms/win32-x64-user-stable" -Arguments @("/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode") -Repath
+msix "windows-terminal" -Source "https://github.com/microsoft/terminal/releases/download/v1.0.1811.0/Microsoft.WindowsTerminal_1.0.1811.0_8wekyb3d8bbwe.msixbundle"
