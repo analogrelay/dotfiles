@@ -1,0 +1,9 @@
+read content
+if iswsl; then
+    echo $content | clip.exe
+elif ismacos; then
+    echo $content | pbcopy
+else
+    echo "Unsupported OS!" 1>&2
+    exit 1
+fi

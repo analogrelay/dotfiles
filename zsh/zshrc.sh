@@ -4,6 +4,12 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom custom dir ;)
 export ZSH_CUSTOM="$HOME/.dotfiles/zsh/oh-my-zsh"
 
+# Add 'bin' to PATH
+export PATH="$HOME/.dotfiles/bin:$PATH"
+
+# Add 'functions' dir to FPATH
+export FPATH="$HOME/.dotfiles/functions:$FPATH"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -95,12 +101,16 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Mark all files with no extension in there as autoload
+FUNCS_TO_AUTOLOAD=("${(@f)$(find "$HOME/.dotfiles/functions" -type f \! -name "*.*" | xargs basename)}")
+for func in $FUNCS_TO_AUTOLOAD; do
+    autoload $func
+done
+
 # If we're in WSL, source the wsl script
 if uname -r | grep Microsoft >/dev/null; then
     source "$HOME/.dotfiles/zsh/wsl.zshrc"
 fi
-
-source "$HOME/.dotfiles/zsh/_utils.sh"
 
 # Run other ZSH scripts
 for file in `find "$HOME/.dotfiles/zsh/zshrc.d" -type f -name "*.sh"`; do

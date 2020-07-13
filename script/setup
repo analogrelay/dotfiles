@@ -7,6 +7,9 @@ cd $DOTFILES_ROOT
 
 DOTFILES_TEMP=$(mktemp -d -t dotfiles-install)
 
+FPATH="$DOTFILES_ROOT/functions:$FPATH"
+autoload has
+
 . "./zsh/_utils.sh"
 . "./config.sh"
 

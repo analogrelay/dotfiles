@@ -1,5 +1,20 @@
+# This script should work on Windows PowerShell to facilitate bootstrapping.
+
 # Bootstraps the installation of the dotfiles scripts from scratch
-$ErrorPreference="Stop"
+$ErrorPreference = "Stop"
+
+if (!$IsWindows) {
+    throw "The bootstrap.ps1 script is for Windows only. Use bootstrap.sh on macOS/Linux. It will still configure PowerShell for you!"
+}
+
+# Utility functions copied from other places to keep this script self-contained.
+function Doing($action) {
+    Write-Host -ForegroundColor Green $action
+}
+
+function AlreadyDone($action) {
+    Wrhite-Host -ForegroundColor Magenta $action
+}
 
 function Test-Command($CommandName) {
     # Calling Get-Command, even with ErrorAction SilentlyContinue, spams
@@ -10,42 +25,42 @@ function Test-Command($CommandName) {
         })
 }
 
-# First, check for the App Installer package
-if (!(Test-Command winget)) {
-    throw "The dotfiles bootstrapper requires that you configure 'winget' manually. See https://github.com/microsoft/winget-cli for details."
+# Configure scoop
+if (!(Test-Command scoop)) {
+    Doing "Installing Scoop..."
+
+    # We check the install script against a known hash to make sure it's what we think it is.
+    $ScoopInstallerHash = "M3y+81KJQhr+CMw1cTL7TG8kbXYp4yLg9jiwZVgWSisKGuKFb6EMPwfgRIbiQQ1t+L0LVFHmi4Ua9YoKq/RIbA==";
+    $client = New-Object System.Net.WebClient
+    $content = $client.DownloadString("https://get.scoop.sh");
+    $sha = [System.Security.Cryptography.SHA512]::Create()
+    $actualHash = [Convert]::ToBase64String($sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($content)))
+
+    if ($actualHash -ne $ScoopInstallerHash) {
+        throw "Scoop installed did not match hash! Expected '$ScoopInstallerHash' but got '$actualHash'. Go to https://get.scoop.sh and check the script for changes and update the hash"
+    }
+
+    Invoke-Expression $content
+}
+else {
+    AlreadyDone "Using already-installed Scoop..."
 }
 
 # Install git so we can get the dotfiles repo down
 if (!(Test-Command git)) {
-    Write-Host -ForegroundColor Green "Installing Git."
-    winget install --exact --id Git.Git
+    Doing -ForegroundColor Green "Installing Git."
+    scoop install git
 }
-
-# Configure an SSH key
-$sshKey = Join-Path $env:USERPROFILE ".ssh/id_rsa"
-if (!(Test-Path $sshKey)) {
-    Write-Host -ForegroundColor Green "Generating SSH key."
-    ssh-keygen -t rsa -b 4096 -C "$([Environment]::MachineName)"
-
-    # Put it in the clipboard and then launch GitHub to set up the key
-    Write-Host -ForegroundColor Yellow "You need to install the key into your SSH Keys on GitHub before we can continue."
-    Write-Host -ForegroundColor Yellow "The public key is in your clipboard, launching the browser to the GitHub page to configure it."
-    Get-Content "~/.ssh/id_rsa.pub" | clip.exe
-    Start-Process "https://github.com/settings/ssh/new"
-
-    $response = "n"
-    while($response.ToLowerInvariant() -ne "y") {
-        $response = Read-Host "Have you configured the SSH key in GitHub? [y/N]"
-    }
-} else {
-    Write-Host -ForegroundColor Green "Using existing SSH key."
+else {
+    AlreadyDone "Using already-installed Scoop..."
 }
 
 # Git won't be in the PATH yet
 if (Test-Command git) {
     $gitExe = "git"
-} else {
-    $gitExe = Join-Path $env:PROGRAMFILES "Git/bin/git.exe"
+}
+else {
+    $gitExe = scoop which git
     if (!(Test-Path $gitExe)) {
         throw "Could not find 'git.exe' despite it being installed!"
     }
@@ -54,19 +69,25 @@ if (Test-Command git) {
 $DotfilesPath = Join-Path $env:USERPROFILE ".dotfiles"
 
 if (Test-Path $DotfilesPath) {
-    Write-Host -ForegroundColor Green "Updating the dotfiles."
-    cd ~/.dotfiles
-    git pull --rebase --autostash
+    Doing "Updating the dotfiles."
+    Set-Location $DotfilesPath
+    & "$gitExe" pull --rebase --autostash
 }
 else {
-    Write-Host -ForegroundColor Green "Cloning the dotfiles."
-    & $gitExe clone git@github.com:anurse/dotfiles.git $DotfilesPath
+    Doing "Cloning the dotfiles."
+    & "$gitExe" clone https://github.com/anurse/dotfiles.git $DotfilesPath
 }
 
-# Install pwsh to run the setup script
+# Install pwsh if necessary
 if (!(Test-Command pwsh)) {
-    winget install --exact --id Microsoft.PowerShell
+    Doing "Installing PowerShell Core..."
+    scoop install pwsh
+    $pwshExe = scoop which pwsh
+}
+else {
+    $pwshExe = "pwsh"
 }
 
-Write-Host -ForegroundColor Green "Launching setup script!"
-pwsh.exe (Join-Path $DotfilesPath "/script/setup.ps1")
+Doing "Launching setup script!"
+$setupScriptPath = Join-Path $DotfilesPath "/script/setup.ps1"
+& "$pwshExe" "$setupScriptPath"

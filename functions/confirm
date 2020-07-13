@@ -1,0 +1,4 @@
+read -q "?$1 [y/N] "
+local read_exit=$?
+echo
+return $read_exit

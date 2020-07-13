@@ -1,0 +1,29 @@
+QUERY=
+while [[ $# -gt 0 ]]; do
+    key=$1
+    shift
+    case $key in
+        -v|--verbose)
+        VERBOSE=1
+            ;;
+        *)
+            [ -z "$QUERY" ] && QUERY=$key
+            ;;
+    esac
+done
+
+case $QUERY in
+    mac|macos|osx)
+        uname | grep "Darwin" >/dev/null
+        ;;
+    linux)
+        uname | grep "Linux" >/dev/null
+        ;;
+    wsl)
+        uname -r | grep "Microsoft" >/dev/null
+        ;;
+    *)
+        echo "Unknown query: $QUERY" 1>&2
+        return 2
+        ;;
+esac

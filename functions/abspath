@@ -1,0 +1,22 @@
+local input="$1"
+
+# Special case '.' and '..' because the normal process
+# *works* but isn't pretty :)
+case "$input" in
+    ".")
+        pwd
+        ;;
+    "..")
+        dirname "$(pwd)"
+        ;;
+    *)
+        local parent="$(dirname "$input")"
+        local leaf="$(basename "$input")"
+        parent="$(cd $parent; pwd)"
+        if [ "$parent" = "/" ]; then
+            echo "/$leaf"
+        else
+            echo "$parent/$leaf"
+        fi
+        ;;
+esac

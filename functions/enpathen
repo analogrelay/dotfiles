@@ -1,0 +1,31 @@
+local newPaths=()
+while [[ "$#" -gt 0 ]]; do
+    key="$1"
+    shift
+
+    case $key in
+        -a|--append)
+            local append=1
+            ;;
+        -n|--dry-run)
+            local dry_run=1
+            ;;
+        *)
+            # Resolve the path
+            newPaths+=("$(abspath $key)")
+    esac
+done
+
+newPath="${(j.:.)newPaths}"
+if [ -z "$append" ]; then
+    # Not append => prepend
+    echo "Prepending: '$newPath' to PATH"
+    if [ -z "$dry_run" ]; then
+        export PATH="$newPath:$PATH"
+    fi
+else
+    echo "Appending: '$newPath' to PATH"
+    if [ -z "$dry_run" ]; then
+        export PATH="$PATH:$newPath"
+    fi
+fi
