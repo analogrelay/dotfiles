@@ -53,7 +53,7 @@ function exe {
             if ($def.Repath) {
                 Write-Debug "Repathing..."
                 $userPath = [Environment]::GetEnvironmentVariable("PATH", "User")
-                $sep = [System.IO.Path]::PathSeparatorChar
+                $sep = [System.IO.Path]::PathSeparator
                 $userPathItems = $userPath.Split($sep)
                 $envPATHItems = $env:PATH.Split($sep)
 
