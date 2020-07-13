@@ -1,1 +1,1 @@
-exe "vscode" -TestPath (Join-Path "$env:LOCALAPPDATA" "Program/Microsoft VS Code/Code.exe") -Url "https://aka.ms/win32-x64-user-stable" -Arguments @("/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode")
+exe "vscode" -TestPath (Join-Path "$env:LOCALAPPDATA" "Program/Microsoft VS Code/Code.exe") -Url "https://aka.ms/win32-x64-user-stable" -Arguments @("/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode") -Repath
