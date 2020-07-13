@@ -3,10 +3,16 @@
 # Bootstraps the installation of the dotfiles scripts from scratch
 $ErrorPreference = "Stop"
 
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
-
 if (($PSVersionTable.PSEdition -eq "Core") -and ($PSVersionTable.Platform -ne "Win32NT")) {
     throw "The bootstrap.ps1 script is for Windows only. Use bootstrap.sh on macOS/Linux. It will still configure PowerShell for you!"
+}
+
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+
+# Check for admin
+$principal = [System.Security.Principal.WindowsPrincipal]([System.Security.Principal.WindowsIdentity]::GetCurrent())
+if (!$principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    throw "Bootstrapping must be done from an admin PowerShell instance..."
 }
 
 # Utility functions copied from other places to keep this script self-contained.
@@ -25,6 +31,17 @@ function Test-Command($CommandName) {
         Where-Object {
             [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $CommandName
         })
+}
+
+# Enable Developer Mode if necessary
+$RegKeyPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\AppModelUnlock"
+if (!(Test-Path $RegKeyPath)) {
+    New-Item -Path $RegKeyPath -ItemType Directory -Force
+}
+
+if ((Get-ItemProperty $RegKeyPath).AllowDevelopmentWithoutDevLicense -ne 1) {
+    Doing "Enabling Developer Mode..."
+    New-ItemProperty -Path $RegKeyPath -Name AllowDevelopmentWithoutDevLicense -PropertyType DWORD -Value 1 
 }
 
 # Configure scoop
@@ -54,7 +71,7 @@ if (!(Test-Command git)) {
     scoop install git
 }
 else {
-    AlreadyDone "Using already-installed Scoop..."
+    AlreadyDone "Using already-installed Git..."
 }
 
 # Git won't be in the PATH yet
