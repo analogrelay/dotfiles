@@ -46,7 +46,7 @@ function Install-DotFiles() {
 
     # Run all Install scripts
     $DotFilesInstallScripts | ForEach-Object {
-        $path = Join-Path $PSScriptRoot $_
+        $path = Join-Path $DotFilesRoot $_
         Write-Debug "Running Install Script $path ..."
         try {
             & "$path"
