@@ -19,8 +19,6 @@ $DotFilesRoot = Split-Path -Parent $PSScriptRoot
 function Install-DotFiles() {
     $DevModeRegPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
 
-    $DotFilesRoot = Convert-Path $PSScriptRoot
-
     # Dot-source the config file
     . "$DotFilesRoot/config.ps1"
 
