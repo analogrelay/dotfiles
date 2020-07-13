@@ -3,6 +3,8 @@
 # Bootstraps the installation of the dotfiles scripts from scratch
 $ErrorPreference = "Stop"
 
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+
 if (($PSVersionTable.PSEdition -eq "Core") -and ($PSVersionTable.Platform -ne "Win32NT")) {
     throw "The bootstrap.ps1 script is for Windows only. Use bootstrap.sh on macOS/Linux. It will still configure PowerShell for you!"
 }
