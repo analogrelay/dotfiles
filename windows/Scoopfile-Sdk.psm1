@@ -2,21 +2,26 @@ $Script:Definitions = @()
 
 function exe {
     param(
-        [Parameter(Mandatory=$true, Position=0)][string]$Name,
-        [Parameter(Mandatory=$true)][string]$Url,
-        [Alias("cmd", "c")][Parameter(Mandatory=$false)][string]$Command,
-        [Alias("args", "a")][Parameter(Mandatory=$false)][string[]]$Arguments
+        [Parameter(Mandatory = $true, Position = 0)][string]$Name,
+        [Parameter(Mandatory = $true)][string]$Url,
+        [Parameter(Mandatory = false)][switch]$Repath,
+        [Alias("cmd", "c")][Parameter(Mandatory = $false)][string]$Command,
+        [Alias("path", "p")][Parameter(Mandatory = $false)][string]$TestPath,
+        [Alias("args", "a")][Parameter(Mandatory = $false)][string[]]$Arguments
     )
 
     $Definition = [PSCustomObject]@{
-        Name = $Name;
-        Url = $Url;
-        Command = $Command;
+        Name      = $Name;
+        Url       = $Url;
+        Command   = $Command;
+        TestPath  = $TestPath;
         Arguments = $Arguments;
+        Repath    = $Repath;
 
-        Check = $null;
-        Install = { 
+        Check     = $null;
+        Install   = { 
             param($def)
+
             $tempId = [Guid]::NewGuid().ToString("N")
             $tempFile = Join-Path ([System.IO.Path]::GetTempPath()) "$tempId.exe"
             Write-Debug "Downloading '$($def.Url)' to '$tempFile'"
@@ -24,22 +29,46 @@ function exe {
             if (!(Test-Path $tempFile)) {
                 throw "Download failed!"
             }
-            Write-Debug "Running installer"
+            Write-Debug "Running installer ..."
             $arguments = $def.Arguments
-            & "$tempFile" @arguments
+            Start-Process -FilePath "$tempFile" -ArgumentList @arguments -Wait
+            Write-Debug "Installer complete."
+
+            if ($def.Repath) {
+                Write-Debug "Repathing..."
+                $userPath = [Environment]::GetEnvironmentVariables("PATH", "User")
+                $sep = [System.IO.Path]::PathSeparatorChar
+                $userPathItems = $userPath.Split($sep)
+                $envPATHItems = $env:PATH.Split($sep)
+
+                $userPathItems | ForEach-Object {
+                    if ($envPATHItems -notcontains $_) {
+                        Write-Debug "Enpathing '$_'"
+                        $env:PATH = "$_$Sep$env:PATH"
+                    }
+                }
+            }
         }
     }
     if ($Command) {
         $Definition.Check = {
             param($def)
-            !!(Get-Command "$($def.Command)*" | 
-                Where-Object {
-                    [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $($def.Command)
-                })
+            if ($def.TestPath) {
+                Write-Debug "Testing path $($def.TestPath)"
+                Test-Path $def.TestPath
+            }
+            elseif ($def.Command) {
+                Write-Debug "Testing command $($def.Command)"
+                !!(Get-Command "$($def.Command)*" | 
+                    Where-Object {
+                        [System.IO.Path]::GetFileNameWithoutExtension($_.Name) -eq $($def.Command)
+                    })
+            }
         }
     }
 
     $Script:Definitions += @($Definition)
+    Write-Debug "Defined exe '$($Definition.Name)'"
 }
 
 function Get-Definitions {
