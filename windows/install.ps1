@@ -7,10 +7,11 @@ if(!$IsWindows -and !$WhatIf) {
 }
 
 Write-Debug "Loading scoopfile..."
-$Definitions = & "$PSScriptRoot/Get-Scoopfile.ps1" -Debug:$DebugPreference
+. "$PSScriptRoot/Scoopfile-Sdk.ps1"
+. "$PSScriptRoot/scoopfile.ps1"
+$Definitions = Get-Definitions
 
 Write-Debug "Running items..."
-. "$PSScriptRoot/Scoopfile-Sdk.ps1"
 $Definitions | ForEach-Object {
     $name = $_.Name
     Write-Debug "Processing $name"

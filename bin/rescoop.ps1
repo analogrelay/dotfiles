@@ -1,0 +1,1 @@
+& "$PSScriptRoot/../windows/install.ps1" @args

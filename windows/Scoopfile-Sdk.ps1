@@ -1,9 +1,15 @@
 $Script:Definitions = @()
 
+$Script:RealScoop = (Get-Command scoop).Source
+
+function realscoop {
+    & "$RealScoop" @args
+}
+
 function _fetchToTemp($url) {
     $response = Invoke-WebRequest $url
     Write-Debug "Downloading '$($def.Source)' ..."
-    $fileName = $response.BaseResponse.Content.Headers.ContentDisposition.FileName
+    $fileName = $response.BaseResponse.Content.Headers.ContentDisposition.FileName.Trim("`"")
     if (!$fileName) {
         $fileName = "$([Guid]::NewGuid().ToString("N"))_content"
     }
@@ -16,6 +22,45 @@ function _fetchToTemp($url) {
     $tempFile
 }
 
+function scoop {
+    param(
+        [Parameter(Mandatory = $true, Position = 0)][string]$Name,
+        [Parameter(Mandatory = $false)][switch]$Sudo
+    )
+
+
+    $Script:Definitions += @([PSCustomObject]@{
+        Name = $Name;
+        Check = {
+            param($def)
+            @(realscoop info $Name) -notcontains "Installed: No"
+        }
+        Install = {
+            param($def)
+            if ($Sudo) {
+                sudo realscoop install $def.Name
+            } else {
+                realscoop install $def.Name
+            }
+        }
+    })
+    Write-Debug "Registered Scoop $name"
+}
+
+function bucket {
+    param(
+        [Parameter(Mandatory = $true, Position = 0)][string]$Name,
+        [Alias("r", "repo")][Parameter(Mandatory = $false)][string]$Repository
+    )
+
+    $Script:Definitions += @([PSCustomObject]@{
+        Name = $Name;
+        Check = { param($def) @(realscoop bucket list) -contains $def.Name };
+        Install = { param($def) realscoop bucket add $def.Name }
+    })
+    Write-Debug "Registered Bucket $name"
+}
+
 function msix {
     param(
         [Parameter(Mandatory = $true, Position = 0)][string]$Name,
@@ -25,12 +70,16 @@ function msix {
     $Definition = [PSCustomObject]@{
         Name    = $Name;
         Source  = $Source;
+        FamilyName = $FamilyName
 
-        Check   = $null;
+        Check   = {
+            param($def)
+            !!(Get-AppxPackage $def.Name)
+        }
         Install = { 
             param($def)
 
-            $tempFile = _fetchToTemp $Source
+            $tempFile = _fetchToTemp $def.Source
             try {
                 if (!(Test-Path $tempFile)) {
                     throw "Download failed!"
@@ -71,7 +120,6 @@ function exe {
 
         Check     = {
             param($def)
-            Write-Host "DBGPref: $DebugPreference"
             if ($def.TestPath) {
                 Write-Debug "Testing path $($def.TestPath)"
                 Test-Path $def.TestPath
@@ -87,7 +135,7 @@ function exe {
         Install   = { 
             param($def)
 
-            $tempFile = _fetchToTemp $Source
+            $tempFile = _fetchToTemp $def.Source
             try {
                 if (!(Test-Path $tempFile)) {
                     throw "Download failed!"

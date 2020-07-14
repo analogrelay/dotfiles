@@ -1,0 +1,1 @@
+& "$PSScriptRoot/../vscode/install-extensions.ps1"
