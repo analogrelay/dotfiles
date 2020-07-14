@@ -22,6 +22,19 @@ function Install-DotFiles() {
     # Dot-source the config file
     . "$DotFilesRoot/config.ps1"
 
+    # Configure SSH if necessary
+    if (!(Test-Path "$env:USERPROFILE/.ssh/id_rsa")) {
+        Write-Host "Creating SSH identity"
+        ssh-keygen -t rsa -b 4096 -C "$(hostname)"
+
+        Get-Content "$env:USERPROFILE/.ssh/id_rsa.pub" | clip.exe
+        Write-Host "SSH Public Key is now in the clipboard"
+        Write-Host "Navigate to https://github.com/settings/keys to install it."
+        Read-Host "Press ENTER when you've configured it in GitHub ..."
+    }
+
+    git --git-dir "$DotFilesRoot\.git" --work-tree "$DotFilesRoot" remote set-url origin "$DotFilesRepo"
+
     function Test-DeveloperMode() {
         if (Test-Path $DevModeRegPath) {
             (Get-ItemProperty $DevModeRegPath).AllowDevelopmentWithoutDevLicense -eq 1

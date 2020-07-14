@@ -1,5 +1,6 @@
 # Modify this file to your hearts content!
 
+$DotFilesRepo = "git@github.com:anurse/dotfiles.git"
 $DotFilesInstallScripts = @()
 
 if ($PSVersionTable.Platform -eq "Win32NT") {
