@@ -13,7 +13,6 @@ if ($PSVersionTable.Platform -eq "Win32NT") {
 $DotFilesInstallScripts += @(
     "./ps1/install.ps1",
     "./git/install.ps1",
-    "./conemu/install.ps1",
     "./vscode/install.ps1"
 )
 

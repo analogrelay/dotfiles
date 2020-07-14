@@ -1,3 +1,19 @@
+function New-Link(
+    [Parameter(Mandatory = $true)][string]$Target,
+    [Parameter(Mandatory = $true)][string]$Destination) {
+
+    if (Test-Path $Destination) {
+        Remove-Item $Destination
+    }
+
+    $Parent = Split-Path -Parent $Destination
+    if (!(Test-Path $Parent)) {
+        New-Item -Type Directory $Parent | Out-Null
+    }
+
+    New-Item -Type SymbolicLink -Path $Destination -Value (Convert-Path $Target) -Force | Out-Null
+}
+
 function Confirm(
     [Parameter(Mandatory = $true)][string]$Title,
     [Parameter(Mandatory = $true)][string]$Message) {

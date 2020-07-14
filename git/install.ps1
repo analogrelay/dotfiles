@@ -1,31 +1,18 @@
 if (!$DotFilesInstalling) { throw "This script should only be run during dotfiles installation!" }
 
-Write-Host "Configuring Git..."
-
-$dotfilesGitPath = Join-Path $DotfilesRoot "git"
-$gitAuthorFile = Join-Path $dotfilesGitPath "gitauthor.config"
-$gitConfig = Join-Path $env:HOME ".gitconfig"
-$gitConfigTemplate = Join-Path $dotfilesGitPath ".gitconfig"
-
-# Write the git config in place
-if (Test-Path $gitConfig) {
-    if (Confirm "Remove existing gitconfig" "A git config file already exists in '$gitConfig'. Remove it?") {
-        Remove-Item $gitConfig
+function _ConfigureGitSetting($setting, $prompt) {
+    $currentValue = git config $setting
+    if (!$currentValue) {
+        $newValue = Read-Host " - $prompt"
+        git config --file "$env:USERPROFILE/.gitlocal" $setting $newValue
     }
 }
 
-if (!(Test-Path $gitConfig)) {
-    $authorName = Read-Host " - What is your Git author name?"
-    $authorEmail = Read-Host " - What is your Git author email?"
+Write-Host "Configuring Git..."
 
-    $configBlob = @"
-    [user]
-        name = $authorName
-        email = $authorEmail
-"@
+New-Link -Target "$DotfilesRoot/git/gitconfig" -Destination "$env:USERPROFILE/.gitconfig"
 
-    $configBlob | Out-File $gitAuthorFile -Encoding UTF8
-
-    Copy-Item $gitConfigTemplate $gitConfig
-    $configBlob | Out-File -Append -Encoding UTF8 -FilePath $gitConfig
-}
+# Check if we need to regenerate/update local config
+_ConfigureGitSetting "github.user" "What is your GitHub username?"
+_ConfigureGitSetting "user.name" "What is your Git author name?"
+_ConfigureGitSetting "user.email" "What is your Git author email?"

@@ -19,21 +19,6 @@ $CodeVersions | ForEach-Object {
     $KeybindingsFile = Join-Path $UserSettingsRoot "keybindings.json"
 
     # Create Symlinks
-    if (Test-Path $SettingsFile) {
-        if (Confirm "Remove existing settings" "A VS Code settings file already exists in '$SettingsFile'. Remove it?") {
-            Remove-Item $SettingsFile
-        }
-    }
-    if (!(Test-Path $SettingsFile)) {
-        New-Item -Path $SettingsFile -ItemType SymbolicLink -Value $DotFilesSettings | Out-Null
-    }
-
-    if (Test-Path $KeybindingsFile) {
-        if (Confirm "Remove existing keybindings" "A VS Code keybindings file already exists in '$KeybindingsFile'. Remove it?") {
-            Remove-Item $KeybindingsFile
-        }
-    }
-    if (!(Test-Path $KeybindingsFile)) {
-        New-Item -Path $KeybindingsFile -ItemType SymbolicLink -Value $DotFilesKeybinds | Out-Null
-    }
+    New-Link -Target $DotFilesSettings -Destination $SettingsFile
+    New-Link -Target $DotFilesKeybinds -Destination $KeybindingsFile
 }

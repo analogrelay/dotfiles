@@ -3,9 +3,7 @@ if (!$DotFilesInstalling) { throw "This script should only be run during dotfile
 Write-Host "Installing PowerShell Profile ..."
 
 if (Test-Path $Profile) {
-    if (Confirm "Remove existing profile" "A profile script already exists in '$Profile'. Remove it?") {
-        Remove-Item $Profile
-    }
+    Remove-Item $Profile
 }
 
 if (!(Test-Path $Profile)) {
