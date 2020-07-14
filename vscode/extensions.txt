@@ -10,3 +10,4 @@ golang.go
 ms-dotnettools.csharp
 eamodio.gitlens
 zxh404.vscode-proto3
+vsls-contrib.gistfs

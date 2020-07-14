@@ -42,7 +42,7 @@ if (!(Test-Path $RepoPath)) {
 
     Push-Location $Container
     try {
-        git.ps1 clone $Repo $RepoName
+        git clone $Repo $RepoName
     }
     finally {
         Pop-Location

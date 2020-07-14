@@ -1,11 +1,9 @@
 #!/bin/bash
 source "$HOME/.dotfiles/zsh/_utils.sh"
 
-INSTALLED=`code --list-extensions`
-CODE_ARGS=()
-for extension in `cat $HOME/.dotfiles/vscode/extensions.txt | egrep "^[^#]+$"`; do
-    CODE_ARGS+=@("--install-extension" $extension)
-done
+code_args=`cat $HOME/.dotfiles/vscode/extensions.txt | egrep "^[^#]+$" | awk '{ ORS=" "; print "--install-extension " $0 }'`
+code $code_args
 
-code "${CODE_ARGS[@]}"
-echo "Note: Existing VSCode instances may need to be restarted!"
+if pgrep code >/dev/null; then
+    echo "WARNING: Existing VSCode instances may need to be restarted!" 1>&2
+fi
