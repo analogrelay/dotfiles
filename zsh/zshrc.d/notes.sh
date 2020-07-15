@@ -1,3 +1,3 @@
-if [ -e "$HOME/notes/bin" ]; then
-    export PATH="$HOME/notes/bin:$PATH"
+if [ -e "$HOME/notes/tools/bin" ]; then
+    export PATH="$HOME/notes/tools/bin:$PATH"
 fi
