@@ -2,6 +2,7 @@ bucket "nerd-fonts"
 
 scoop "sudo"
 scoop "Delugia-Nerd-Font" -Sudo
+scoop "azure-cli"
 
 exe "fiddler" -TestPath "$env:LOCALAPPDATA/Programs/Fiddler/Fiddler.exe" -Source "https://telerik-fiddler.s3.amazonaws.com/fiddler/FiddlerSetup.exe" -Arguments @("/S")
 exe "vscode" -TestPath "$env:LOCALAPPDATA/Programs/Microsoft VS Code/Code.exe" -Source "https://aka.ms/win32-x64-user-stable" -Arguments @("/VERYSILENT", "/NORESTART", "/MERGETASKS=!runcode") -Repath
