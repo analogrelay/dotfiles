@@ -8,14 +8,13 @@ cd $DOTFILES_ROOT
 DOTFILES_TEMP=$(mktemp -d -t dotfiles-install)
 
 FPATH="$DOTFILES_ROOT/functions:$FPATH"
-autoload has
 
 . "./zsh/_utils.sh"
 . "./config.sh"
 
 # Generate a "Machine Name"
 MACHINE_NAME=$(hostname)
-if iswsl; then
+if uname -r | grep "Microsoft" >/dev/null; then
     MACHINE_NAME="$MACHINE_NAME-wsl"
 fi
 

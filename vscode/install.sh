@@ -5,17 +5,16 @@ if [ "$DOTFILES_INSTALL" != "1" ]; then
 fi
 
 SETTINGS_ROOT=
-if ismacos; then
+if [ "$(uname)" = "Darwin" ]; then
     SETTINGS_ROOT="$HOME/Library/Application Support/Code/User"
 else
     SETTINGS_ROOT="$HOME/.config/Code/User"
 fi
 
-# Link the files in to place
-link_file ~/.dotfiles/vscode/settings.json "$SETTINGS_ROOT/settings.json"
-link_file ~/.dotfiles/vscode/keybindings.json "$SETTINGS_ROOT/keybindings.json"
+# Link the user dir in place
+link_file "$HOME/.dotfiles/vscode/user" "$SETTINGS_ROOT"
 
-if ! has code; then
+if ! type -p code >/dev/null 2>&1; then
     echo "Skipping extension install. VS Code is not yet installed."
 else
     "$HOME/.dotfiles/vscode/install-extensions.sh"

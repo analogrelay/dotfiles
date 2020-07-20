@@ -1,9 +1,9 @@
-if ! has gpg; then
+if ! type -p gpg >/dev/null 2>&1; then
     echo "Cannot load gpg, it is not installed."
     return
 fi
 
-if ! has op; then
+if ! type -p op >/dev/null 2>&1; then
     echo "Cannot load gpg, 1password-cli is not installed."
     return
 fi

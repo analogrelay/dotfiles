@@ -30,8 +30,8 @@ link_file() {
         # Back up the file
         local TMP=$(mktemp -d -t "dotfiles-backup-$(basename $TGT)")
         warn "Replacing $TGT. Backed up original to $TMP"
-        cp $TGT $TMP
-        rm $TGT
+        cp -R $TGT $TMP
+        rm -Rf $TGT
     fi  
     ln -s $SRC $TGT
 }

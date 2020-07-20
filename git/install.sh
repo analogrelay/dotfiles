@@ -30,3 +30,15 @@ if [ -z "$AUTHOR_EMAIL" ]; then
     read "? - What is your Git author email? " AUTHOR_EMAIL
     git config --file ~/.gitlocal user.email $AUTHOR_EMAIL
 fi
+
+# Configure credential helper per-OS
+EXPECTED_HELPER=
+if [ "$(uname)" = "Darwin" ]; then
+    EXPECTED_HELPER=credential-osxkeychain
+fi
+
+CURRENT_HELPER=$(git config credential.helper)
+if [ "$CURRENT_HELPER" != "$EXPECTED_HELPER" ]; then
+    echo "Updating git credential.helper to '$EXPECTED_HELPER'"
+    git config --file ~/.gitlocal credential.helper "$EXPECTED_HELPER"
+fi

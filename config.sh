@@ -12,6 +12,6 @@ DOTFILES_INSTALL_SCRIPTS=(
     "./ruby/install.sh"
 )
 
-if ismacos; then
+if [ "$(uname)" = "Darwin" ]; then
     DOTFILES_INSTALL_SCRIPTS=( "./macos/install.sh" $DOTFILES_INSTALL_SCRIPTS[@] "./macos/iterm/install.sh" )
 fi
