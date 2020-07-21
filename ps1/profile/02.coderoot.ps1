@@ -1,5 +1,5 @@
 # Identify the code root directory
-if ($PSVersionTable.Platform -eq "Win32NT") {
+if ($IsWindows) {
     $CodeRoot = "C:\Code"
     $LegacyCodeRoot = (Join-Path $env:USERPROFILE "Code")
 

@@ -20,7 +20,8 @@ if ($PsVersionTable.Platform -eq "Win32NT") {
 else {
     if ($IsMacOS) {
         $machinePath = "/usr/local/share/dotnet/dotnet"
-    } else {
+    }
+    else {
         $machinePath = "/usr/bin/dotnet"
     }
     $userLocalPath = "$env:HOME/.dotnet/dotnet"
@@ -38,9 +39,11 @@ function Write-Theme {
         $OsSymbol = TimeBlock "os" {
             if ($IsWindows) {
                 $sl.PromptSymbols.WindowsSymbol
-            } elseif ($IsMacOS) {
+            }
+            elseif ($IsMacOS) {
                 $sl.PromptSymbols.AppleSymbol
-            } else {
+            }
+            else {
                 if ((uname -r) -match ".*Microsoft$") {
                     "$($sl.PromptSymbols.LinuxSymbol) (on $($sl.PromptSymbols.WindowsSymbol))"
                 }
@@ -145,7 +148,11 @@ function Write-Theme {
         if ($with) {
             $prompt += Write-Prompt -Object "$($with.ToUpper()) " -BackgroundColor $sl.Colors.WithBackgroundColor -ForegroundColor $sl.Colors.WithForegroundColor
         }
-        $prompt += Write-Prompt -Object "ps1 $($sl.PromptSymbols.PromptIndicator)" -ForegroundColor "Cyan"
+        $promptShell = "ps1"
+        if ($PsVersionTable.PSEdition -ne "Core") {
+            $promptShell = "ps1 (win)"
+        }
+        $prompt += Write-Prompt -Object "$promptShell $($sl.PromptSymbols.PromptIndicator)" -ForegroundColor "Cyan"
         $prompt += ' '
         $prompt
     }
@@ -185,20 +192,22 @@ $sl.Colors.RustBackgroundColor = [ConsoleColor]::DarkRed
 $sl.Colors.RubyForegroundColor = [ConsoleColor]::Gray
 $sl.Colors.RubyBackgroundColor = [ConsoleColor]::DarkRed
 
-Set-PSReadLineOption -Colors @{
-    "Command"            = "`e[94m";
-    "Comment"            = "`e[92m";
-    "ContinuationPrompt" = "`e[37m";
-    "Default"            = "`e[37m";
-    "Emphasis"           = "`e[95m";
-    "Error"              = "`e[91m";
-    "Keyword"            = "`e[91m";
-    "Member"             = "`e[97m";
-    "Number"             = "`e[97m";
-    "Operator"           = "`e[91m";
-    "Parameter"          = "`e[37m";
-    "Selection"          = "`e[30;47m";
-    "String"             = "`e[96m";
-    "Type"               = "`e[37m";
-    "Variable"           = "`e[92m"    ;
+if($IsCoreCLR) {
+    Set-PSReadLineOption -Colors @{
+        "Command"            = "`e[94m";
+        "Comment"            = "`e[92m";
+        "ContinuationPrompt" = "`e[37m";
+        "Default"            = "`e[37m";
+        "Emphasis"           = "`e[95m";
+        "Error"              = "`e[91m";
+        "Keyword"            = "`e[91m";
+        "Member"             = "`e[97m";
+        "Number"             = "`e[97m";
+        "Operator"           = "`e[91m";
+        "Parameter"          = "`e[37m";
+        "Selection"          = "`e[30;47m";
+        "String"             = "`e[96m";
+        "Type"               = "`e[37m";
+        "Variable"           = "`e[92m";
+    }
 }

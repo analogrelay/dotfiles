@@ -20,7 +20,7 @@ function AddKeyIfNotPresent($KeyFile) {
 }
 
 if (!(Test-Path env:\SSH_AUTH_SOCK)) {
-    if ($PSVersionTable.Platform -eq "Win32NT") {
+    if ($IsWindows) {
         $gitBin = Join-Path $env:HOME "scoop\apps\git\current\usr\bin"
         if (Test-Path $gitBin) {
             Add-PathVariable -Prepend $gitBin

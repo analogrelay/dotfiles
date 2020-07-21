@@ -3,7 +3,14 @@
 $DotFilesRepo = "git@github.com:anurse/dotfiles.git"
 $DotFilesInstallScripts = @()
 
-if ($PSVersionTable.Platform -eq "Win32NT") {
+if($PSVersionTable.PSEdition -eq "Desktop") {
+    $global:IsWindows = $true
+    $global:IsMacOS = $false
+    $global:IsLinux = $false
+    $global:IsCoreCLR = $false
+}
+
+if ($IsWindows) {
     $DotFilesInstallScripts += @(
         "./windows/install.ps1",
         "./windows/winterm/install.ps1"
