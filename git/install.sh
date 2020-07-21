@@ -34,7 +34,7 @@ fi
 # Configure credential helper per-OS
 EXPECTED_HELPER=
 if [ "$(uname)" = "Darwin" ]; then
-    EXPECTED_HELPER=credential-osxkeychain
+    EXPECTED_HELPER=osxkeychain
 fi
 
 CURRENT_HELPER=$(git config credential.helper)

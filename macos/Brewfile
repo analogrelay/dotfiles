@@ -15,6 +15,7 @@ brew "yarn"
 brew "heroku"
 brew "mysql"
 brew "ripgrep"
+brew "git-lfs"
 
 cask "iterm2"
 cask "visual-studio-code"
