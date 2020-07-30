@@ -9,7 +9,10 @@ truncate_to_repo = false
 truncation_length = 0
 
 [directory.substitutions]
-"~/code" = "code:"
+"~/code" = "👩‍💻"
 
 [kubernetes]
-disabled = false
+disabled = true
+
+[dotnet]
+symbol = "\ue77f "

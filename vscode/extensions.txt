@@ -1,8 +1,9 @@
 # This file lists extensions that should be installed into VS Code.
 # One extension id per line, with lines starting with "#" and blank lines ignored
 
-# Primary Theme
+# Themes
 github.github-vscode-theme
+mvllow.rose-pine
 
 vscodevim.vim
 ms-vscode.powershell
@@ -11,3 +12,4 @@ ms-dotnettools.csharp
 eamodio.gitlens
 zxh404.vscode-proto3
 vsls-contrib.gistfs
+

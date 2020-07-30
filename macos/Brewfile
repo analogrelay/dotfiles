@@ -16,6 +16,7 @@ brew "heroku"
 brew "mysql"
 brew "ripgrep"
 brew "git-lfs"
+brew "starship"
 
 cask "iterm2"
 cask "visual-studio-code"
@@ -34,6 +35,7 @@ cask "ngrok"
 cask "postman"
 cask "wireshark"
 cask "notion"
+cask "firefox"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434
