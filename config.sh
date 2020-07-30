@@ -10,6 +10,7 @@ DOTFILES_INSTALL_SCRIPTS=(
     "./fonts/install.sh"
     "./vscode/install.sh"
     "./ruby/install.sh"
+    "./starship/install.sh"
 )
 
 if [ "$(uname)" = "Darwin" ]; then

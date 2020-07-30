@@ -33,7 +33,9 @@ cask "github"
 cask "ngrok"
 cask "postman"
 cask "wireshark"
+cask "notion"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434
 mas "OneDrive", id: 823766827
+mas "Moom", id: 419330170
