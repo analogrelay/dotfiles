@@ -5,6 +5,15 @@
 DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
 cd $DOTFILES_ROOT
 
+# Check for the private dotfiles area
+PRIVATE_DOTFILES_ROOT="$( cd "$(dirname $DOTFILES_ROOT)" ; pwd -P )/.dotfiles-private"
+if [ ! -e "$PRIVATE_DOTFILES_ROOT" ]; then
+    echo "note: private dotfiles have not been cloned to ~/.dotfiles-private"
+    echo "note: do that manually and re-run setup to initialize anything there"
+else
+    echo "note: using private dotfiles from $PRIVATE_DOTFILES_ROOT"
+fi
+
 DOTFILES_TEMP=$(mktemp -d -t dotfiles-install)
 
 FPATH="$DOTFILES_ROOT/functions:$FPATH"

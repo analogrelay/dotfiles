@@ -17,6 +17,8 @@ brew "mysql"
 brew "ripgrep"
 brew "git-lfs"
 brew "starship"
+brew "cocoapods"
+brew "trash"
 
 cask "iterm2"
 cask "visual-studio-code"

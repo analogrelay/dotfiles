@@ -45,7 +45,7 @@
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.fontSize": 14,
     "git.enableSmartCommit": true,
-    "workbench.colorTheme": "Rosé Pine Dawn",
+    "workbench.colorTheme": "Roseate",
     "workbench.colorCustomizations": {
         "terminal.ansiRed": "#CB2431",
         "terminal.ansiBrightBlack": "#41474E",
@@ -72,5 +72,6 @@
     "workbench.editor.enablePreview": false,
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "omnisharp.enableEditorConfigSupport": true,
-    "omnisharp.enableRoslynAnalyzers": true
+    "omnisharp.enableRoslynAnalyzers": true,
+    "window.newWindowDimensions": "offset"
 }

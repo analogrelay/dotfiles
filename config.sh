@@ -13,6 +13,10 @@ DOTFILES_INSTALL_SCRIPTS=(
     "./starship/install.sh"
 )
 
+if [ -e "$PRIVATE_DOTFILES_ROOT/config.sh" ]; then
+    source "$PRIVATE_DOTFILES_ROOT/config.sh"
+fi
+
 if [ "$(uname)" = "Darwin" ]; then
     DOTFILES_INSTALL_SCRIPTS=( "./macos/install.sh" $DOTFILES_INSTALL_SCRIPTS[@] "./macos/iterm/install.sh" )
 fi

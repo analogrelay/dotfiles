@@ -12,4 +12,6 @@ ms-dotnettools.csharp
 eamodio.gitlens
 zxh404.vscode-proto3
 vsls-contrib.gistfs
+bungcip.better-toml
+ms-azuretools.vscode-docker
 

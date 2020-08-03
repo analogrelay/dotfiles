@@ -11,8 +11,5 @@ truncation_length = 0
 [directory.substitutions]
 "~/code" = "👩‍💻"
 
-[kubernetes]
-disabled = true
-
 [dotnet]
 symbol = "\ue77f "

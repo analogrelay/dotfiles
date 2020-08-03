@@ -1,14 +1,21 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export DOTFILES_ROOT="$HOME/.dotfiles"
+export PRIVATE_DOTFILES_ROOT="$HOME/.dotfiles-private"
+
 # Custom custom dir ;)
-export ZSH_CUSTOM="$HOME/.dotfiles/zsh/oh-my-zsh"
+export ZSH_CUSTOM="$DOTFILES_ROOT/zsh/oh-my-zsh"
 
-# Add 'bin' to PATH
-export PATH="$HOME/.dotfiles/bin:$PATH"
+# Add 'bin' to PATH and 'functions' to FPATH
+export PATH="$DOTFILES_ROOT/bin:$PATH"
+export FPATH="$DOTFILES_ROOT/functions:$FPATH"
 
-# Add 'functions' dir to FPATH
-export FPATH="$HOME/.dotfiles/functions:$FPATH"
+# Ditto for private dotfiles if present
+if [ -d "$PRIVATE_DOTFILES_ROOT" ]; then
+    export PATH="$PRIVATE_DOTFILES_ROOT/bin:$PATH"
+    export FPATH="$PRIVATE_DOTFILES_ROOT/functions:$FPATH"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -102,17 +109,32 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Mark all files with no extension in there as autoload
-FUNCS_TO_AUTOLOAD=("${(@f)$(find "$HOME/.dotfiles/functions" -type f \! -name "*.*" | xargs basename)}")
+FUNCS_TO_AUTOLOAD=("${(@f)$(find "$DOTFILES_ROOT/functions" -type f \! -name "*.*" | xargs basename)}")
 for func in $FUNCS_TO_AUTOLOAD; do
     autoload $func
 done
 
+# Repeat for private, if present
+if [ -d "$HOME/.dotfiles-private/functions" ]; then
+    FUNCS_TO_AUTOLOAD=("${(@f)$(find "$PRIVATE_DOTFILES_ROOT/functions" -type f \! -name "*.*" | xargs basename)}")
+    for func in $FUNCS_TO_AUTOLOAD; do
+        autoload $func
+    done
+fi
+
 # If we're in WSL, source the wsl script
 if uname -r | grep Microsoft >/dev/null; then
-    source "$HOME/.dotfiles/zsh/wsl.zshrc"
+    source "$DOTFILES_ROOT/zsh/wsl.zshrc"
 fi
 
 # Run other ZSH scripts
-for file in `find "$HOME/.dotfiles/zsh/zshrc.d" -type f -name "*.sh"`; do
+for file in `find "$DOTFILES_ROOT/zsh/zshrc.d" -type f -name "*.sh"`; do
     source $file
 done
+
+# Run private dotfiles scripts
+if [ -d "$HOME/.dotfiles-private/zsh/zshrc.d" ]; then
+    for file in `find "$HOME/.dotfiles-private/zsh/zshrc.d" -type f -name "*.sh"`; do
+        source $file
+    done
+fi
