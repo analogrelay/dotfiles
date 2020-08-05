@@ -1,5 +1,0 @@
-if [ "$USE_RM" = "1" ]; then
-    command rm "$@"
-else
-    echo "Consider using 'trash' instead. Use 'USE_RM=1 rm ...' to override and use RM"
-fi
