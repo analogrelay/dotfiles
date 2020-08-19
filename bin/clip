@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if [ "$(uname)" = "Darwin" ]; then
+    pbcopy <&0
+else
+    echo "Not supported on non-macOS systems yet!" 1>&2
+fi

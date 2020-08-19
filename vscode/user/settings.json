@@ -73,5 +73,9 @@
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "omnisharp.enableEditorConfigSupport": true,
     "omnisharp.enableRoslynAnalyzers": true,
-    "window.newWindowDimensions": "offset"
+    "window.newWindowDimensions": "offset",
+    "editor.tabSize": 2,
+    "foam.openDailyNote.directory": "daily",
+    "foam.openDailyNote.filenameFormat": "yyyy-mm-dd",
+    "foam.openDailyNote.titleFormat": "'Daily notes for' dddd, mmmm d, yyyy"
 }

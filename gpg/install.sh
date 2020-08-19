@@ -31,3 +31,10 @@ fi
 
 git config --file ~/.gitlocal user.signingkey "$KEYID"
 git config --file ~/.gitlocal commit.gpgsign true
+
+link_file ~/.dotfiles/gpg/gpg.conf ~/.gnupg/gpg.conf
+if [ "$(uname)" = "Darwin" ]; then
+    link_file ~/.dotfiles/gpg/gpg-agent.darwin.conf ~/.gnupg/gpg-agent.conf
+fi
+
+chmod 700 ~/.gnupg

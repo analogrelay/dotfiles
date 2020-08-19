@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AllowClipboardAccess</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>ApplePressAndHoldEnabled</key>
@@ -76,9 +78,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>234 2237 620 392 -960 1280 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1101 1453 2041 1243 1026 1280 3008 1669 </string>
+	<string>1139 1565 1726 1228 1026 1280 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>150 1434 1528 1091 -960 1280 3008 1669 </string>
+	<string>2136 2023 745 502 1026 1280 3008 1669 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2747,7 +2749,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>49BC2308-5C29-464F-9041-3B4323BAD7C5</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>17</integer>
+	<integer>22</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>614031184.57998705</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -3538,7 +3540,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-07-30T14:23:20Z</date>
+	<date>2020-08-15T14:00:12Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>

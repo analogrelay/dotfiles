@@ -18,3 +18,8 @@ if [ -e ~/.zshrc ]; then
     rm ~/.zshrc
 fi
 link_file ~/.dotfiles/zsh/zshrc.sh ~/.zshrc
+
+if [ -e ~/.zprofile ]; then
+    rm ~/.zprofile
+fi
+link_file ~/.dotfiles/zsh/zprofile.sh ~/.zprofile
