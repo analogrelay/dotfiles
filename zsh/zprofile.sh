@@ -9,10 +9,4 @@ if type rbenv >/dev/null 2>&1; then
     eval "$(rbenv init -)"
 fi
 
-if type gpg-agent >/dev/null 2>&1 && [ -f /usr/local/bin/pinentry ]; then
-    echo "Launching gpg-agent"
-    killall gpg-agent
-    gpg-agent --daemon --pinentry-program /usr/local/bin/pinentry
-fi
-
 export GPG_TTY="$(tty)"
