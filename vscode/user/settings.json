@@ -77,5 +77,6 @@
     "editor.tabSize": 2,
     "foam.openDailyNote.directory": "daily",
     "foam.openDailyNote.filenameFormat": "yyyy-mm-dd",
-    "foam.openDailyNote.titleFormat": "'Daily notes for' dddd, mmmm d, yyyy"
+    "foam.openDailyNote.titleFormat": "'Daily notes for' dddd, mmmm d, yyyy",
+    "workbench.editor.showTabs": false
 }
