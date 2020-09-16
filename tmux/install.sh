@@ -4,9 +4,15 @@ if [ "$DOTFILES_INSTALL" != "1" ]; then
     exit 1
 fi
 
-if [ -e ~/.tmux.conf ]; then
+if [ -e ~/.tmux.conf ] || [ -L ~/.tmux.conf ]; then
     trace_out "Removing existing tmux.conf symlink"
     rm ~/.tmux.conf
 fi
 
+if [ -e ~/.tmux.conf.local ] || [ -L ~/.tmux.conf.local ]; then
+    trace_out "Removing existing tmux.conf.local symlink"
+    rm ~/.tmux.conf.local
+fi
+
 link_file ~/.dotfiles/tmux/tmux.conf ~/.tmux.conf
+link_file ~/.dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local

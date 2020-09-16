@@ -1,8 +1,3 @@
-# Always enter tmux (experiment)
-if [[ $TERM != "screen" ]] && type -p tmux >/dev/null 2>&1; then
-    exec tmux
-fi
-
 # Options to configure the rest
 export USE_NVIM=0
 

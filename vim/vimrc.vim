@@ -5,6 +5,11 @@ syntax on
 call plug#begin('~/.vim/plugged')
 
 " Add plugins here!
-Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'fatih/vim-go'
 
 call plug#end()
+
+" FZF config
+map <C-p> :FZF<enter>

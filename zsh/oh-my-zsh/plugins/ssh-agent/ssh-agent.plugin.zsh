@@ -59,8 +59,7 @@ function _add_identities() {
 # Check if secretive is enabled
 SECRETIVE_SOCKET_PATH="$HOME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"
 if [ "$(uname)" = "Darwin" ] && [ "$USE_SECRETIVE" != "0" ]; then
-	if [ -e "$SECRETIVE_SOCKET_PATH" ] && [ "$SSH_AUTH_SOCK" != "$SECRETIVE_SOCKET_PATH" ]; then
-		echo "Using Secretive for SSH keys..."
+	if [ -e "$SECRETIVE_SOCKET_PATH" ]; then
 		# Just use secretive.
 		export SSH_AUTH_SOCK="$SECRETIVE_SOCKET_PATH"
 		return

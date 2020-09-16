@@ -1,4 +1,4 @@
-if ! has jq; then
+if ! type jq >/dev/null 2>&1; then
     echo "Missing required component: 'jq'!"
     return 0
 fi
