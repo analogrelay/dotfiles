@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+dry_run=false
+remote="origin"
+
+while [[ $# -gt 0 ]]; do
+	key="$1"
+	shift
+
+	case "$key" in
+		-n|--dry-run)
+			dry_run=true
+			;;
+		-r|--remote)
+			remote="$1"
+			shift ;;
+		-b|--main-branch)
+			default_branch="$1"
+			shift ;;
+	esac
+done
+
+if [ -z "$default_branch" ]; then
+	echo "Getting default branch..."
+	default_branch=$(git remote show origin | grep "HEAD branch" | sed "s/ *HEAD branch: *//g")
+fi
+
+echo "Updating remote branches..."
+git fetch origin --prune
+
+echo "Looking for local branches merged into remote default"
+locals_to_prune=$(git branch --merged "origin/$default_branch" | grep "^ *anurse/")
+
+echo "Looking for remote branches merged into remote default"
+remotes_to_prune=$(git branch -r --merged "origin/$default_branch" | grep -v "^ *origin/HEAD" | grep "^ *origin/anurse/")
+
+if [ -n "$locals_to_prune" ]; then
+	for lbranch in $locals_to_prune; do
+		echo "Pruning local branch: $lbranch"
+		if ! $dry_run; then
+			git branch -D "$lbranch"
+		fi
+	done
+fi
+
+if [ -n "$remotes_to_prune" ]; then
+	for rbranch in $remotes_to_prune; do
+		echo "Pruning remote branch: $rbranch"
+	done
+	if ! $dry_run; then
+		git push --delete "$remote" $remotes_to_prune
+	fi
+fi

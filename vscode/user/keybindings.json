@@ -27,5 +27,9 @@
         "key": "alt+ctrl+left",
         "command": "workbench.action.terminal.focusPrevious",
         "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+alt+f5",
+        "command": "workbench.action.debug.selectandstart"
     }
 ]

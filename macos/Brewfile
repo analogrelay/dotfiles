@@ -1,6 +1,7 @@
 tap "heroku/brew"
 tap "homebrew/cask"
 tap "homebrew/services"
+tap "jesseduffield/lazygit"
 
 brew "gh"
 brew "jq"
@@ -24,6 +25,8 @@ brew "bat"
 brew "tldr"
 brew "exa"
 brew "reattach-to-user-namespace"
+brew "direnv"
+brew "lazygit"
 
 cask "iterm2"
 cask "visual-studio-code"

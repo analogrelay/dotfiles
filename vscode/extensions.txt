@@ -17,3 +17,4 @@ ms-azuretools.vscode-docker
 vzwgrey.file-create
 xadillax.viml
 NeelyInnovations.note-macros
+fabiospampinato.vscode-todo-plus

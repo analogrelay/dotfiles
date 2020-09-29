@@ -20,6 +20,10 @@ if [ -d "$PRIVATE_DOTFILES_ROOT" ]; then
     export FPATH="$PRIVATE_DOTFILES_ROOT/functions:$FPATH"
 fi
 
+if type direnv >/dev/null 2>&1; then
+	eval "$(direnv hook zsh)"
+fi
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
