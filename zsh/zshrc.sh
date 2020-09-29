@@ -5,7 +5,6 @@ export USE_NVIM=0
 export ZSH="$HOME/.oh-my-zsh"
 
 export DOTFILES_ROOT="$HOME/.dotfiles"
-export PRIVATE_DOTFILES_ROOT="$HOME/.dotfiles-private"
 
 # Custom custom dir ;)
 export ZSH_CUSTOM="$DOTFILES_ROOT/zsh/oh-my-zsh"
@@ -48,14 +47,6 @@ for func in $FUNCS_TO_AUTOLOAD; do
     autoload $func
 done
 
-# Repeat for private, if present
-if [ -d "$HOME/.dotfiles-private/functions" ]; then
-    FUNCS_TO_AUTOLOAD=("${(@f)$(find "$PRIVATE_DOTFILES_ROOT/functions" -type f \! -name "*.*" | xargs basename)}")
-    for func in $FUNCS_TO_AUTOLOAD; do
-        autoload $func
-    done
-fi
-
 # If we're in WSL, source the wsl script
 if uname -r | grep Microsoft >/dev/null; then
     source "$DOTFILES_ROOT/zsh/wsl.zshrc"
@@ -66,9 +57,3 @@ for file in `find "$DOTFILES_ROOT/zsh/zshrc.d" -type f -name "*.sh"`; do
     source $file
 done
 
-# Run private dotfiles scripts
-if [ -d "$HOME/.dotfiles-private/zsh/zshrc.d" ]; then
-    for file in `find "$HOME/.dotfiles-private/zsh/zshrc.d" -type f -name "*.sh"`; do
-        source $file
-    done
-fi
