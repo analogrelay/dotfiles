@@ -28,6 +28,7 @@ brew "reattach-to-user-namespace"
 brew "direnv"
 brew "lazygit"
 brew "the_silver_searcher"
+brew "gotags"
 
 cask "iterm2"
 cask "visual-studio-code"

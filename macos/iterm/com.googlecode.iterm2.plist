@@ -25,7 +25,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<string>1</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~</string>
+	<string>~/Library/Application Support/iTerm2/Scripts</string>
 	<key>NSNavLastUserSetHideExtensionButtonState</key>
 	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -74,11 +74,11 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>370 2396 347 181 0 0 2048 1257 </string>
+	<string>-652 2396 347 181 0 0 2048 1257 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>234 2237 620 392 -960 1280 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1139 1565 1726 1228 1026 1280 3008 1669 </string>
+	<string>-1831 1376 2707 1490 -1982 1280 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>2136 2023 745 502 1026 1280 3008 1669 </string>
 	<key>New Bookmarks</key>
@@ -737,6 +737,8 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Title Components</key>
+			<integer>2</integer>
 			<key>Transparency</key>
 			<real>0.059390862944162438</real>
 			<key>Unicode Normalization</key>
@@ -2742,14 +2744,14 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{1026, 1280}, {3008, 1692}}</string>
+		<string>{{-1982, 1280}, {3008, 1692}}</string>
 		<key>topLeft</key>
-		<string>{1551, 2251}</string>
+		<string>{-857, 2525}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>49BC2308-5C29-464F-9041-3B4323BAD7C5</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>22</integer>
+	<integer>32</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>614031184.57998705</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -3494,8 +3496,14 @@
 			</dict>
 		</array>
 	</dict>
+	<key>NoSyncSaveDocumentAsPathSet_saveDocumentAs:</key>
+	<true/>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>613626795.77615798</real>
+	<key>OpenTmuxWindowsIn</key>
+	<integer>0</integer>
+	<key>PMPrintingExpandedStateForPrint2</key>
+	<false/>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -3531,6 +3539,8 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/anurse/.dotfiles/macos/iterm</string>
+	<key>Print In Black And White</key>
+	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -3540,7 +3550,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-08-15T14:00:12Z</date>
+	<date>2020-10-01T16:55:15Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
