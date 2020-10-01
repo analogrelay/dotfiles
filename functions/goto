@@ -1,6 +1,16 @@
 target=$1
 
 if [ -z "$1" ]; then
+    if type fzf >/dev/null 2>&1; then
+        # Using 'maxdepth' and 'mindepth' seems to be faster than using 'depth'...
+        selected=$(find $HOME/code -maxdepth 2 -mindepth 2 -type d | fzf)
+	if [ -z "$selected" ]; then
+            return
+	fi
+	echo "Going to $selected"
+	cd $selected
+	return
+    fi
     echo "Usage: goto <TARGET>" 1>&2
     echo "" 1>&2
     echo "Targets:" 1>&2

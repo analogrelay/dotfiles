@@ -27,6 +27,7 @@ brew "exa"
 brew "reattach-to-user-namespace"
 brew "direnv"
 brew "lazygit"
+brew "the_silver_searcher"
 
 cask "iterm2"
 cask "visual-studio-code"
