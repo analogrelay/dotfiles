@@ -1,31 +1,39 @@
 target=$1
 
-if [ -z "$1" ]; then
-    if type fzf >/dev/null 2>&1; then
-        # Using 'maxdepth' and 'mindepth' seems to be faster than using 'depth'...
-        selected=$(find $HOME/code -maxdepth 2 -mindepth 2 -type d | fzf)
-	if [ -z "$selected" ]; then
-            return
-	fi
-	echo "Going to $selected"
-	cd $selected
-	return
-    fi
-    echo "Usage: goto <TARGET>" 1>&2
-    echo "" 1>&2
-    echo "Targets:" 1>&2
-    echo "  * <OWNER>/<REPO> - Go to cloned repo" 1>&2
-    return 1
+# Collect all the candidates
+candidates=$(find $HOME/code -maxdepth 2 -mindepth 2 -type d)
+
+if [ "$(uname)" = "Darwin" ]; then
+    candidates=$(cat <<EOF
+$candidates
+$HOME/Downloads
+$HOME/Desktop
+$HOME/Documents
+EOF
+)
+
 fi
 
-local PATH_SEGMENT="[-a-zA-Z0-9_\.]+"
-if [[ $target =~ "^($PATH_SEGMENT)/($PATH_SEGMENT)$" ]]; then
-    owner=$match[1]
-    repo=$match[2]
-    dest=~/code/$owner/$repo
-    if [ -d $dest ]; then
-        cd $dest
-    elif confirm "$owner/$repo has not been cloned. Clone it?"; then
-        clone "$owner/$repo"
+candidates=$(cat <<EOF
+$candidates
+$HOME/.dotfiles
+$HOME/kb
+$HOME/code
+EOF
+)
+
+if [ "$DEBUG" = "1" ]; then
+    echo "Candidates: $candidates"
+else
+    qry_arg=()
+    if [ -n "$1" ]; then
+        qry_arg=("--query" "$1" "--select-1" "--exit-0")
+    fi
+    target=$(echo "$candidates" | fzf ${qry_arg[@]})
+    if [ $? != 0 ]; then
+        echo "failed to find target to goto" 1>&2
+        return
+    else
+        cd $target
     fi
 fi
