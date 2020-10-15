@@ -1,8 +1,0 @@
-{
-	"GitHub Handle": {
-		"prefix": "ghuser",
-		"body": [
-			"[$1](https://github.com/$1)"
-		]
-	}
-}

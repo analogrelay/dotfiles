@@ -20,8 +20,7 @@ if ($IsWindows) {
 # Install Scripts to be run (paths relative to the dotfiles root)
 $DotFilesInstallScripts += @(
     "./ps1/install.ps1",
-    "./git/install.ps1",
-    "./vscode/install.ps1"
+    "./git/install.ps1"
 )
 
 # Core-only modules

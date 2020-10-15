@@ -35,28 +35,6 @@ function Install-DotFiles() {
 
     git --git-dir "$DotFilesRoot\.git" --work-tree "$DotFilesRoot" remote set-url origin "$DotFilesRepo"
 
-    function Test-DeveloperMode() {
-        if (Test-Path $DevModeRegPath) {
-            (Get-ItemProperty $DevModeRegPath).AllowDevelopmentWithoutDevLicense -eq 1
-        }
-        else {
-            $false
-        }
-    }
-
-    # Check Windows Pre-requisites
-    if ($IsWindows) {
-        $RegKeyPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\AppModelUnlock"
-        if (!(Test-Path $RegKeyPath)) {
-            New-Item -Path $RegKeyPath -ItemType Directory -Force
-        }
-
-        if ((Get-ItemProperty $RegKeyPath).AllowDevelopmentWithoutDevLicense -ne 1) {
-            Doing "Enabling Developer Mode..."
-            New-ItemProperty -Path $RegKeyPath -Name AllowDevelopmentWithoutDevLicense -PropertyType DWORD -Value 1 
-        }
-    }
-
     # Run all Install scripts
     $DotFilesInstallScripts | ForEach-Object {
         $path = Join-Path $DotFilesRoot $_

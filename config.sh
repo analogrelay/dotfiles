@@ -9,7 +9,6 @@ DOTFILES_INSTALL_SCRIPTS=(
     "./tmux/install.sh"
     "./tmuxinator/install.sh"
     "./fonts/install.sh"
-    "./vscode/install.sh"
     "./ruby/install.sh"
     "./starship/install.sh"
     "./vim/install.sh"
