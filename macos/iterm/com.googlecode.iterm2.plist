@@ -78,7 +78,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>234 2237 620 392 -960 1280 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1831 1376 2707 1490 -1982 1280 3008 1669 </string>
+	<string>-1831 1367 2705 1499 -1982 1280 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>2136 2023 745 502 1026 1280 3008 1669 </string>
 	<key>New Bookmarks</key>
@@ -316,7 +316,9 @@
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
-			<false/>
+			<true/>
+			<key>Blur Radius</key>
+			<real>12.927918781725888</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -691,6 +693,8 @@
 			<true/>
 			<key>Normal Font</key>
 			<string>DelugiaNerdFont-Regular 16</string>
+			<key>Open Toolbelt</key>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -702,7 +706,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>0</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -740,13 +744,13 @@
 			<key>Title Components</key>
 			<integer>2</integer>
 			<key>Transparency</key>
-			<real>0.059390862944162438</real>
+			<real>0.3883248730964467</real>
 			<key>Unicode Normalization</key>
 			<integer>0</integer>
 			<key>Unicode Version</key>
 			<integer>8</integer>
 			<key>Unlimited Scrollback</key>
-			<false/>
+			<true/>
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
@@ -2737,6 +2741,7 @@
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
+		<string>FuraCode Nerd Font Mono</string>
 		<string>Delugia Nerd Font</string>
 		<string>Apple Color Emoji</string>
 		<string>Apple Braille</string>
@@ -2746,12 +2751,16 @@
 		<key>screenFrame</key>
 		<string>{{-1982, 1280}, {3008, 1692}}</string>
 		<key>topLeft</key>
-		<string>{-857, 2525}</string>
+		<string>{-768, 2585}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>49BC2308-5C29-464F-9041-3B4323BAD7C5</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>32</integer>
+	<integer>33</integer>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>614031184.57998705</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -3550,7 +3559,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-10-01T16:55:15Z</date>
+	<date>2020-10-18T20:23:21Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>

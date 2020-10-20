@@ -13,6 +13,9 @@ export ZSH_CUSTOM="$DOTFILES_ROOT/zsh/oh-my-zsh"
 export PATH="$DOTFILES_ROOT/bin:$PATH"
 export FPATH="$DOTFILES_ROOT/functions:$FPATH"
 
+#export PROMPT_USE_STARSHIP=no
+export PROMPT_USE_PURE=no
+
 # Ditto for private dotfiles if present
 if [ -d "$PRIVATE_DOTFILES_ROOT" ]; then
     export PATH="$PRIVATE_DOTFILES_ROOT/bin:$PATH"
@@ -34,7 +37,7 @@ ZSH_THEME="vibrantcode"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent)
+plugins=(git ssh-agent fzf-tab)
 
 source $ZSH/oh-my-zsh.sh
 

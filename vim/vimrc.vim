@@ -18,6 +18,10 @@ Plug 'tpope/vim-rhubarb'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-ruby/vim-ruby'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-commentary'
+Plug 'tomtom/tinykeymap_vim'
 
 call plug#end()
 
@@ -35,4 +39,11 @@ let g:plug_window = 'noautocmd vertical topleft new'
 set number
 
 " Buffer management
-nnoremap <Leader>b :buffers<CR>:buffer<SPACE>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>p "+p
+nnoremap <Leader>y "+y
+
+" Use <C-w> as the key to enter tinykeymap_vim's Window mode
+let g:tinykeymap#map#windows#map = '<C-w>'
+call tinykeymap#Load("windows")

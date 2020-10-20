@@ -12,6 +12,8 @@ DOTFILES_INSTALL_SCRIPTS=(
     "./ruby/install.sh"
     "./starship/install.sh"
     "./vim/install.sh"
+    "./pure/install.sh"
+    "./ssh/install.sh"
 )
 
 if [ -e "$PRIVATE_DOTFILES_ROOT/config.sh" ]; then

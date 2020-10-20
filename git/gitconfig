@@ -20,6 +20,8 @@
     k = !gitk
     cl = clean -d
 
+    cb = !clean-branches
+
     p = push --set-upstream origin
     pi = push internal
     pp = push public

@@ -4,4 +4,4 @@ if [ "$DOTFILES_INSTALL" != "1" ]; then
     exit 1
 fi
 
-link_file "$HOME/.dotfiles/starship/starship.toml" "$HOME/.config/starship.toml"
+link_file ~/.dotfiles/ssh/ssh_config ~/.ssh/config

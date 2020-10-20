@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pgrep unicorn | head -n 1 | xargs kill -1

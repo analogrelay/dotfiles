@@ -23,3 +23,17 @@ if [ -e ~/.zprofile ]; then
     rm ~/.zprofile
 fi
 link_file ~/.dotfiles/zsh/zprofile.sh ~/.zprofile
+
+# Install other plugins
+plugins=(https://github.com/Aloxaf/fzf-tab)
+for plugin in $plugins; do
+    plugin_name=$(basename $plugin)
+    dest="$ZSH_CUSTOM/plugins/$plugin_name"
+    if [ ! -d "$dest" ]; then
+        echo "cloning $plugin ..."
+        git clone $plugin $dest
+    else
+        echo "updating $plugin ..."
+        ( cd $dest ; git pull --rebase --autostash )
+    fi
+done

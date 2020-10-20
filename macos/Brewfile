@@ -29,6 +29,7 @@ brew "direnv"
 brew "lazygit"
 brew "the_silver_searcher"
 brew "gotags"
+brew "asciinema"
 
 cask "iterm2"
 cask "visual-studio-code"
