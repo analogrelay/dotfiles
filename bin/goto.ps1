@@ -1,46 +1,42 @@
-<#
-.SYNOPSIS
-    Changes directory to a well-known location. Usually a code repo.
-.PARAMETER Target
-    The target to change to. Supported formats:
-        * [owner]/[repo] - A local working copy of a code repo.
-#>
 param([string]$Target)
 
-if ($Target -eq "back") {
-    Pop-Location -StackName "goto"
+# Collect all the candidates
+$candidates = @(Get-ChildItem "C:\Code" -Depth 1 -Attributes Directory | Select-Object -Expand FullName)
+
+if ($IsMacOS -or $IsWindows) {
+    $candidates += @(
+        (Join-Path $env:HOME "Downloads"),
+        (Join-Path $env:HOME "Desktop"),
+        (Join-Path $env:HOME "Documents")
+    )
 }
-elseif ($Target -eq "up") {
-    Push-Location -StackName "goto" ..
+
+$candidates += @(
+    (Join-Path $env:HOME ".dotfiles"),
+    (Join-Path $env:HOME "kb"),
+    "$CodeRoot"
+)
+
+# Some useful aliases
+$aliases=@{}
+
+if(Test-Path "$CodeRoot/github/github") {
+    $aliases["dotcom"] = "$CodeRoot/github/github"
+    $candidates += @("dotcom")
 }
-elseif ($Target -eq "code") {
-    Push-Location -StackName "goto" $env:CODE_ROOT
+
+$qry_arg=@()
+if ($Target) {
+    $qry_arg=@("--query", "$Target", "--select-1", "--exit-0")
 }
-elseif ($Target -eq "dotfiles") {
-    Push-Location -StackName "goto" $DotFilesRoot
-}
-elseif ($Target -eq "desktop") {
-    Push-Location -StackName "goto" ([System.Environment]::GetFolderPath("Desktop"))
-}
-elseif ($Target -match "(?<owner>[a-zA-Z0-9-_\.]+)/(?<repo>[a-zA-Z0-9-_\.]+)") {
-    $Path = Join-Path (Join-Path $env:CODE_ROOT $matches["owner"]) $matches["repo"]
-    if (Test-Path $Path) {
-        Push-Location -StackName "goto" $Path
+
+$target = $($candidates | fzf @qry_arg)
+
+if ($LASTEXITCODE -ne 0) {
+    throw "failed to find target to goto"
+} else {
+    if($aliases[$target]) {
+        $target = $aliases[$target]
     }
-    elseif (Confirm "Clone?" "Repo '$Target' not cloned. Clone it?") {
-        clone $Target
-    }
-    else {
-        Write-Host "Path '$Path' does not exist!"
-    }
-}
-else {
-    Write-Host "Unknown target: $Target"
-    Write-Host "Supported Targets:"
-    Write-Host "* back"
-    Write-Host "* up"
-    Write-Host "* code"
-    Write-Host "* dotfiles"
-    Write-Host "* desktop"
-    Write-Host "* [owner]/[repo]"
+    Set-Location $target
 }
