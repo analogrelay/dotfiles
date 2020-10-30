@@ -47,8 +47,7 @@ if ($LASTEXITCODE -eq 0) {
 $GpgExe = scoop which gpg
 
 $GitLocalConfig = Join-Path $env:HOME ".gitlocal"
-$SigningKey = (gpg --list-signatures | Select-String "^sig 3\s+([A-Fa-f0-9]+).*$").Matches.Groups[1]
-git config --file $GitLocalConfig user.signingkey "$SigningKey"
+git config --file $GitLocalConfig user.signingkey "$KeyId"
 git config --file $GitLocalConfig commit.gpgsign true
 git config --file $GitLocalConfig gpg.program "$GpgExe"
 
