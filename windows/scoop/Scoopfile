@@ -1,0 +1,12 @@
+bucket extras
+bucket anurse, url: https://github.com/anurse/scoop-bucket
+
+scoop "git"
+scoop "colortool"
+scoop "gh"
+scoop "fzf"
+scoop "sysinternals"
+scoop "vim"
+scoop "starship"
+scoop "gpg"
+scoop "onepassword-cli"

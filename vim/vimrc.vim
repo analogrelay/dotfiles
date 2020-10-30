@@ -1,6 +1,11 @@
 set nocompatible
 syntax on
 
+if has('win32') || has('win64')
+    " Add ~/.vim to runtime path on Windows (to be more like unix)
+    set runtimepath^=~/.vim
+end
+
 " Enable vim-plug
 call plug#begin('~/.vim/plugged')
 

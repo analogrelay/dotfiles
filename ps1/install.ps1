@@ -1,7 +1,5 @@
 if (!$DotFilesInstalling) { throw "This script should only be run during dotfiles installation!" }
 
-Write-Host "Installing PowerShell Profile ..."
-
 if (Test-Path $Profile) {
     Remove-Item $Profile
 }

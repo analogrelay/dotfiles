@@ -37,13 +37,13 @@ function Install-DotFiles() {
 
     # Run all Install scripts
     $DotFilesInstallScripts | ForEach-Object {
-        $path = Join-Path $DotFilesRoot $_
-        Write-Debug "Running Install Script $path ..."
+        $path = Convert-Path (Join-Path $DotFilesRoot $_)
+        Write-Host -ForegroundColor Magenta "=== $path ==="
         try {
             & "$path"
         }
         catch {
-            Write-Error -ErrorRecord $Error[0]
+            $Error[0]
             Write-Debug "Error during installation."
         }
     }

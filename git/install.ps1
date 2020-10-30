@@ -8,8 +8,6 @@ function _ConfigureGitSetting($setting, $prompt) {
     }
 }
 
-Write-Host "Configuring Git..."
-
 New-Link -Target "$DotfilesRoot/git/gitconfig" -Destination "$env:USERPROFILE/.gitconfig"
 
 # Check if we need to regenerate/update local config

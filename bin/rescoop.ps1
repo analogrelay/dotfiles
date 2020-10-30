@@ -1,1 +1,1 @@
-& "$PSScriptRoot/../windows/install.ps1" @args
+& "$PSScriptRoot/../windows/scoop/Install-Scoopfile.ps1" @args

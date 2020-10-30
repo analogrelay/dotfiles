@@ -4,8 +4,13 @@ if(!(Test-Command colortool)) {
     scoop install colortool
 }
 
-$ColorProfile = "./terminal/PinkTerm.itermcolors"
-colortool -q -b $ColorProfile
+$TempFile = [System.IO.Path]::GetTempFileName()
+try {
+    & "$DotFilesRoot/terminal/ConvertTo-ColorToolIni.ps1" "$DotFilesRoot/terminal/PrimeTerm.json" > $TempFile
+    colortool -q -b $TempFile
+} finally {
+    Remove-Item -Force -ErrorAction SilentlyContinue $TempFile
+}
 
 # Configure profiles script
 $ParentPath = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
