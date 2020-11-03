@@ -30,6 +30,7 @@ brew "lazygit"
 brew "the_silver_searcher"
 brew "gotags"
 brew "asciinema"
+brew "rbspy"
 
 cask "iterm2"
 cask "visual-studio-code"

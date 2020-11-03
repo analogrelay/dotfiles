@@ -1,13 +1,13 @@
-Host ctfgithub
-  Hostname github.com
-  IdentityFile /Users/anurse/code/incrediblysecureinc/incredibly-secure/.ssh/id_rsa
-  IdentitiesOnly yes
-Host *.bpdev-us-east-1.github.net
-  User build
-  IdentityFile ~/.ssh/id_rsa
-  DynamicForward 9999
+Host bastion
+  HostName bastion.githubapp.com
   ForwardAgent yes
-Host shell.prod
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%C
+  ControlPersist 600
+Host shell
   HostName shell.service.cp1-iad.github.net
+  ForwardAgent yes
+  ProxyJump bastion.githubapp.com
+Host *.github.net
   ForwardAgent yes
   ProxyJump bastion.githubapp.com
