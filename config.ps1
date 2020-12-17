@@ -23,9 +23,14 @@ $DotFilesInstallScripts += @(
     "./ps1/install.ps1",
     "./git/install.ps1",
     "./vim/install.ps1",
-    "./starship/install.ps1",
-    "./gpg/install.ps1"
+    "./starship/install.ps1"
 )
+
+if (!$IsWindows) {
+    $DotFilesInstallScripts += @(
+        "./gpg/install.ps1"
+    )
+}
 
 # Core-only modules
 $DotFilesPowerShellModules = @(

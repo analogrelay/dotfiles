@@ -4,7 +4,7 @@ if(!(Test-Command colortool)) {
     scoop install colortool
 }
 
-$TempFile = [System.IO.Path]::GetTempFileName()
+$TempFile = Join-Path ([System.IO.Path]::GetTempPath()) "primeterm.ini"
 try {
     & "$DotFilesRoot/terminal/ConvertTo-ColorToolIni.ps1" "$DotFilesRoot/terminal/PrimeTerm.json" > $TempFile
     colortool -q -b $TempFile
@@ -18,6 +18,6 @@ $DestPath = Join-Path $ParentPath "settings.json"
 $SourcePath = Convert-Path (Join-Path $PSScriptRoot "settings.json")
 New-Link -Target $SourcePath -Destination $DestPath
 
-if(!(Get-AppxPackage "Microsoft.WindowsTerminal")) {
+if(!(Get-Command wt.exe -ErrorAction SilentlyContinue)) {
     Write-Host -ForegroundColor Yellow "Windows Terminal is not installed. Install it from the Microsoft Store!"
 }

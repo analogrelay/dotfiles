@@ -40,6 +40,12 @@
           "hidden": false,
           "name": "Azure Cloud Shell",
           "source": "Windows.Terminal.Azure"
+      },
+      {
+          "guid": "{7f586916-8357-53d4-bb2b-ca96f639898a}",
+          "hidden": false,
+          "name": "WLinux",
+          "source": "Windows.Terminal.Wsl"
       }
     ]
   },
