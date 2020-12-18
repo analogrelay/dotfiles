@@ -4,7 +4,11 @@ export USE_NVIM=0
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export DOTFILES_ROOT="$HOME/.dotfiles"
+if [ -d "$HOME/dotfiles" ]; then
+    export DOTFILES_ROOT="$HOME/dotfiles"
+elif [ -d "$HOME/.dotfiles" ]; then
+    export DOTFILES_ROOT="$HOME/.dotfiles"
+fi
 
 # Custom custom dir ;)
 export ZSH_CUSTOM="$DOTFILES_ROOT/zsh/oh-my-zsh"
@@ -40,6 +44,8 @@ ZSH_THEME="vibrantcode"
 plugins=(git ssh-agent fzf-tab)
 
 source $ZSH/oh-my-zsh.sh
+
+unsetopt autocd
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'

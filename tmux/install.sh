@@ -14,5 +14,5 @@ if [ -e ~/.tmux.conf.local ] || [ -L ~/.tmux.conf.local ]; then
     rm ~/.tmux.conf.local
 fi
 
-link_file ~/.dotfiles/tmux/tmux.conf ~/.tmux.conf
-link_file ~/.dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
+link_file "$DOTFILES_ROOT/tmux/tmux.conf" ~/.tmux.conf
+link_file "$DOTFILES_ROOT/tmux/tmux.conf.local" ~/.tmux.conf.local

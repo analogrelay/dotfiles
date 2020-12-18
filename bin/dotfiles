@@ -30,7 +30,7 @@ command_exec_usage() {
 }
 
 command_exec() {
-    cd ~/.dotfiles
+    cd "$DOTFILES_ROOT"
     "$@"
 }
 
@@ -49,7 +49,7 @@ command_commit() {
         message="dotfiles changes"
     fi
 
-    cd ~/.dotfiles
+    cd "$DOTFILES_ROOT"
     git add -An
     git add -A
     git commit -m"$message"
@@ -62,7 +62,7 @@ command_edit_usage() {
 }
 
 command_edit() {
-    cd ~/.dotfiles
+    cd "$DOTFILES_ROOT"
     vim
 }
 
@@ -73,7 +73,7 @@ command_sync_usage() {
 }
 
 command_sync() {
-    cd ~/.dotfiles
+    cd "$DOTFILES_ROOT"
     git pull --rebase --autostash origin master
     git push origin master
 }

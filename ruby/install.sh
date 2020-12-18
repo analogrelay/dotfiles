@@ -4,4 +4,4 @@ if [ "$DOTFILES_INSTALL" != "1" ]; then
     exit 1
 fi
 
-link_file ~/.dotfiles/ruby/.pryrc "$HOME/.pryrc"
+link_file "$DOTFILES_ROOT/ruby/.pryrc" "$HOME/.pryrc"

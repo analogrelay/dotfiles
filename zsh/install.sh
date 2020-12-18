@@ -14,17 +14,11 @@ else
 fi
 
 # Symlink zshrc
-if [ -e ~/.zshrc ]; then
-    rm ~/.zshrc
-fi
-link_file ~/.dotfiles/zsh/zshrc.sh ~/.zshrc
-
-if [ -e ~/.zprofile ]; then
-    rm ~/.zprofile
-fi
-link_file ~/.dotfiles/zsh/zprofile.sh ~/.zprofile
+link_file "$DOTFILES_ROOT/zsh/zshrc.sh" "$HOME/.zshrc"
+link_file "$DOTFILES_ROOT/zsh/zprofile.sh" "$HOME/.zprofile"
 
 # Install other plugins
+export ZSH_CUSTOM="$DOTFILES_ROOT/zsh/oh-my-zsh"
 plugins=(https://github.com/Aloxaf/fzf-tab)
 for plugin in $plugins; do
     plugin_name=$(basename $plugin)

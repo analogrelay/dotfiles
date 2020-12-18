@@ -4,4 +4,4 @@ if [ "$DOTFILES_INSTALL" != "1" ]; then
     exit 1
 fi
 
-link_file ~/.dotfiles/ssh/ssh_config ~/.ssh/config
+link_file "$DOTFILES_ROOT/ssh/ssh_config" ~/.ssh/config

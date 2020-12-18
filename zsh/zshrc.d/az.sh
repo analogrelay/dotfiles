@@ -1,4 +1,4 @@
-AZ_COMPLETION_PATH="$HOME/.dotfiles/local/az.completion"
+AZ_COMPLETION_PATH="$DOTFILES_ROOT/local/az.completion"
 
 if type -p az >/dev/null 2>&1; then
     if [ ! -e "$AZ_COMPLETION_PATH" ]; then

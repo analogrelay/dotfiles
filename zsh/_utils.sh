@@ -27,12 +27,11 @@ link_file() {
     local SRC=$1
     local TGT=$2
     local DIR=$(dirname $TGT)
-    if [ -e $TGT ]; then
-        # Back up the file
-        local TMP=$(mktemp -d -t "dotfiles-backup-$(basename $TGT)")
-        warn "Replacing $TGT. Backed up original to $TMP"
-        cp -R $TGT $TMP
-        rm -Rf $TGT
+    if [ -h "$TGT" ]; then
+        rm -Rf "$TGT"
+    elif [ -e $TGT ]; then
+        echo "File '$TGT' already exists!" 1>&2
+        exit 1
     fi
 
     if [ ! -d "$DIR" ]; then

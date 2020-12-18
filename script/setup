@@ -5,57 +5,17 @@
 DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
 cd $DOTFILES_ROOT
 
-# Check for the private dotfiles area
-PRIVATE_DOTFILES_ROOT="$( cd "$(dirname $DOTFILES_ROOT)" ; pwd -P )/.dotfiles-private"
-if [ ! -e "$PRIVATE_DOTFILES_ROOT" ]; then
-    echo "note: private dotfiles have not been cloned to ~/.dotfiles-private"
-    echo "note: do that manually and re-run setup to initialize anything there"
-else
-    echo "note: using private dotfiles from $PRIVATE_DOTFILES_ROOT"
-fi
-
-DOTFILES_TEMP=$(mktemp -d -t dotfiles-install)
-
 FPATH="$DOTFILES_ROOT/functions:$FPATH"
-
-. "./zsh/_utils.sh"
-. "./config.sh"
 
 # Generate a "Machine Name"
 MACHINE_NAME=$(hostname)
 if uname -r | grep "Microsoft" >/dev/null; then
-    MACHINE_NAME="$MACHINE_NAME-wsl"
+    export MACHINE_NAME="$MACHINE_NAME-wsl"
 fi
 
-# First, configure ssh if not already configured
-if [ ! -e ~/.ssh/id_rsa ]; then
-    echo "Creating SSH identity"
-    ssh-keygen -t rsa -b 4096 -C "$MACHINE_NAME"
+# Set up software using Homebrew
+echo -e "\e[35m=== Running ./brew/install.sh ... ===\e[0m"
+"$DOTFILES_ROOT/brew/install.sh"
 
-    cat ~/.ssh/id_rsa.pub | clipboard
-    echo "SSH Public Key is now in the clipboard"
-    echo "Navigate to https://github.com/settings/keys to install it."
-    read -p "Press ENTER when you've configured it in GitHub ..."
-fi
-
-# Now make sure our remote is SSH
-git remote set-url origin $DOTFILES_REPO
-
-if ! type -p zsh >/dev/null; then
-    echo "Installing ZSH ..."
-    apt-get install zsh
-fi
-
-# If we're in ZSH, continue. Otherwise, set up ZSH
-if [ "$ZSH_VERSION" = "" ]; then
-    # Restart this script in ZSH
-    DEBUG=$DEBUG exec zsh "$HOME/.dotfiles/script/setup"
-fi
-
-# Run install scripts
-for script in ${DOTFILES_INSTALL_SCRIPTS[@]}; do
-    echo "Running $script ..."
-    DOTFILES_TEMP=$DOTFILES_TEMP DOTFILES_INSTALL=1 source "$script"
-done
-
-echo "Dotfiles Installation Complete!"
+# Launch stage 2, which should launch in ZSH if available
+exec "$DOTFILES_ROOT/script/setup-stage2.zsh"

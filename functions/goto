@@ -16,7 +16,7 @@ fi
 
 candidates=$(cat <<EOF
 $candidates
-$HOME/.dotfiles
+$DOTFILES_ROOT
 $HOME/kb
 $HOME/code
 EOF

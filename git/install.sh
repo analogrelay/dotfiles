@@ -9,7 +9,7 @@ fi
 echo "Configuring Git..."
 
 # Link gitconfig
-link_file ~/.dotfiles/git/gitconfig ~/.gitconfig
+link_file "$DOTFILES_ROOT/git/gitconfig" ~/.gitconfig
 
 # Check if we need to generate a new author config
 
@@ -32,13 +32,15 @@ if [ -z "$AUTHOR_EMAIL" ]; then
 fi
 
 # Configure credential helper per-OS
-EXPECTED_HELPER=
-if [ "$(uname)" = "Darwin" ]; then
-    EXPECTED_HELPER=osxkeychain
-fi
+if [ "$CODESPACES" != "true" ]; then
+    EXPECTED_HELPER=
+    if [ "$(uname)" = "Darwin" ]; then
+        EXPECTED_HELPER=osxkeychain
+    fi
 
-CURRENT_HELPER=$(git config credential.helper)
-if [ "$CURRENT_HELPER" != "$EXPECTED_HELPER" ]; then
-    echo "Updating git credential.helper to '$EXPECTED_HELPER'"
-    git config --file ~/.gitlocal credential.helper "$EXPECTED_HELPER"
+    CURRENT_HELPER=$(git config credential.helper)
+    if [ -n "$EXPECTED_HELPER" ] && [ "$CURRENT_HELPER" != "$EXPECTED_HELPER" ]; then
+        echo "Updating git credential.helper to '$EXPECTED_HELPER'"
+        git config --file ~/.gitlocal credential.helper "$EXPECTED_HELPER"
+    fi
 fi

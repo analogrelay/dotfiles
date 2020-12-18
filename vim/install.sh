@@ -9,5 +9,5 @@ if [ -e ~/.vimrc ] || [ -L ~/.vimrc ]; then
     rm ~/.vimrc
 fi
 
-link_file ~/.dotfiles/vim/vimrc.vim ~/.vimrc
-link_file ~/.dotfiles/vim ~/.vim
+link_file "$DOTFILES_ROOT/vim/vimrc.vim" ~/.vimrc
+link_file "$DOTFILES_ROOT/vim" ~/.vim

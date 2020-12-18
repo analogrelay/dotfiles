@@ -1,2 +1,2 @@
-source ~/.dotfiles/zsh/_utils.sh
-source ~/.dotfiles/gpg/install.sh
+source "$DOTFILES_ROOT/zsh/_utils.sh"
+source "$DOTFILES_ROOT/gpg/install.sh"

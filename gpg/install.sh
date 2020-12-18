@@ -11,7 +11,7 @@ fi
 KEYID=B86EA7CF15CD9B8CF46BA31862ADE1FEC51F9A1A
 
 [ -d ~/.gnupg ] || mkdir ~/.gnupg
-link_file ~/.dotfiles/gpg/andrew@stanton-nurse.com_gitsigning.public.gpg-key ~/.gnupg/andrew@stanton-nurse.com_gitsigning.public.gpg-key
+link_file "$DOTFILES_ROOT/gpg/andrew@stanton-nurse.com_gitsigning.public.gpg-key" ~/.gnupg/andrew@stanton-nurse.com_gitsigning.public.gpg-key
 
 if gpg --list-key "$KEYID" 2>/dev/null >/dev/null; then
     echo "Key is already loaded!"
@@ -32,9 +32,9 @@ fi
 git config --file ~/.gitlocal user.signingkey "$KEYID"
 git config --file ~/.gitlocal commit.gpgsign true
 
-link_file ~/.dotfiles/gpg/gpg.conf ~/.gnupg/gpg.conf
+link_file "$DOTFILES_ROOT/gpg/gpg.conf" ~/.gnupg/gpg.conf
 if [ "$(uname)" = "Darwin" ]; then
-    link_file ~/.dotfiles/gpg/gpg-agent.darwin.conf ~/.gnupg/gpg-agent.conf
+    link_file "$DOTFILES_ROOT/gpg/gpg-agent.darwin.conf" ~/.gnupg/gpg-agent.conf
 fi
 
 chmod 700 ~/.gnupg

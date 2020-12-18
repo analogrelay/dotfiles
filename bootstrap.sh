@@ -1,5 +1,5 @@
 # Clone the dotfiles repo using HTTPS, but then switch it to SSH (the installer will configure SSH)
-if [ -d ~/.dotfiles ]; then
+if [ -d ~/.dotfiles ] || [ -d ~/dotfiles ]; then
 	echo "ERROR: There is already a '~/.dotfiles' directory. Remove it to install." 1>&2
 	exit 1
 fi
