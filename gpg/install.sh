@@ -8,25 +8,26 @@ if ! type -p op >/dev/null 2>&1; then
     return
 fi
 
-KEYID=B86EA7CF15CD9B8CF46BA31862ADE1FEC51F9A1A
+KEYID=42ECAC889F98413E5C23970604277A6059CB213C
+KEYEMAIL="git@analogrelay.net"
 
 [ -d ~/.gnupg ] || mkdir ~/.gnupg
-link_file "$DOTFILES_ROOT/gpg/andrew@stanton-nurse.com_gitsigning.public.gpg-key" ~/.gnupg/andrew@stanton-nurse.com_gitsigning.public.gpg-key
+link_file "$DOTFILES_ROOT/gpg/${KEYEMAIL}_gitsigning.public.gpg-key" "~/.gnupg/${KEYEMAIL}_gitsigning.public.gpg-key"
 
 if gpg --list-key "$KEYID" 2>/dev/null >/dev/null; then
     echo "Key is already loaded!"
 else
-    gpg --import ~/.gnupg/andrew@stanton-nurse.com_gitsigning.public.gpg-key
+    gpg --import "~/.gnupg/${KEYEMAIL}_gitsigning.public.gpg-key"
+fi
 
-    if ! gpg --list-secret-keys $KEYID 2>&1 >/dev/null; then
-        if [ -z "$OP_SESSION_stanton_nurse" ]; then
-            eval $(op signin stanton-nurse.1password.com andrew@stanton-nurse.com)
-        fi
-
-        op get document "andrew@stanton-nurse.com_gitsigning.private.gpg-key" > ~/.gnupg/andrew@stanton-nurse.com_gitsigning.private.gpg-key
-        gpg --import ~/.gnupg/andrew@stanton-nurse.com_gitsigning.private.gpg-key
-        rm ~/.gnupg/andrew@stanton-nurse.com_gitsigning.private.gpg-key
+if ! gpg --list-secret-keys $KEYID 2>&1 >/dev/null; then
+    if [ -z "$OP_SESSION_stanton_nurse" ]; then
+        eval $(op signin stanton-nurse.1password.com andrew@stanton-nurse.com)
     fi
+
+    op get document "${KEYEMAIL}_gitsigning.private.gpg-key" > "~/.gnupg/${KEYEMAIL}_gitsigning.private.gpg-key"
+    gpg --import "~/.gnupg/${KEYEMAIL}_gitsigning.private.gpg-key"
+    rm "~/.gnupg/${KEYEMAIL}_gitsigning.private.gpg-key"
 fi
 
 git config --file ~/.gitlocal user.signingkey "$KEYID"
