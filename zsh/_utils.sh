@@ -27,11 +27,11 @@ link_file() {
     local SRC=$1
     local TGT=$2
     local DIR=$(dirname $TGT)
-    if [ -h "$TGT" ]; then
+    if [ -e "$TGT" ]; then
         rm -Rf "$TGT"
     elif [ -e $TGT ]; then
         echo "File '$TGT' already exists!" 1>&2
-        exit 1
+        return
     fi
 
     if [ ! -d "$DIR" ]; then
