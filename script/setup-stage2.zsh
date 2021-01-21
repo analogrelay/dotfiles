@@ -29,6 +29,8 @@ fi
 # Now make sure our remote is SSH
 git remote set-url origin $DOTFILES_REPO
 
+FORCE=1 "$DOTFILES_ROOT/script/install-links.sh"
+
 # Run install scripts
 for script in ${DOTFILES_INSTALL_SCRIPTS[@]}; do
     echo -e "\e[35m=== Running $script ... ===\e[0m"
