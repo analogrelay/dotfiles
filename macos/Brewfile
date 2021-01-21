@@ -1,5 +1,6 @@
 tap "heroku/brew"
 tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 tap "homebrew/services"
 tap "jesseduffield/lazygit"
 
@@ -52,6 +53,8 @@ cask "notion"
 cask "firefox"
 cask "secretive"
 cask "multitouch"
+cask "font-victor-mono"
+cask "font-cascadia-code"
 
 mas "Slack", id: 803453959
 mas "iMovie", id: 408981434

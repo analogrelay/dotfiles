@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+force=false
 dry_run=false
 remote="origin"
 
@@ -8,6 +9,9 @@ while [[ $# -gt 0 ]]; do
 	shift
 
 	case "$key" in
+		-f|--force)
+			force=true
+			;;
 		-n|--dry-run)
 			dry_run=true
 			;;
@@ -19,6 +23,15 @@ while [[ $# -gt 0 ]]; do
 			shift ;;
 	esac
 done
+
+if $dry_run; then
+    echo "Running dry run..."
+elif $force; then
+    echo "Cleaning branches!"
+else
+    echo "One of -f or -n must be specified!" 1>&2
+    exit 1
+fi
 
 if [ -z "$default_branch" ]; then
 	echo "Getting default branch..."
@@ -50,4 +63,14 @@ if [ -n "$remotes_to_prune" ]; then
 	if ! $dry_run; then
 		git push --delete "$remote" $remotes_to_prune
 	fi
+fi
+
+echo "Pruning unreachable commits..."
+if ! $dry_run; then
+    git prune
+fi
+
+echo "Garbage collecting..."
+if ! $dry_run; then
+    git gc
 fi

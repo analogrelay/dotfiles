@@ -41,7 +41,18 @@ ZSH_THEME="vibrantcode"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent fzf-tab)
+plugins=(git fzf-tab)
+
+# Start an ssh-agent if there isn't one already
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    plugins+=ssh-agent
+elif [ -f "$HOME/.ssh/id_rsa" ]; then
+    # Make sure our key is registered
+    id_rsa_fingerprint=$(ssh-keygen -l -f "$HOME/.ssh/id_rsa" | cut -f 2 -d " ")
+    if ! ssh-add -l | grep "$id_rsa_fingerprint" >/dev/null 2>&1; then
+        ssh-add "$HOME/.ssh/id_rsa"
+    fi
+fi
 
 source $ZSH/oh-my-zsh.sh
 

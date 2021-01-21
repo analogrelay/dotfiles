@@ -8,6 +8,6 @@ Host shell
   HostName shell.service.cp1-iad.github.net
   ForwardAgent yes
   ProxyJump bastion.githubapp.com
-Host *.github.net
+Host *.github.net,!*.bpdev-us-east-1.github.net
   ForwardAgent yes
   ProxyJump bastion.githubapp.com

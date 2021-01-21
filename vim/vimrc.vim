@@ -10,23 +10,24 @@ end
 call plug#begin('~/.vim/plugged')
 
 " Add plugins here!
-Plug 'scrooloose/nerdtree'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'fatih/vim-go'
-"Plug 'jremmen/vim-ripgrep', { 'on': 'Rg' }
-Plug 'OmniSharp/omnisharp-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'editorconfig/editorconfig-vim'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tinykeymap_vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rhubarb'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-ruby/vim-ruby'
-Plug 'roxma/vim-tmux-clipboard'
 Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-commentary'
-Plug 'tomtom/tinykeymap_vim'
 
 call plug#end()
 
@@ -50,10 +51,11 @@ nnoremap <Leader>p "+p
 nnoremap <Leader>y "+y
 
 " Use <C-w> as the key to enter tinykeymap_vim's Window mode
-let g:tinykeymap#map#windows#map = '<C-w>'
-call tinykeymap#Load("windows")
+" let g:tinykeymap#map#windows#map = '<C-w>'
+" call tinykeymap#Load("windows")
 
 " Show spaces and such.
+set list
 set listchars=space:·,tab:»»,eol:⦚
 hi SpecialKey term=bold ctermfg=90
 
