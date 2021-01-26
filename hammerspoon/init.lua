@@ -1,3 +1,6 @@
+require("hs.ipc")
+hs.ipc.cliInstall()
+
 notifiedOfBatteryDrain = false
 hs.timer.doEvery(1, function()
   if hs.battery.powerSource() == "AC Power" and (not hs.battery.isCharging()) then
