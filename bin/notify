@@ -13,10 +13,12 @@ fi
 # Deliver the actual notification
 if [ $(uname) = "Darwin" ]; then
     if type hs >/dev/null 2>&1; then
-        hs -c "hs.alert(\"$text\")" > /dev/null
+        # Use Hammerspoon if it's present.
+        hs -c "hs.alert(\"$text\"); hs.sound.getByName(\"Sosumi\"):play()" > /dev/null
     else
+        # Send a system notification instead.
         afplay /System/Library/Sounds/Sosumi.aiff -v 4 &
-        osascript -e "display notification \"${text[@]}\" with title \"$title\"" &
+        osascript -e "display notification \"${text[@]}\" with title \"User notification\"" &
     fi
 else
     echo "Terminal Notifications not supported on $(uname)!"
