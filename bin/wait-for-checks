@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
-#/ Usage: wait-for-checks [-t|--timeout <TIMEOUT>]
+#/ Usage: wait-for-checks [-t|--timeout <TIMEOUT>] [<URL>|<NUMBER>|<BRANCH>]
+#/
+#/ Arguments:
+#/   <URL>                     The URL of a PR to watch.
+#/   <NUMBER>                  The number of a PR, in the repo upstream of your current directory, to watch.
+#/   <BRANCH>                  The name of a branch, in the repo upstream of your current directory, to watch.
+#/
+#/ If no argument is provided, the branch currently checked-out in your working directory is used.
 #/
 #/ Options:
 #/   -t|--timeout <TIMEOUT>   Wait <TIMEOUT> seconds for checks to go green (default is 300, 5 minutes)
+#/
 
 usage() {
   cat "$0" | grep "^#/" | cut -c4-
@@ -22,6 +30,10 @@ while [[ $# -gt 0 ]]; do
       usage
       exit 0
       ;;
+    *)
+      target="$1"
+      shift
+      ;;
   esac
 done
 
@@ -29,7 +41,7 @@ echo "Waiting $timeout seconds for PR checks to complete..."
 
 counter=0
 while [[ $counter -lt $timeout ]]; do
-  if gh pr checks >/dev/null 2>&1; then
+  if gh pr checks "$target" >/dev/null 2>&1; then
     echo "Checks have completed!"
     notify "🏁 Your build is finished! 🏁"
     exit 0
