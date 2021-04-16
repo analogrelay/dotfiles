@@ -1,0 +1,49 @@
+---
+- name: Core packages
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+  tasks:
+    - name: Enable HTTPS APT support
+      become: yes
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+      when: not is_mac
+
+    # Linux core packages
+    - name: Update apt package list
+      become: yes
+      apt:
+        update_cache: yes
+      register: apt_update
+      retries: 5
+      until: apt_update is success
+      when: not is_mac
+
+    - name: Install core packages
+      become: yes
+      apt:
+        package: "{{ item }}"
+      loop:
+        - curl
+        - jq
+        - unzip
+        - uuid
+        - zsh
+        - fzf
+      when: not is_mac
+
+    - name: Upgrade to latest APT packages
+      become: yes
+      apt:
+        upgrade: yes
+      when: not is_mac
+    
+    # MacOS Core Packages
+    # TODO

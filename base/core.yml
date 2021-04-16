@@ -1,0 +1,17 @@
+---
+- name: Core playbook containing the main tools used on any machine
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+  tasks:
+    - name: Create BIN dir
+      file:
+        state: directory
+        dest: ~/bin
+    - name: Create CODE dir
+      file:
+        state: directory
+        dest: ~/code
+- import_playbook: packages.yml
+- import_playbook: shell.yml

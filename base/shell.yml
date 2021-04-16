@@ -1,0 +1,36 @@
+---
+- name: Core shell
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+  tasks:
+    - name: Linking zshrc
+      file:
+        src: "~/.dotfiles/zsh/zshrc.sh"
+        dest: "~/.zshrc"
+        state: link
+    - name: Linking zprofile
+      file:
+        src: "~/.dotfiles/zsh/zprofile.sh"
+        dest: "~/.zprofile"
+        state: link
+    - name: Update oh-my-zsh
+      git:
+        depth: 1
+        dest: "~/.oh-my-zsh"
+        force: yes
+        repo: "https://github.com/ohmyzsh/ohmyzsh"
+    - name: Installing fzf-tab
+      git:
+        depth: 1
+        dest: "~/.dotfiles/zsh/oh-my-zsh/plugins/fzf-tab"
+        force: yes
+        repo: "https://github.com/Aloxaf/fzf-tab"
+    - name: Configuring default shell
+      become: yes
+      user:
+        name: '{{ lookup("env", "USER") }}'
+        shell: zsh
+
+

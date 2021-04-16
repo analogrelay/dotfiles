@@ -1,0 +1,22 @@
+---
+- name: Tmux
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+  tasks:
+    - name: Install Tmux
+      become: yes
+      apt:
+        package: tmux
+      when: not is_mac
+
+    - name: Install Tmux config
+      file:
+        src: '~/.dotfiles/tmux/{{ item }}'
+        dest: '~/.{{ item }}'
+        state: link
+        force: yes
+      loop:
+        - "tmux.conf"
+        - "tmux.conf.local"

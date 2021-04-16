@@ -1,0 +1,8 @@
+# Git config settings specific to the user
+# If you fork this (and you're welcome to do so), you should replace this file with your own info.
+[user]
+    name = "anurse"
+    email = "git@analogrelay.net"
+
+[github]
+    login = "anurse"

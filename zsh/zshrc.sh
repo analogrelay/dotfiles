@@ -14,7 +14,7 @@ fi
 export ZSH_CUSTOM="$DOTFILES_ROOT/zsh/oh-my-zsh"
 
 # Add 'bin' to PATH and 'functions' to FPATH
-export PATH="$DOTFILES_ROOT/bin:$PATH"
+export PATH="$HOME/bin:$DOTFILES_ROOT/bin:$PATH"
 export FPATH="$DOTFILES_ROOT/functions:$FPATH"
 
 #export PROMPT_USE_STARSHIP=no
@@ -46,11 +46,11 @@ plugins=(git fzf-tab)
 # Start an ssh-agent if there isn't one already
 if [ -z "$SSH_AUTH_SOCK" ]; then
     plugins+=ssh-agent
-elif [ -f "$HOME/.ssh/id_rsa" ]; then
+elif [ -f "$HOME/.ssh/id_ed25519" ]; then
     # Make sure our key is registered
-    id_rsa_fingerprint=$(ssh-keygen -l -f "$HOME/.ssh/id_rsa" | cut -f 2 -d " ")
-    if ! ssh-add -l | grep "$id_rsa_fingerprint" >/dev/null 2>&1; then
-        ssh-add "$HOME/.ssh/id_rsa"
+    fingerprint=$(ssh-keygen -l -f "$HOME/.ssh/id_ed25519" | cut -f 2 -d " ")
+    if ! ssh-add -l | grep "$fingerprint" >/dev/null 2>&1; then
+        ssh-add "$HOME/.ssh/id_ed25519"
     fi
 fi
 
@@ -62,7 +62,7 @@ unsetopt autocd
 export EDITOR='vim'
 
 # Mark all files with no extension in there as autoload
-FUNCS_TO_AUTOLOAD=("${(@f)$(find "$DOTFILES_ROOT/functions" -type f \! -name "*.*" | xargs basename)}")
+FUNCS_TO_AUTOLOAD=("${(@f)$(find "$DOTFILES_ROOT/functions" -type f \! -name "*.*" -printf "%f\n")}")
 for func in $FUNCS_TO_AUTOLOAD; do
     autoload $func
 done

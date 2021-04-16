@@ -136,7 +136,7 @@
         [
             {
                 "colorScheme": "retrowave",
-                "fontFace": "Victor Mono",
+                "fontFace": "VictorMono NF",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
@@ -151,7 +151,7 @@
             {
                 "colorScheme": "retrowave",
                 "experimental.retroTerminalEffect": false,
-                "fontFace": "Victor Mono",
+                "fontFace": "VictorMono NF",
                 "guid": "{7f586916-8357-53d4-bb2b-ca96f639898a}",
                 "hidden": false,
                 "name": "WLinux",

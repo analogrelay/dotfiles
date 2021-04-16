@@ -1,0 +1,19 @@
+---
+- name: Vim
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+  tasks:
+    - name: Install Vim
+      become: yes
+      apt:
+        package: vim
+      when: not is_mac
+
+    - name: Install Vim config
+      file:
+        src: "~/.dotfiles/vim/vimrc.vim"
+        dest: "~/.vimrc"
+        state: link
+        force: yes

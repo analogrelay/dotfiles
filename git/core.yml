@@ -1,0 +1,19 @@
+---
+- name: Git
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+  tasks:
+    - name: Install Git
+      become: yes
+      apt:
+        package: git
+      when: not is_mac
+
+    - name: Install Root Git config
+      file:
+        src: '~/.dotfiles/git/gitconfig'
+        dest: '~/.gitconfig'
+        state: link
+        force: yes

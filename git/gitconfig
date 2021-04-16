@@ -1,10 +1,12 @@
 [include]
+    path = "~/.dotfiles/git/gituser"
     path = "~/.gitlocal"
 
 [core]
     autocrlf = false
-
 	compression = 0
+    excludesfile = "~/.dotfiles/git/gitignore"
+
 [color]
     ui = true
 
@@ -91,12 +93,15 @@
 [http]
 	postBuffer = 1048576000
 	maxRequestBuffer = 100M
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
 [init]
 	defaultBranch = main
+
 [credential]
 	helper = manager

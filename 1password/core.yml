@@ -1,0 +1,15 @@
+---
+- name: Configure 1password
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+    op_version: "1.9.0"
+  tasks:
+    - name: Install 1Password
+      unarchive:
+        src: "https://cache.agilebits.com/dist/1P/op/pkg/v{{ op_version }}/op_linux_amd64_v{{ op_version }}.zip"
+        dest: "~/bin"
+        remote_src: yes
+        exclude:
+          - op.sig

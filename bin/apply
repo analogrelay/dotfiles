@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#/ Usage: apply <book...>
+#/
+#/ Applies the specified playbooks from the ~/.dotfiles/ directory.
+#/
+#/ The default logic is to look for '<book>.yml'.
+#/ If that doesn't exist, '<book>/core.yml' is used.
+#/
+#/ Options
+#/     <book>   The playbook to run
+
+set -eo pipefail
+[ "$DEBUG" = "1" ] && set -x
+DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
+cd $DOTFILES_ROOT
+source "$DOTFILES_ROOT/zsh/_utils.sh"
+
+if ! type ansible-playbook >/dev/null 2>&1; then
+    fatal "ansible is not yet installed"
+fi
+
+books=()
+while [[ $# -gt 0 ]]; do
+    arg="$1"
+    shift
+
+    candidate="$DOTFILES_ROOT/$arg.yml"
+    if [ -f "$DOTFILES_ROOT/$arg.yml" ]; then
+        books+=("$DOTFILES_ROOT/$arg.yml")
+    elif [ -f "$DOTFILES_ROOT/$arg/core.yml" ]; then
+        books+=("$DOTFILES_ROOT/$arg/core.yml")
+    else
+        fatal "could not find playbook '$arg.yml' or '$arg/core.yml' in '$DOTFILES_ROOT'"
+    fi
+done
+
+banner "applying playbooks"
+for book in "${books[@]}"; do
+    heading "$book"
+done
+ansible-playbook -K "${books[@]}"

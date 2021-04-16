@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+while ! ssh git@github.com 2>&1 | grep -q "You've successfully authenticated," >/dev/null 2>&1; do
+    echo "Your SSH key is not registered with GitHub"
+    echo "Navigate to https://github.com/settings/keys to configure it"
+    echo "The public key is below"
+    echo
+    cat ~/.ssh/id_ed25519.pub
+    echo
+    echo "Press ENTER when you've added the key"
+    read
+done
+
+echo "SSH key configured for GitHub!"

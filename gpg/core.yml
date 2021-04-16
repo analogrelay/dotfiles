@@ -1,0 +1,30 @@
+---
+- name: Configure GPG
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+    key_id: "42ECAC889F98413E5C23970604277A6059CB213C"
+    key_email: "git@analogrelay.net"
+  tasks:
+    - name: Install GPG
+      become: yes
+      apt:
+        package: "gpg"
+      when: not is_mac
+
+    - name: Create GPG configuration directory
+      file:
+        dest: "~/.gnupg"
+        mode: 0700
+        state: directory
+
+    - name: Link files
+      file:
+        dest: "~/.gnupg/{{ item }}" 
+        src: "~/.dotfiles/gpg/{{ item }}"
+        state: link
+      loop:
+        - "gpg.conf"
+        - "git@analogrelay.net_gitsigning.public.gpg-key"
+        - "andrew@stanton-nurse.com_gitsigning.public.gpg-key"

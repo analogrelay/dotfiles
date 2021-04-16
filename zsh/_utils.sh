@@ -1,4 +1,5 @@
 # Should be dot-sourced!
+# Should be bash/zsh cross-compatible
 
 # Reset
 ANSI_RESET=$(printf '\033[0m')       # Text Reset
@@ -19,8 +20,25 @@ trace_out() {
     fi
 }
 
+banner() {
+    echo "${ANSI_FG_PURPLE}===> $1 <===${ANSI_FG_PURPLE}"
+}
+
+heading() {
+    echo "${ANSI_FG_PURPLE}==> $1${ANSI_RESET}"
+}
+
 warn() {
-    echo "${ANSI_FG_YELLOW}warn :$ANSI_RESET $1"
+    echo "⚠ ${ANSI_FG_YELLOW}$1${ANSI_RESET}"
+}
+
+error() {
+    echo "❌ ${ANSI_FG_RED}$1${ANSI_RESET}"
+}
+
+fatal() {
+    error "$1"
+    exit 1
 }
 
 link_file() {
