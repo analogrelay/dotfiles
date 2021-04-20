@@ -20,7 +20,7 @@ trace_out() {
     fi
 }
 
-banner() {
+bigheading() {
     echo "${ANSI_FG_PURPLE}===> $1 <===${ANSI_FG_PURPLE}"
 }
 

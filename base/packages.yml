@@ -46,4 +46,22 @@
       when: not is_mac
     
     # MacOS Core Packages
-    # TODO
+    - name: Update homebrew
+      homebrew:
+        update_homebrew: yes
+      when: is_mac
+
+    - name: Install core homebrew packages
+      homebrew:
+        name: "{{ item }}"
+      loop:
+        - jq
+        - ripgrep
+        - bat
+        - tldr
+        - exa
+        - direnv
+        - the_silver_searcher
+        - tmux
+        - mas
+        - reattach-to-user-namespace

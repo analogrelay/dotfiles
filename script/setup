@@ -5,11 +5,25 @@ set -eo pipefail
 DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
 cd $DOTFILES_ROOT
 
+source "$DOTFILES_ROOT/zsh/_utils.sh"
+
+uname=$(uname)
+if [ "$uname" == "Darwin" ]; then
+    if ! type brew >/dev/null 2>&1; then
+        heading "installing homebrew"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
+    if type python3 >/dev/null 2>&1; then
+        install_dir=$(python3 -c "import os, site; print(os.path.join(site.USER_BASE, 'Scripts' if os.name == 'nt' else 'bin'))")
+        export PATH="$install_dir:$PATH"
+    fi
+fi
+
 # If ansible is here already, just exit successfully
 if ! type ansible >/dev/null 2>&1; then
-    banner "installing ansible"
+    bigheading "installing ansible"
 
-    uname=$(uname)
     if [ "$uname" == "Linux" ]; then
         if type apt >/dev/null 2>&1; then
             heading "updating apt..."
@@ -21,8 +35,13 @@ if ! type ansible >/dev/null 2>&1; then
             exit 1
         fi
     elif [ "$uname" == "Darwin" ]; then
-        echo "TODO: macOS" 1>&2
-        exit 1
+        heading "installing pip"
+        [ -d tmp ] || mkdir tmp
+        curl -sSL https://bootstrap.pypa.io/get-pip.py -o tmp/get-pip.py
+        python3 tmp/get-pip.py --user
+
+        heading "installing ansible"
+        python3 -m pip install --user ansible
     fi
 fi
 

@@ -34,7 +34,7 @@ while [[ $# -gt 0 ]]; do
     fi
 done
 
-banner "applying playbooks"
+bigheading "applying playbooks"
 for book in "${books[@]}"; do
     heading "$book"
 done
