@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+comment="$@"
+if [ -z "$comment" ]; then
+    comment="$(whoami)@$(hostname)"
+fi
+ssh-keygen -t ed25519 -C "$comment"
