@@ -47,11 +47,26 @@ plugins=(git fzf-tab)
 if [ -z "$SSH_AUTH_SOCK" ]; then
     plugins+=ssh-agent
 elif [ -f "$HOME/.ssh/id_ed25519" ]; then
+fi
+
+ensure_key() {
+    local file="$1"
+
     # Make sure our key is registered
-    fingerprint=$(ssh-keygen -l -f "$HOME/.ssh/id_ed25519" | cut -f 2 -d " ")
+    fingerprint=$(ssh-keygen -l -f "$file" | cut -f 2 -d " ")
     if ! ssh-add -l | grep "$fingerprint" >/dev/null 2>&1; then
-        ssh-add "$HOME/.ssh/id_ed25519"
+        ssh-add "$file"
     fi
+}
+
+ensure_key "$HOME/.ssh/id_ed25519"
+
+if [ -f "$HOME/.ssh/id_rsa" ]; then
+    if [ ! -f "$HOME/.ssh/id_rsa.override" ]; then
+        echo "warning: you still have an RSA key, you should upgrade it to ED25519 unless you can't" 1>&2
+        echo "create the file '$HOME/.ssh/id_rsa.override' to suppress this warning" 1>&2
+    fi
+    ensure_key "$HOME/.ssh/id_rsa"
 fi
 
 source $ZSH/oh-my-zsh.sh
