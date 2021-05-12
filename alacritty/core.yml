@@ -1,0 +1,13 @@
+---
+- name: Alacritty config
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+  tasks:
+    - name: Install Alacritty config
+      file:
+        src: '~/.dotfiles/alacritty/alacritty.yml'
+        dest: '~/.alacritty.yml'
+        state: link
+        force: yes
