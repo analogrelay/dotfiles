@@ -11,3 +11,5 @@ Host shell
 Host *.github.net,!*.bpdev-us-east-1.github.net
   ForwardAgent yes
   ProxyJump bastion.githubapp.com
+Host *.ghaekube.net
+  IdentityFile ~/.ssh/id_rsa

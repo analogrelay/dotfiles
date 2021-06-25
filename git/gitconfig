@@ -108,3 +108,5 @@
 
 [credential]
 	helper = manager
+[user]
+	name = anurse

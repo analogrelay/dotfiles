@@ -7,6 +7,8 @@ usage() {
     echo "  Gets the token with the specified name"
     echo "Usage: patsy -d|--delete <NAME>"
     echo "  Deletes the token with the specified name"
+    echo "Usage: patsy -p <NAME>"
+    echo "  Prompt for a value and then set (overwriting if it already exists) a token with the specified name"
     echo "Usage: patsy <NAME> <VALUE>"
     echo "  Sets (overwriting if it already exists) a token with the specified name and value"
 }
@@ -19,6 +21,8 @@ die() {
 
 NAME=
 VALUE=
+DEL=false
+PROMPT=false
 while [[ $# -gt 0 ]]; do
     key="$1"
     shift
@@ -28,7 +32,10 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         -d|--delete)
-            DEL=1
+            DEL=true
+            ;;
+        -p|--prompt)
+            PROMPT=true
             ;;
         *)
             if [ -z "$NAME" ]; then
@@ -41,12 +48,18 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if [ "$DEL" = 1 ]; then
+if $DEL; then
     if [ -z "$NAME" ]; then
         die "The '<NAME>' value must be specified when deleting"
     fi
     security delete-generic-password -a "patsy::$NAME" -s "patsy::$NAME" -D "patsy token" -l "$NAME" >/dev/null
     exit $?
+fi
+
+if $PROMPT; then
+    echo -n "Token: "
+    read VALUE
+    VALUE=$(echo -n "$VALUE" | tr -d '\n')
 fi
 
 if [ -z "$NAME" ]; then
