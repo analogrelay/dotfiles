@@ -4,6 +4,7 @@
   connection: local
   vars:
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
+    is_codespaces: "{{ ansible_facts['env']['CODESPACES'] == 'true' }}"
   tasks:
     - name: Enable HTTPS APT support
       become: yes
@@ -42,7 +43,7 @@
       become: yes
       apt:
         upgrade: yes
-      when: not is_mac
+      when: (not is_mac) and (not is_codespaces)
     
     # MacOS Core Packages
     - name: Update homebrew

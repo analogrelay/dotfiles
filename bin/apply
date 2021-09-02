@@ -43,7 +43,7 @@ done
 
 args=""
 if [ -z "$CODESPACES" ]; then
-    args="--ask-become-pass"
+    args="$args --ask-become-pass"
 fi
 
 ansible-playbook $args "${books[@]}"

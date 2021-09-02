@@ -1,0 +1,8 @@
+---
+- name: Dump facts
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Dump facts
+      debug:
+        var: ansible_facts
