@@ -10,11 +10,13 @@
         src: "~/.dotfiles/modules/zsh/zshrc.sh"
         dest: "~/.zshrc"
         state: link
+        force: yes
     - name: Linking zprofile
       file:
         src: "~/.dotfiles/modules/zsh/zprofile.sh"
         dest: "~/.zprofile"
         state: link
+        force: yes
     - name: Update oh-my-zsh
       git:
         depth: 1

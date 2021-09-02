@@ -35,7 +35,7 @@ if ! type ansible >/dev/null 2>&1; then
             heading "updating apt..."
             sudo apt-get update -qyy
             heading "installing ansible..."
-            sudo apt-get install -qyy pyt
+            sudo apt-get install -qyy ansible
         else
             echo "TODO: unknown linux distribution" 1>&2
             exit 1

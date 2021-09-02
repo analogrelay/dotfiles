@@ -4,12 +4,11 @@
   connection: local
   vars:
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
-    is_debian: "{{ ansible_facts['distribution'] == 'Debian' }}"
+    is_debian: "{{ ansible_facts['distribution'] == 'Debian' or ansible_facts['distribution'] == 'Ubuntu' }}"
     op_version: "1.9.0"
   tasks:
     - name: Install 1Password (Debian)
       when: is_debian
-      become: yes
       block:
         - name: Check if 1Password CLI exists
           stat:
@@ -17,27 +16,28 @@
           register: op_cli
         - name: Create temp directory
           file:
-            path: /tmp/op_download
+            path: ~/tmp/op_download
             state: directory
         - name: Download 1Password CLI
           get_url:
             url: https://cache.agilebits.com/dist/1P/op/pkg/v1.11.4/op_linux_amd64_v1.11.4.zip
             checksum: sha256:2026b12593e9ec5685d20789413b05fbe45d255f62f9beed3e9e7c7ba91c51b6
-            dest: /tmp/op_download/op_linux_amd64_v1.11.4.zip
+            dest: ~/tmp/op_download/op_linux_amd64_v1.11.4.zip
           when: not op_cli.stat.exists
         - name: Extract CLI and signature
           unarchive:
-            src: /tmp/op_download/op_linux_amd64_v1.11.4.zip
-            dest: /tmp/op_download
+            src: ~/tmp/op_download/op_linux_amd64_v1.11.4.zip
+            dest: ~/tmp/op_download
           when: not op_cli.stat.exists
         - name: Validate Signature
           shell: |
             gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
-            gpg --verify /tmp/op_download/op.sig /tmp/op_download/op
+            gpg --verify ~/tmp/op_download/op.sig ~/tmp/op_download/op
           when: not op_cli.stat.exists
         - name: Install CLI
+          become: yes
           copy:
-            src: /tmp/op_download/op
+            src: ~/tmp/op_download/op
             dest: /usr/local/bin/op
             owner: root
             group: root

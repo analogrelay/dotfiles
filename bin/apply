@@ -41,4 +41,9 @@ for book in "${books[@]}"; do
     heading "$book"
 done
 
-ANSIBLE_BECOME_ALLOW_SAME_USER=1 ansible-playbook -K "${books[@]}"
+args=""
+if [ -z "$CODESPACES" ]; then
+    args="--ask-become-pass"
+fi
+
+ansible-playbook $args "${books[@]}"
