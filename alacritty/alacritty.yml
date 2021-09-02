@@ -1,4 +1,10 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
+shell:
+  program: /bin/zsh
+  args:
+   - -l
+   - -c
+   - "tmux attach || tmux"
 
 window:
   # Window padding (changes require restart)
