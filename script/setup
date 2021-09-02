@@ -5,7 +5,13 @@ set -eo pipefail
 DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
 cd $DOTFILES_ROOT
 
-source "$DOTFILES_ROOT/zsh/_utils.sh"
+# If we're not in the $HOME/.dotfiles folder, create a symlink
+# Everything else depends on that being where we are.
+if [ "$DOTFILES_ROOT" != "$HOME/.dotfiles" ]; then
+    ln -s $DOTFILES_ROOT "$HOME/.dotfiles"
+fi
+
+source "$DOTFILES_ROOT/modules/zsh/_utils.sh"
 
 uname=$(uname)
 if [ "$uname" == "Darwin" ]; then
@@ -47,6 +53,10 @@ fi
 
 # Playbooks that will be run automatically during setup
 PLAYBOOKS=(base ssh vim tmux git)
+
+# if [ -z "$CODESPACES" ]; then
+#     # Add playbooks for a non-codespaces setup
+# fi
 
 # Apply the base playbooks
 bin/apply "${PLAYBOOKS[@]}"

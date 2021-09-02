@@ -13,7 +13,9 @@ set -eo pipefail
 [ "$DEBUG" = "1" ] && set -x
 DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
 cd $DOTFILES_ROOT
-source "$DOTFILES_ROOT/zsh/_utils.sh"
+source "$DOTFILES_ROOT/modules/zsh/_utils.sh"
+
+PLAYS_ROOT="$DOTFILES_ROOT/modules"
 
 if ! type ansible-playbook >/dev/null 2>&1; then
     fatal "ansible is not yet installed"
@@ -24,13 +26,13 @@ while [[ $# -gt 0 ]]; do
     arg="$1"
     shift
 
-    candidate="$DOTFILES_ROOT/$arg.yml"
-    if [ -f "$DOTFILES_ROOT/$arg.yml" ]; then
-        books+=("$DOTFILES_ROOT/$arg.yml")
-    elif [ -f "$DOTFILES_ROOT/$arg/core.yml" ]; then
-        books+=("$DOTFILES_ROOT/$arg/core.yml")
+    candidate="$PLAYS_ROOT/$arg.yml"
+    if [ -f "$PLAYS_ROOT/$arg.yml" ]; then
+        books+=("$PLAYS_ROOT/$arg.yml")
+    elif [ -f "$PLAYS_ROOT/$arg/core.yml" ]; then
+        books+=("$PLAYS_ROOT/$arg/core.yml")
     else
-        fatal "could not find playbook '$arg.yml' or '$arg/core.yml' in '$DOTFILES_ROOT'"
+        fatal "could not find playbook '$arg.yml' or '$arg/core.yml' in '$PLAYS_ROOT'"
     fi
 done
 

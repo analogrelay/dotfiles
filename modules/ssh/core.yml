@@ -14,6 +14,10 @@
         src: "~/.dotfiles/ssh/config"
         dest: "~/.ssh/config"
         state: link
+    - name: Create SSH configuration directory
+      file:
+        path: "~/.ssh/config.d"
+        state: directory
     - name: Creating SSH keypair
       openssh_keypair:
         type: ed25519

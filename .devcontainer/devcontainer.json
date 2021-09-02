@@ -1,0 +1,8 @@
+{
+    "name": "anurse/dotfiles",
+    "runArgs": [
+        "--privileged",
+        "--security-opt",
+        "seccomp=unconfined"
+    ], // Needed to run Docker in Docker.
+}

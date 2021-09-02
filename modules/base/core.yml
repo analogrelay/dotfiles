@@ -13,5 +13,7 @@
       file:
         state: directory
         dest: ~/code
-- import_playbook: packages.yml
-- import_playbook: shell.yml
+    - name: Install packages
+      import_playbook: packages.yml
+    - name: Configure shell
+      import_playbook: shell.yml
