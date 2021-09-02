@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -eo pipefail
+[ "$DEBUG" = "1" ] && set -x
+DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
+cd $DOTFILES_ROOT
+
+source "$DOTFILES_ROOT/modules/zsh/_utils.sh"
+
+heading "building container..."
+script/build-test-container
+
+heading "running tests..."

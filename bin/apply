@@ -40,4 +40,5 @@ bigheading "applying playbooks"
 for book in "${books[@]}"; do
     heading "$book"
 done
-ansible-playbook -K "${books[@]}"
+
+ANSIBLE_BECOME_ALLOW_SAME_USER=1 ansible-playbook -K "${books[@]}"

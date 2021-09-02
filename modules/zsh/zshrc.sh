@@ -10,8 +10,10 @@ elif [ -d "$HOME/.dotfiles" ]; then
     export DOTFILES_ROOT="$HOME/.dotfiles"
 fi
 
+source "$DOTFILES_ROOT/modules/zsh/_utils.sh"
+
 # Custom custom dir ;)
-export ZSH_CUSTOM="$DOTFILES_ROOT/zsh/oh-my-zsh"
+export ZSH_CUSTOM="$DOTFILES_ROOT/modules/zsh/oh-my-zsh"
 
 # Add 'bin' to PATH and 'functions' to FPATH
 export PATH="$HOME/bin:$DOTFILES_ROOT/bin:$PATH"
@@ -84,11 +86,11 @@ done
 
 # If we're in WSL, source the wsl script
 if uname -r | grep Microsoft >/dev/null; then
-    source "$DOTFILES_ROOT/zsh/wsl.zshrc"
+    source "$DOTFILES_ROOT/modules/zsh/wsl.zshrc"
 fi
 
 # Run other ZSH scripts
-for file in `find "$DOTFILES_ROOT/zsh/zshrc.d" -type f -name "*.sh"`; do
+for file in `find "$DOTFILES_ROOT/modules/zsh/zshrc.d" -type f -name "*.sh"`; do
     source $file
 done
 

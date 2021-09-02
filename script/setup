@@ -35,7 +35,7 @@ if ! type ansible >/dev/null 2>&1; then
             heading "updating apt..."
             sudo apt-get update -qyy
             heading "installing ansible..."
-            sudo apt-get install -qyy ansible
+            sudo apt-get install -qyy pyt
         else
             echo "TODO: unknown linux distribution" 1>&2
             exit 1
@@ -52,7 +52,7 @@ if ! type ansible >/dev/null 2>&1; then
 fi
 
 # Playbooks that will be run automatically during setup
-PLAYBOOKS=(base ssh vim tmux git)
+PLAYBOOKS=(base ssh vim tmux git gpg 1password)
 
 # if [ -z "$CODESPACES" ]; then
 #     # Add playbooks for a non-codespaces setup

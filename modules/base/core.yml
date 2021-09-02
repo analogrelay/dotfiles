@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-    is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+    is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
   tasks:
     - name: Create BIN dir
       file:
@@ -13,7 +13,7 @@
       file:
         state: directory
         dest: ~/code
-    - name: Install packages
-      import_playbook: packages.yml
-    - name: Configure shell
-      import_playbook: shell.yml
+- name: Install packages
+  import_playbook: packages.yml
+- name: Configure shell
+  import_playbook: shell.yml

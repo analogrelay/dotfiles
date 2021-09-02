@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Fetch gpg key and install
+
+set -eo pipefail
+[ "$DEBUG" = "1" ] && set -x
+DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
+cd $DOTFILES_ROOT
+source "$DOTFILES_ROOT/modules/zsh/_utils.sh"
+
+if ! type op >/dev/null 2>&1; then
+    fatal "cannot configure gpg key, the 1password-cli is not installed"
+fi
+
+if [ -z "$OP_SESSION_stanton_nurse" ]; then
+    eval $(op signin stanton-nurse.1password.com andrew@stanton-nurse.com)
+fi
+
+keys=(andrew@stanton-nurse.com_gitsigning.private.gpg-key git@analogrelay.net_gitsigning.private.gpg-key)
+
+for key in ${keys[@]}; do
+    dest=~/.gnupg/$key
+    op get document "$key" > $dest
+    gpg --import $dest
+    rm -f $dest
+    echo "imported $key"
+done
