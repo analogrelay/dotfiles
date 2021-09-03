@@ -15,5 +15,3 @@
         dest: ~/code
 - name: Install packages
   import_playbook: packages.yml
-- name: Configure shell
-  import_playbook: shell.yml
