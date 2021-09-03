@@ -16,7 +16,7 @@
 
     - name: Install Root Git config
       file:
-        src: '~/.dotfiles/git/gitconfig'
+        src: '~/.dotfiles/modules/git/gitconfig'
         dest: '~/.gitconfig'
         state: link
         force: yes
