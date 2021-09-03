@@ -4,64 +4,67 @@
   connection: local
   vars:
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
+    is_debian: "{{ (ansible_facts['distribution'] == 'Debian') or (ansible_facts['distribution'] == 'Ubuntu') }}"
     is_codespaces: "{{ ansible_facts['env']['CODESPACES'] == 'true' }}"
   tasks:
-    - name: Enable HTTPS APT support
-      become: yes
-      apt:
-        package:
-          - apt-transport-https
-          - ca-certificates
-          - software-properties-common
-      when: not is_mac
+    - name: Install packages (Debian)
+      when: is_debian
+      block:
+        - name: Enable HTTPS APT support
+          become: yes
+          apt:
+            package:
+              - apt-transport-https
+              - ca-certificates
+              - software-properties-common
+          when: not is_codespaces
 
-    # Linux core packages
-    - name: Update apt package list
-      become: yes
-      apt:
-        update_cache: yes
-      register: apt_update
-      retries: 5
-      until: apt_update is success
-      when: not is_mac
+        # Linux core packages
+        - name: Update apt package list
+          become: yes
+          apt:
+            update_cache: yes
+          register: apt_update
+          retries: 5
+          until: apt_update is success
 
-    - name: Install core packages
-      become: yes
-      apt:
-        package:
-          - curl
-          - jq
-          - unzip
-          - uuid
-          - zsh
-          - fzf
-          - git
-          - shellcheck
-      when: not is_mac
+        - name: Install core packages
+          become: yes
+          apt:
+            package:
+              - curl
+              - jq
+              - unzip
+              - uuid
+              - zsh
+              - fzf
+              - git
+              - shellcheck
 
-    - name: Upgrade to latest APT packages
-      become: yes
-      apt:
-        upgrade: yes
-      when: (not is_mac) and (not is_codespaces)
-    
-    # MacOS Core Packages
-    - name: Update homebrew
-      homebrew:
-        update_homebrew: yes
+        - name: Upgrade to latest APT packages
+          become: yes
+          apt:
+            upgrade: yes
+          when: not is_codespaces
+
+    - name: Install packages (macOS)
       when: is_mac
+      block:
+        # MacOS Core Packages
+        - name: Update homebrew
+          homebrew:
+            update_homebrew: yes
 
-    - name: Install core homebrew packages
-      homebrew:
-        name:
-          - jq
-          - ripgrep
-          - bat
-          - tldr
-          - exa
-          - direnv
-          - the_silver_searcher
-          - tmux
-          - mas
-          - reattach-to-user-namespace
-      when: is_mac
+        - name: Install core homebrew packages
+          homebrew:
+            name:
+              - jq
+              - ripgrep
+              - bat
+              - tldr
+              - exa
+              - direnv
+              - the_silver_searcher
+              - tmux
+              - mas
+              - reattach-to-user-namespace

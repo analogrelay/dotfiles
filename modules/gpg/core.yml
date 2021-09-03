@@ -4,8 +4,6 @@
   connection: local
   vars:
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
-    key_id: "42ECAC889F98413E5C23970604277A6059CB213C"
-    key_email: "git@analogrelay.net"
   tasks:
     - name: Install GPG
       become: yes

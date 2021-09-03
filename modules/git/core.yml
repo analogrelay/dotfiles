@@ -4,12 +4,15 @@
   connection: local
   vars:
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
+    is_codespaces: "{{ ansible_facts['env']['CODESPACES'] == 'true' }}"
   tasks:
     - name: Install Git
       become: yes
       apt:
         package: git
-      when: not is_mac
+      when:
+        - not is_mac
+        - not is_codespaces
 
     - name: Install Root Git config
       file:
