@@ -52,11 +52,16 @@ if ! type ansible >/dev/null 2>&1; then
 fi
 
 # Playbooks that will be run automatically during setup
-PLAYBOOKS=(base zsh vim tmux git)
+PLAYBOOKS=(base zsh vim tmux git ruby)
 
 if [ -z "$CODESPACES" ]; then
     # Add playbooks for a non-codespaces setup
-    PLAYBOOKS+=(ssh 1password gpg)
+    PLAYBOOKS+=(ssh 1password gpg alacritty)
+fi
+
+if [ "$(uname)" = "Darwin" ]; then
+    # Add playbooks for macOS setup
+    PLAYBOOKS+=(hammerspoon)
 fi
 
 # Apply the base playbooks

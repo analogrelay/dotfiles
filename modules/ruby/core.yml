@@ -1,0 +1,14 @@
+---
+- name: Ruby
+  hosts: localhost
+  connection: local
+  vars:
+    is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
+    is_codespaces: "{{ ansible_facts['env']['CODESPACES'] == 'true' }}"
+  tasks:
+    - name: Install Pry config
+      file:
+        src: '~/.dotfiles/modules/ruby/.pryrc'
+        dest: '~/.pryrc'
+        state: link
+        force: yes

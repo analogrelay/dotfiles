@@ -13,7 +13,7 @@
 
     - name: Install Vim config
       file:
-        src: "~/.dotfiles/vim/vimrc.vim"
+        src: "~/.dotfiles/modules/vim/vimrc.vim"
         dest: "~/.vimrc"
         state: link
         force: yes

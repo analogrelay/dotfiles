@@ -5,7 +5,7 @@
   vars:
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
     is_debian: "{{ (ansible_facts['distribution'] == 'Debian') or (ansible_facts['distribution'] == 'Ubuntu') }}"
-    is_codespaces: "{{ ansible_facts['env']['CODESPACES'] == 'true' }}"
+    is_codespaces: "{{ 'CODESPACES' in ansible_facts['env'] }}"
   tasks:
     - name: Install packages (Debian)
       when: is_debian
