@@ -4,7 +4,7 @@
   connection: local
   vars:
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
-    is_codespaces: "{{ ansible_facts['env']['CODESPACES'] == 'true' }}"
+    is_codespaces: "{{ 'CODESPACES' in ansible_facts['env'] }}"
   tasks:
     - name: Install Git
       become: yes
