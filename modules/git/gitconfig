@@ -103,7 +103,5 @@
 [init]
 	defaultBranch = main
 
-[credential]
-	helper = manager
 [user]
 	name = Andrew Stanton-Nurse
