@@ -48,7 +48,6 @@ plugins=(git fzf-tab)
 # Start an ssh-agent if there isn't one already
 if [ -z "$SSH_AUTH_SOCK" ]; then
     plugins+=ssh-agent
-elif [ -f "$HOME/.ssh/id_ed25519" ]; then
 fi
 
 ensure_key() {
