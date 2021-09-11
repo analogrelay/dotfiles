@@ -57,6 +57,8 @@ PLAYBOOKS=(base zsh vim tmux git ruby)
 if [ -z "$CODESPACES" ]; then
     # Add playbooks for a non-codespaces setup
     PLAYBOOKS+=(ssh 1password gpg alacritty)
+elif [ "$CODESPACES" = "true" ]; then
+    PLAYBOOKS+=(codespaces)
 fi
 
 if [ "$(uname)" = "Darwin" ]; then

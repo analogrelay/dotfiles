@@ -1,0 +1,7 @@
+---
+- name: Codespaces config
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install Synthwave VSCode extension
+      script: /usr/bin/env code --install-extension robbowen.synthwave-vscode@0.1.8
