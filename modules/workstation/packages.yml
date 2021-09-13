@@ -10,15 +10,6 @@
     - name: Install packages (Debian)
       when: is_debian
       block:
-        - name: Enable HTTPS APT support
-          become: yes
-          apt:
-            package:
-              - apt-transport-https
-              - ca-certificates
-              - software-properties-common
-          when: not is_codespaces
-
         # Linux core packages
         - name: Update apt package list
           become: yes
@@ -32,20 +23,6 @@
           become: yes
           apt:
             package:
-              - curl
-              - jq
-              - unzip
-              - uuid
-              - zsh
-              - fzf
-              - git
-              - shellcheck
-
-        - name: Upgrade to latest APT packages
-          become: yes
-          apt:
-            upgrade: yes
-          when: not is_codespaces
 
     - name: Install packages (macOS)
       when: is_mac
@@ -55,18 +32,25 @@
           homebrew:
             update_homebrew: yes
 
-        - name: Install core homebrew packages
+        - name: Install homebrew packages
           homebrew:
             name:
-              - jq
-              - ripgrep
-              - bat
-              - tldr
-              - exa
-              - direnv
-              - the_silver_searcher
-              - tmux
               - mas
-              - reattach-to-user-namespace
-              - fzf
-              - gpg
+
+        - name: Install homebrew casks
+          homebrew_cask:
+            name:
+              - visual-studio-code
+              - 1password
+              - 1password-cli
+              - microsoft-edge
+              - slack
+              - alacritty
+              - zoom
+              - spotify
+              - hammerspoon
+
+        - name: Install App Store Apps
+          mas:
+            id:
+              - 1480068668 # Facebook Messenger

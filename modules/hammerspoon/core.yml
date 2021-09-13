@@ -1,5 +1,5 @@
 ---
-- name: Vim
+- name: Hammerspoon
   hosts: localhost
   connection: local
   vars:
@@ -9,9 +9,24 @@
       file:
         dest: "~/.hammerspoon"
         state: directory
+    - name: Install Hammerspoon spoons dir
+      file:
+        dest: "~/.hammerspoon/Spoons"
+        state: directory
     - name: Install Hammerspoon config
       file:
         src: "~/.dotfiles/modules/hammerspoon/init.lua"
         dest: "~/.hammerspoon/init.lua"
         state: link
         force: yes
+    - name: Find spoons
+      find:
+        paths: "~/.dotfiles/modules/hammerspoon/spoons"
+        file_type: directory
+      register: find_spoons
+    - name: Symlink spoons
+      file:
+        src: "{{ item.path }}"
+        dest: "~/.hammerspoon/Spoons/{{ item.path | basename }}"
+        state: link
+      with_items: "{{ find_spoons.files }}"

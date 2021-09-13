@@ -17,3 +17,20 @@ hs.timer.doEvery(1, function()
     end
   end
 end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "return", function()
+  -- Find the focused window
+  local win = hs.window.focusedWindow()
+  local frame = win:screen():frame()
+
+  -- Compute the target width/height, which is 95% of the available space
+  local targetWidth = frame.w * 0.95
+  local targetHeight = frame.h * 0.95
+
+  -- Identify the start point, which is 1/2 the difference between the screen size and the window size
+  local startX = frame.x + (frame.w / 2) - (targetWidth / 2)
+  local startY = frame.y + (frame.h / 2) - (targetHeight / 2)
+
+  -- Position the window
+  win:setFrame({ x = startX, y = startY, w = targetWidth, h = targetHeight })
+end)

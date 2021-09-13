@@ -63,7 +63,7 @@ fi
 
 if [ "$(uname)" = "Darwin" ]; then
     # Add playbooks for macOS setup
-    PLAYBOOKS+=(hammerspoon)
+    PLAYBOOKS+=(hammerspoon workstation)
 fi
 
 # Apply the base playbooks

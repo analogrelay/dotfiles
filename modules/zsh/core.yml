@@ -34,5 +34,6 @@
         repo: "https://github.com/Aloxaf/fzf-tab"
     
     - name: Installing starship
-      creates: /usr/local/bin/starship
-      script: sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
+      script: /bin/sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
+      args:
+        creates: /usr/local/bin/starship
