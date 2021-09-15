@@ -70,3 +70,5 @@
               - reattach-to-user-namespace
               - fzf
               - gpg
+              - gh
+              - github/packages/ghcs
