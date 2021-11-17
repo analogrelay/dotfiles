@@ -1,0 +1,9 @@
+format="$all$fill${custom.arch}$line_break$character"
+
+[custom.arch]
+command = "echo $(arch)"
+description = "Current Process CPU Architecture"
+when = "true"
+os = "macos"
+symbol = "🖥"
+format = "$symbol  $output"

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ "$(uname)" == "Darwin" ]; then
+    # if [ -e "/Applications/Rider EAP.app" ]; then
+    #     open -na "Rider EAP.app" --args "$@"
+    # elif
+    if [ -e "/Applications/Rider.app" ]; then
+        open -na "Rider.app" --args "$@"
+    else
+        echo "rider isn't installed" 1>&2
+        exit 1
+    fi
+else
+    echo "not yet implemented for linux" 1>&2
+    exit 1
+fi

@@ -71,4 +71,4 @@
               - fzf
               - gpg
               - gh
-              - github/packages/ghcs
+              - starship

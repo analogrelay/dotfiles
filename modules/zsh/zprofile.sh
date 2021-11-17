@@ -2,7 +2,6 @@
 
 export GOPATH="$HOME/go"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PATH:/Users/anurse/.dotnet/tools"
 export PATH="$GOPATH/bin:$PATH"
 
 if type rbenv >/dev/null 2>&1; then
@@ -10,3 +9,12 @@ if type rbenv >/dev/null 2>&1; then
 fi
 
 export GPG_TTY="$(tty)"
+
+THEARCH=$(arch)
+export HOMEBREW_PREFIX=""
+export HOMEBREW_SHELLENV_PREFIX=""
+if [[ x"$THEARCH" == x"i386" ]]; then
+	eval $(/usr/local/bin/brew shellenv)
+else
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

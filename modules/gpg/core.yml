@@ -26,3 +26,10 @@
         - "gpg.conf"
         - "git@analogrelay.net_gitsigning.public.gpg-key"
         - "andrew@stanton-nurse.com_gitsigning.public.gpg-key"
+
+    - name: Link gpg agent config
+      when: is_mac
+      file:
+        dest: "~/.gnupg/gpg-agent.conf"
+        src: "~/.dotfiles/modules/gpg/gpg-agent.darwin.conf"
+        state: link

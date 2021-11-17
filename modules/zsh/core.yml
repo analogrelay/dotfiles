@@ -32,8 +32,3 @@
         dest: "~/.dotfiles/modules/zsh/oh-my-zsh/plugins/fzf-tab"
         force: yes
         repo: "https://github.com/Aloxaf/fzf-tab"
-    
-    - name: Installing starship
-      script: /bin/sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
-      args:
-        creates: /usr/local/bin/starship

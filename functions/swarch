@@ -1,0 +1,26 @@
+if [ "$(uname)" != "Darwin" ]; then
+    echo "'swarch' only support macOS"
+    return
+fi
+
+if [ "$(sysctl -n machdep.cpu.brand_string)" != "Apple M1" ]; then
+    echo "'swarch' only supports Apple M1"
+    return
+fi
+
+target_arch=""
+case "$(arch)" in
+    arm64)
+        target_arch="-x86_64"
+        ;;
+    i386)
+        target_arch="-arm64"
+        ;;
+esac
+
+if [ -z "$target_arch" ]; then
+    echo "Unknown current arch '$(arch)'"
+    return
+fi
+
+exec arch $target_arch /bin/zsh -l
