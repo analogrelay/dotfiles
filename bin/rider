@@ -1,11 +1,56 @@
 #!/usr/bin/env bash
 
+rider_args=()
+eap=false
+project_path=
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    shift
+    
+    case "$key" in
+        --eap)
+            eap=true
+            ;;
+        -*|--*)
+            rider_args+=("$key")
+            ;;
+        *)
+            project_path="$key"
+            ;;
+    esac
+done
+
+if [ -z "$project_path" ]; then
+    files=()
+    while IFS=  read -r -d $'\0'; do
+        files+=("$REPLY")
+    done < <(find $(pwd) -type f -name "*.sln" -maxdepth 1 -print0)
+
+    if [ -z "$files" ]; then
+        echo "No solution file found" 1>&2
+        exit 1
+    elif [ ${#files[@]} -gt 1 ]; then
+        echo "Multiple solution files found, specify a single solution" 1>&2
+        exit 1
+    fi
+    project_path="$files"
+fi
+
+$eap && eap_str=" EAP"
+
+rider_args+=("$project_path")
+
+echo "Launching Rider${eap_str} for solution $project_path"
+
 if [ "$(uname)" == "Darwin" ]; then
-    # if [ -e "/Applications/Rider EAP.app" ]; then
-    #     open -na "Rider EAP.app" --args "$@"
-    # elif
-    if [ -e "/Applications/Rider.app" ]; then
-        open -na "Rider.app" --args "$@"
+    if $eap && [ -e "/Applications/Rider EAP.app" ]; then
+        open -na "Rider EAP.app" --args "${rider_args[@]}"
+    elif [ -e "/Applications/Rider.app" ]; then
+        if $eap; then
+            echo "Could not find Rider EAP, launching regular Rider" 1>&2
+        fi
+        open -na "Rider.app" --args "${rider_args[@]}"
     else
         echo "rider isn't installed" 1>&2
         exit 1
