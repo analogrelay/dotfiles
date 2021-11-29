@@ -3,7 +3,7 @@ if [ "$(uname)" != "Darwin" ]; then
     return
 fi
 
-if [ "$(sysctl -n machdep.cpu.brand_string)" != "Apple M1" ]; then
+if sysctl -n machdep.cpu.brand_string | grep -v "^Apple M1.*$" ; then
     echo "'swarch' only supports Apple M1"
     return
 fi
