@@ -7,6 +7,12 @@ shell:
    - "$HOME/.dotfiles/modules/zsh/launch-zsh"
 
 window:
+  # Background opacity
+  #
+  # Window opacity as a floating point number from `0.0` to `1.0`.
+  # The value `0.0` is completely transparent and `1.0` is opaque.
+  opacity: 0.9
+
   # Window padding (changes require restart)
   #
   # Blank space added around the window in pixels. This padding is scaled
@@ -72,12 +78,6 @@ colors:
     magenta: '#FF92DF'
     cyan:    '#FF901F'
     white:   '#FFFFFF'
-
-# Background opacity
-#
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
 
 # Live config reload (changes require restart)
 live_config_reload: true
