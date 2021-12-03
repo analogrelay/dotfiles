@@ -31,10 +31,17 @@ if [ -z "$project_path" ]; then
         echo "No solution file found" 1>&2
         exit 1
     elif [ ${#files[@]} -gt 1 ]; then
-        echo "Multiple solution files found, specify a single solution" 1>&2
-        exit 1
+        if type fzf >/dev/null 2>&1; then
+            echo "Multiple solution files found, select one"
+            selected=$(ls -1 *.sln | fzf)
+            project_path="$selected"
+        else
+            echo "Multiple solution files found, specify a single solution" 1>&2
+            exit 1
+        fi
+    else
+        project_path="$files"
     fi
-    project_path="$files"
 fi
 
 $eap && eap_str=" EAP"
@@ -44,18 +51,29 @@ rider_args+=("$project_path")
 echo "Launching Rider${eap_str} for solution $project_path"
 
 if [ "$(uname)" == "Darwin" ]; then
-    if $eap && [ -e "/Applications/Rider EAP.app" ]; then
-        open -na "Rider EAP.app" --args "${rider_args[@]}"
-    elif [ -e "/Applications/Rider.app" ]; then
-        if $eap; then
-            echo "Could not find Rider EAP, launching regular Rider" 1>&2
+    if $eap; then
+        if [ -e "/Applications/Rider EAP.app" ]; then
+            open -a "/Applications/Rider EAP.app" --args "${rider_args[@]}"
+            exit 0
+        else
+            echo "Could not find Rider EAP. Going to try non-EAP version."
         fi
-        open -na "Rider.app" --args "${rider_args[@]}"
+    fi
+
+    if [ -e "/Applications/Rider.app" ]; then
+        open -a "/Applications/Rider.app" --args "${rider_args[@]}"
+        exit 0
+    elif [ -e "/Applications/Rider EAP.app" ]; then
+        read -p "Could not find Rider. The EAP version is installed, press Y to use that, or any other key to cancel. " input
+        if [ "$input" = "y" ] || [ "$input" = "Y" ]; then
+            open -a "/Applications/Rider EAP.app" --args "${rider_args[@]}"
+            exit 0
+        fi
     else
-        echo "rider isn't installed" 1>&2
-        exit 1
+        echo "Rider isn't installed" 1>&2
     fi
 else
-    echo "not yet implemented for linux" 1>&2
-    exit 1
+    echo "Not yet implemented for linux" 1>&2
 fi
+
+exit 1
