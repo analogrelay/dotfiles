@@ -6,6 +6,9 @@
     is_mac: "{{ ansible_facts['os_family'] == 'Darwin' }}"
     is_debian: "{{ (ansible_facts['distribution'] == 'Debian') or (ansible_facts['distribution'] == 'Ubuntu') }}"
     is_codespaces: "{{ 'CODESPACES' in ansible_facts['env'] }}"
+  module_defaults:
+    community.general.homebrew:
+      path: "/opt/homebrew/bin:/usr/local/bin"
   tasks:
     - name: Install packages (Debian)
       when: is_debian
@@ -45,10 +48,10 @@
               - 1password-cli
               - microsoft-edge
               - slack
-              - alacritty
               - zoom
               - spotify
               - hammerspoon
+              - raycast
 
         - name: Install App Store Apps
           mas:
