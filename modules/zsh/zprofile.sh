@@ -3,6 +3,14 @@
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
+if [ "$(uname)" = "Darwin" ]; then
+	if [ "$(arch)" = "arm64" ]; then
+		export PATH="/usr/local/share/dotnet:$PATH"
+	else
+		export PATH="/usr/local/share/dotnet/x64:$PATH"
+	fi
+fi
+
 if type rbenv >/dev/null 2>&1; then
     eval "$(rbenv init -)"
 fi
