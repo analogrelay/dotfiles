@@ -10,6 +10,8 @@ elif [ -d "$HOME/.dotfiles" ]; then
     export DOTFILES_ROOT="$HOME/.dotfiles"
 fi
 
+export DOTFILES_LOCAL_ROOT="$DOTFILES_ROOT/local"
+
 source "$DOTFILES_ROOT/modules/zsh/_utils.sh"
 
 # Custom custom dir ;)
@@ -18,15 +20,6 @@ export ZSH_CUSTOM="$DOTFILES_ROOT/modules/zsh/oh-my-zsh"
 # Add 'bin' to PATH and 'functions' to FPATH
 export PATH="$HOME/bin:$DOTFILES_ROOT/bin:$PATH"
 export FPATH="$DOTFILES_ROOT/functions:$FPATH"
-
-#export PROMPT_USE_STARSHIP=no
-export PROMPT_USE_PURE=no
-
-# Ditto for private dotfiles if present
-if [ -d "$PRIVATE_DOTFILES_ROOT" ]; then
-    export PATH="$PRIVATE_DOTFILES_ROOT/bin:$PATH"
-    export FPATH="$PRIVATE_DOTFILES_ROOT/functions:$FPATH"
-fi
 
 if type direnv >/dev/null 2>&1; then
 	eval "$(direnv hook zsh)"
@@ -37,18 +30,6 @@ fi
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="vibrantcode"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf-tab)
-
-# Start an ssh-agent if there isn't one already
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    plugins+=ssh-agent
-fi
 
 ensure_key() {
     local file="$1"
@@ -70,7 +51,9 @@ if [ -f "$HOME/.ssh/id_rsa" ]; then
     ensure_key "$HOME/.ssh/id_rsa"
 fi
 
-source $ZSH/oh-my-zsh.sh
+if [ -f "$DOTFILES_LOCAL_ROOT/zsh/antigen.zsh" ]; then
+    source "$DOTFILES_LOCAL_ROOT/zsh/antigen.zsh"
+fi
 
 unsetopt autocd
 

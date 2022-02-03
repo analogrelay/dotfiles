@@ -18,17 +18,14 @@
         dest: "~/.zprofile"
         state: link
         force: yes
+    
+    - name: Create ZSH local storage directory
+      file:
+        dest: "~/.dotfiles/local/zsh"
+        state: directory
 
-    - name: Update oh-my-zsh
-      git:
-        depth: 1
-        dest: "~/.oh-my-zsh"
-        force: yes
-        repo: "https://github.com/ohmyzsh/ohmyzsh"
-
-    - name: Installing fzf-tab
-      git:
-        depth: 1
-        dest: "~/.dotfiles/modules/zsh/oh-my-zsh/plugins/fzf-tab"
-        force: yes
-        repo: "https://github.com/Aloxaf/fzf-tab"
+    - name: Install Antigen
+      get_url:
+        url: https://git.io/antigen
+        dest: ~/.dotfiles/local/zsh/antigen.zsh
+        checksum: sha256:3fc9472388232ecb7cf2c6d28f06109d857afa1c1897ce1bbeed40aced6e6518
