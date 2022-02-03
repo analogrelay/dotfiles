@@ -11,6 +11,13 @@
         package: vim
       when: not is_mac
 
+    - name: Install Vim directory
+      file:
+        src: "~/.dotfiles/modules/vim"
+        dest: "~/.vim"
+        state: link
+        force: yes
+
     - name: Install Vim config
       file:
         src: "~/.dotfiles/modules/vim/vimrc.vim"
