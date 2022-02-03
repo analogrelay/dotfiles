@@ -1,4 +1,4 @@
 .DS_Store
 *.swp
-zsh/oh-my-zsh/plugins/fzf-tab
 tmp/
+*.zwc
