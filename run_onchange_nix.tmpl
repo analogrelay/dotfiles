@@ -1,9 +1,7 @@
 #!/bin/bash
 if ! type nix-env > /dev/null; then
-    echo "Could not find nix." 1>&2
-    echo "Installing nix is a little more delicate, so please install it first." 1>&2
-    echo "Just re-run 'chezmoi apply' when you're done." 1>&2
-    exit 1
+    sh <(curl -L https://nixos.org/nix/install)
+    [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
 nix-env -iA nixpkgs.chezmoi
@@ -23,3 +21,7 @@ nix-env -iA nixpkgs.yarn
 {{ if eq .chezmoi.os "darwin" -}}
 nix-env -iA nixpkgs.pinentry_mac
 {{ end -}}
+
+if [ -e ~/bin/chezmoi ] && [ -e ~/.nix-profile/bin/chezmoi ]; then
+    rm -f ~/bin/chezmoi
+fi
