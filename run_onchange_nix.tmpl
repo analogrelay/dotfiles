@@ -1,0 +1,25 @@
+#!/bin/bash
+if ! type nix-env > /dev/null; then
+    echo "Could not find nix." 1>&2
+    echo "Installing nix is a little more delicate, so please install it first." 1>&2
+    echo "Just re-run 'chezmoi apply' when you're done." 1>&2
+    exit 1
+fi
+
+nix-env -iA nixpkgs.chezmoi
+nix-env -iA nixpkgs.direnv
+nix-env -iA nixpkgs.fzf
+nix-env -iA nixpkgs.gh
+nix-env -iA nixpkgs.gnupg
+nix-env -iA nixpkgs.jq
+nix-env -iA nixpkgs.kubectl
+nix-env -iA nixpkgs.k9s
+nix-env -iA nixpkgs.lazygit
+nix-env -iA nixpkgs.python3
+nix-env -iA nixpkgs.starship
+nix-env -iA nixpkgs.tmux
+nix-env -iA nixpkgs.yarn
+
+{{ if eq .chezmoi.os "darwin" -}}
+nix-env -iA nixpkgs.pinentry_mac
+{{ end -}}

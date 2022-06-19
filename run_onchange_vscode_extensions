@@ -1,0 +1,8 @@
+#!/bin/bash
+if ! type code > /dev/null; then
+    echo "Could not find vscode!" 1>&2
+    exit 1
+fi
+
+code --install-extension RobbOwen.synthwave-vscode
+code --install-extension vscodevim.vim
