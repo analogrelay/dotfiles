@@ -1,0 +1,8 @@
+THEARCH=$(arch)
+export HOMEBREW_PREFIX=""
+export HOMEBREW_SHELLENV_PREFIX=""
+if [[ x"$THEARCH" == x"i386" ]]; then
+	eval $(/usr/local/bin/brew shellenv)
+else
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

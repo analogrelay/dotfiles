@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if ! type -p tmux; then
-    exec /bin/zsh -l
-fi
-
-tmux attach || tmux

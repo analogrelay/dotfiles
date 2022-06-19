@@ -1,2 +1,0 @@
-#!/bin/sh
-exec "$DOTFILES_ROOT/vscode/install-extensions.sh"

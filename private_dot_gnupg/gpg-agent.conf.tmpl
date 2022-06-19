@@ -1,0 +1,3 @@
+{{ if eq .chezmoi.os "darwin" -}}
+pinentry-program /Users/{{ .chezmoi.username }}/.nix-profile/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
+{{ end -}}

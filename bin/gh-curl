@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-TOKEN=$(patsy github)
-if [ -z "$TOKEN" ]; then
-    echo "There is no token in patsy named 'github'. Run 'patsy github [TOKEN]' to set a token" 1>&2
-    exit 1
-fi
-
-curl -H "Authorization: Bearer $TOKEN" "$@"

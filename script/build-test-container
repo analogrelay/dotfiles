@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-set -eo pipefail
-[ "$DEBUG" = "1" ] && set -x
-DOTFILES_ROOT="$( cd "$(dirname $(dirname "$0"))" ; pwd -P )"
-cd $DOTFILES_ROOT
-
-docker -t dotfiles-test .
