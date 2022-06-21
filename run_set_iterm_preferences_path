@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ "$(uname)" != "Darwin" ]; then
+    exit 0
+fi
+
+if ! type defaults > /dev/null; then
+    echo "Could not find defaults!" 1>&2
+    exit 1
+fi
+
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.local/share/chezmoi/internal/iterm2"
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
