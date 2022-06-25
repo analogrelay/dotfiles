@@ -20,6 +20,10 @@ nix-env -iA nixpkgs.yarn
 
 {{ if eq .chezmoi.os "darwin" -}}
 nix-env -iA nixpkgs.pinentry_mac
+nix-env -iA nixpkgs.mas
+
+mas install 1475387142 # Tailscale
+
 {{ end -}}
 
 if [ -e ~/bin/chezmoi ] && [ -e ~/.nix-profile/bin/chezmoi ]; then
