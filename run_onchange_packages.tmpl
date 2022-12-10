@@ -1,8 +1,15 @@
 #!/bin/bash
+
 if ! type nix-env > /dev/null; then
     sh <(curl -L https://nixos.org/nix/install)
     [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
+
+{{ if eq .chezmoi.os "darwin" -}}
+if ! type brew > /dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+{{ end -}}
 
 nix-env -iA nixpkgs.chezmoi
 nix-env -iA nixpkgs.direnv
@@ -22,10 +29,8 @@ nix-env -iA nixpkgs.yarn
 nix-env -iA nixpkgs.pinentry_mac
 nix-env -iA nixpkgs.mas
 
+brew install --cask 1password
+
 mas install 1475387142 # Tailscale
 
 {{ end -}}
-
-if [ -e ~/bin/chezmoi ] && [ -e ~/.nix-profile/bin/chezmoi ]; then
-    rm -f ~/bin/chezmoi
-fi

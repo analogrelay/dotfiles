@@ -1,11 +1,19 @@
 // Place your settings in this file to overwrite the default settings
 {
     "[c]": {
-        "editor.quickSuggestions": false,
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        },
         "editor.defaultFormatter": "xaver.clang-format"
     },
     "[cpp]": {
-        "editor.quickSuggestions": false
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        }
     },
     "[json]": {
         "editor.formatOnSave": false,
@@ -155,5 +163,8 @@
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "vscode-edge-devtools.mirrorEdits": true
+    "vscode-edge-devtools.mirrorEdits": true,
+    "[python]": {
+        "editor.formatOnType": true
+    }
 }
