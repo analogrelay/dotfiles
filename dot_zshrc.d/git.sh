@@ -16,4 +16,6 @@ fi
 if ssh git@github.com 2>&1 | grep "You've successfully authenticated"; then
     # Ok, configure the override
     git config --file ~/.gitlocal url."git@github.com:".insteadOf "https://github.com"
+    # But not for Cargo. It's a pain and we don't need to push to it.
+    git config --file ~/.gitlocal url."https://github.com/rust-lang/crates.io-index".insteadOf "https://github.com/rust-lang/crates.io-index"
 fi

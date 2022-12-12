@@ -1,11 +1,9 @@
 [include]
-    path = "~/.dotfiles/git/gituser"
     path = "~/.gitlocal"
 
 [core]
     autocrlf = false
 	compression = 0
-    excludesfile = "~/.dotfiles/git/gitignore"
 
 [color]
     ui = true
