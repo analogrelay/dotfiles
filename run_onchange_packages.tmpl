@@ -3,8 +3,15 @@
 export NIXPKGS_ALLOW_UNFREE=1
 
 if ! type nix-env > /dev/null; then
-    sh <(curl -L https://nixos.org/nix/install)
-    [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    if cat /proc/version | grep microsoft >/dev/null 2>&1; then
+        echo "Installing Nix without daemon..."
+        sh <(curl -L https://nixos.org/nix/install) --no-daemon
+        [ -e /home/analogrelay/.nix-profile/etc/profile.d/nix.sh ] && . /home/analogrelay/.nix-profile/etc/profile.d/nix.sh
+    else
+        echo "Installing Nix with daemon..."
+        sh <(curl -L https://nixos.org/nix/install)
+        [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    fi
 fi
 
 {{ if eq .chezmoi.os "darwin" -}}
@@ -35,5 +42,8 @@ nix-env -iA nixpkgs.mas
 brew install --cask 1password
 
 mas install 1475387142 # Tailscale
+
+{{ else -}}
+nix-env -iA nixpkgs.zsh
 
 {{ end -}}
