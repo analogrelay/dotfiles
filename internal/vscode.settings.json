@@ -167,6 +167,5 @@
     },
     "vscode-edge-devtools.mirrorEdits": true,
     "[python]": {
-        "editor.formatOnType": true
     }
 }
