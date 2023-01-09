@@ -1,19 +1,4 @@
-*                   text=auto
-
-bin/*               eol=lf
-bin/*.ps1           eol=crlf
-functions/*         eol=lf
-functions/*.ps1     eol=crlf
+*                   eol=lf
 
 # Force line endings to CRLF
 *.cmd               eol=crlf
-
-# Force line endings to LF
-*.zsh               eol=lf
-*.sh                eol=lf
-zshrc               eol=lf
-sys/start           eol=lf
-sys/wsl-start       eol=lf
-sys/update          eol=lf
-tmux.conf*          eol=lf
-vim.symlink/*       eof=lf

@@ -2,3 +2,24 @@ README.md
 Dockerfile
 .devcontainer/
 internal/
+
+{{- if ne .chezmoi.os "linux" }}
+scripts/linux/
+{{- end }}
+
+{{- if and (ne .chezmoi.os "linux") (ne .chezmoi.os "darwin") }}
+scripts/unix/
+.zshrc.d/
+.zshrc
+.zprofile
+{{- end }}
+
+{{- if ne .chezmoi.os "darwin" }}
+scripts/macos/
+Library/
+{{- end }}
+
+{{- if ne .chezmoi.os "windows" }}
+scripts/windows/
+AppData/
+{{- end }}

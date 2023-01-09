@@ -1,0 +1,6 @@
+if (!(Get-Command code -ErrorAction Silent)) {
+    Write-Host "VS Code is not yet installed"
+    return
+}
+
+{{- template "vscode-extensions" }}
