@@ -34,7 +34,7 @@
     "editor.wordWrap": "off",
     "terminal.integrated.fontFamily": "'Victor Mono', 'Cascadia Code', Consolas, 'Courier New', monospace",
     "vim.leader": " ",
-    "workbench.iconTheme": "vs-seti",
+    "workbench.iconTheme": "rose-pine-icons",
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
     "go.delveConfig": {
@@ -151,9 +151,10 @@
     "editor.inlineSuggest.enabled": true,
     "github.copilot.enable": {
         "*": true,
-        "yaml": false,
         "plaintext": false,
-        "markdown": false
+        "markdown": true,
+        "scminput": false,
+        "yaml": false
     },
     "redhat.telemetry.enabled": true,
     "omnisharp.path": "latest",
@@ -167,5 +168,8 @@
     },
     "vscode-edge-devtools.mirrorEdits": true,
     "[python]": {
-    }
+        "editor.formatOnType": true
+    },
+    "githubPullRequests.pullBranch": "never",
+    "typescript.tsserver.log": "normal"
 }

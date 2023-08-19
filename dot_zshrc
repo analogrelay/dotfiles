@@ -13,12 +13,6 @@ if [ -d '$HOME/.dotnet/tools' ]; then
     PATH="$HOME/.dotnet/tools:$PATH"
 fi
 
-if [ -f '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-elif [ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
-    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
-
 # Run other ZSH scripts
 for file in `find "$HOME/.zshrc.d" -maxdepth 1 -type f -name "*.sh"`; do
     source $file

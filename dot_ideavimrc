@@ -1,0 +1,10 @@
+set visualbell
+set noerrorbells
+set ideajoin
+
+let mapleader = " "
+
+nnoremap <leader>y "ay
+nnoremap <leader>d "ad
+nnoremap <leader>p "ap
+nnoremap <leader>P "aP
