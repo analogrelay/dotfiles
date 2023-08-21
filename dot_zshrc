@@ -9,11 +9,9 @@ fi
 
 PATH="$HOME/bin:$PATH"
 
-if [ -d '$HOME/.dotnet/tools' ]; then
-    PATH="$HOME/.dotnet/tools:$PATH"
-fi
-
 # Run other ZSH scripts
 for file in `find "$HOME/.zshrc.d" -maxdepth 1 -type f -name "*.sh"`; do
     source $file
 done
+
+echo "AnalogProfile is enabled"
