@@ -1,4 +1,0 @@
-#!/bin/bash
-for file in $(find "$HOME/bin" -type f); do
-    chmod a+x "$file"
-done
