@@ -23,16 +23,16 @@
     "csharp.suppressDotnetRestoreNotification": true,
     "debug.allowBreakpointsEverywhere": true,
     "editor.find.addExtraSpaceOnTop": false,
-    "editor.fontFamily": "'Victor Mono', 'Delugia Nerd Font', 'Cascadia Code', Consolas, 'Courier New', monospace",
+    "editor.fontFamily": "'Monaspace Argon', 'Victor Mono', 'Delugia Nerd Font', 'Cascadia Code', Consolas, 'Courier New', monospace",
     "editor.fontLigatures": true,
-    "editor.fontSize": 16,
+    "editor.fontSize": 14,
     "editor.formatOnPaste": true,
     "editor.formatOnType": true,
     "editor.minimap.enabled": false,
     "editor.suggestSelection": "first",
     "editor.wordBasedSuggestions": false,
     "editor.wordWrap": "off",
-    "terminal.integrated.fontFamily": "'Victor Mono', 'Cascadia Code', Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "'Monaspace Krypton', 'Victor Mono', 'Cascadia Code', Consolas, 'Courier New', monospace",
     "vim.leader": " ",
     "workbench.iconTheme": "rose-pine-icons",
     "go.formatTool": "goimports",
@@ -171,5 +171,9 @@
         "editor.formatOnType": true
     },
     "githubPullRequests.pullBranch": "never",
-    "typescript.tsserver.log": "normal"
+    "typescript.tsserver.log": "normal",
+    "editor.codeLensFontFamily": "'Monaspace Krypton', sans-serif",
+    "editor.fontWeight": "300",
+    "debug.console.fontFamily": "",
+    "terminal.integrated.fontWeight": "300"
 }
