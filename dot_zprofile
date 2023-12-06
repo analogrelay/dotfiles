@@ -7,4 +7,14 @@ if [ "$(uname)" = "Darwin" ]; then
 	else
 		eval "$(/opt/homebrew/bin/brew shellenv)"
 	fi
+
+	if [ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]; then
+		. /opt/homebrew/opt/asdf/libexec/asdf.sh
+	fi
+
+	# For JetBrains Toolbox
+	toolbox_scripts_path="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+	if [ -e "$toolbox_scripts_path" ]; then
+		export PATH="$PATH:$toolbox_scripts_path"
+	fi
 fi
