@@ -1,0 +1,55 @@
+{{- $machineProfiles := get . "profiles" | default (list) -}}
+{{- $packages := list -}}
+{{- range $group := .packages.groups -}}
+  {{- $relevant := true -}}
+  {{- range $condition, $expected := get $group "if" -}}
+    {{- if eq $condition "os" -}}
+      {{- if ne $.chezmoi.os $expected }}{{ $relevant = false }}{{ end -}}
+    {{- else if eq $condition "role" -}}
+      {{- if ne $.role $expected }}{{ $relevant = false }}{{ end -}}
+    {{- else if eq $condition "realm" -}}
+      {{- if ne $.realm $expected }}{{ $relevant = false }}{{ end -}}
+    {{- else if eq $condition "profiles" -}}
+      {{- range $profile := $expected -}}
+        {{- if not (has $profile $machineProfiles) }}{{ $relevant = false }}{{ end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- fail (printf "unsupported package group condition %q in %q" $condition (get $group "name")) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $relevant -}}
+    {{- range $package := get $group "packages" -}}
+      {{- $packageId := get $package "winget" -}}
+      {{- if not $packageId -}}
+        {{- fail (printf "unsupported package provider in group %q" (get $group "name")) -}}
+      {{- end -}}
+      {{- $packages = append $packages (dict "PackageIdentifier" $packageId) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+  if ($env:OS -ne 'Windows_NT') {
+    throw 'This package installation script only supports Windows.'
+  }
+
+{{- if eq (len $packages) 0 }}
+Write-Verbose 'No WinGet packages apply to this machine.'
+exit 0
+{{- else -}}
+{{- $sourceDetails := dict "Name" "winget" "Identifier" "Microsoft.Winget.Source_8wekyb3d8bbwe" "Argument" "https://cdn.winget.microsoft.com/cache" "Type" "Microsoft.PreIndexed.Package" -}}
+{{- $manifest := dict "$schema" "https://aka.ms/winget-packages.schema.2.0.json" "Sources" (list (dict "SourceDetails" $sourceDetails "Packages" $packages)) -}}
+$manifest = @'
+{{ $manifest | toPrettyJson }}
+'@
+$tempFile = [System.IO.Path]::GetTempFileName()
+
+try {
+    Set-Content -LiteralPath $tempFile -Value $manifest -NoNewline -Encoding utf8
+    & winget import --import-file $tempFile --accept-package-agreements --accept-source-agreements
+    if ($LASTEXITCODE -ne 0) {
+        throw "winget import failed with exit code $LASTEXITCODE."
+    }
+}
+finally {
+    Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
+}
+{{- end }}

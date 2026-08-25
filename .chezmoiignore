@@ -1,0 +1,4 @@
+{{- if ne .chezmoi.os "windows" }}
+.chezmoiscripts/run_onchange_install-packages.ps1.tmpl
+.chezmoiscripts/run_onchange_configure-windows.ps1.tmpl
+{{- end }}

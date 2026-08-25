@@ -1,0 +1,22 @@
+packages:
+  groups:
+    - name: "windows.base"
+      description: "Base packages installed on any Windows machine, regardless of role"
+      if:
+        os: windows
+      packages:
+        - winget: AgileBits.1Password.CLI
+        - winget: Microsoft.PowerToys
+
+    - name: "windows.workstation"
+      description: "Packages installed only on Windows Workstations"
+      if:
+        os: windows
+        role: workstation
+      packages:
+        - winget: AgileBits.1Password
+        - winget: Microsoft.VisualStudioCode
+        - winget: Canonical.Ubuntu
+        - winget: SST.opencode
+        - winget: SST.OpenCodeDesktop
+        - winget: GitHub.cli

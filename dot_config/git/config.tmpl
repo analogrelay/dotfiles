@@ -1,0 +1,19 @@
+[user]
+	name = {{ .user.name | quote }}
+	email = {{ .user.email | quote }}
+{{- if .keys.git.signing }}
+  signingkey = {{ .keys.git.signing | quote }}
+{{- end }}
+
+{{- if .keys.git.signing }}
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+{{- end }}
+
+{{- if eq .chezmoi.os "windows" }}
+[gpg "ssh"]
+  program = "{{ .chezmoi.homeDir }}/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"
+{{- end }}
