@@ -1,0 +1,63 @@
+{{- $packagesDataHash := include ".chezmoidata/packages.yaml" | sha256sum -}}
+{{- $machineProfiles := get . "profiles" | default (list) -}}
+{{- $machineRole := get . "role" | default "" -}}
+{{- $machineRealm := get . "realm" | default "" -}}
+{{- $machineOS := .chezmoi.os -}}
+{{- $osRelease := .chezmoi.osRelease | default (dict) -}}
+{{- $distroID := get $osRelease "id" | default "" -}}
+{{- $distroLike := get $osRelease "idLike" | default "" | splitList " " -}}
+{{- $packages := list -}}
+{{- range $group := .packages.groups -}}
+  {{- $relevant := true -}}
+  {{- range $condition, $expected := get $group "if" -}}
+    {{- if eq $condition "os" -}}
+      {{- if eq $expected "unix" -}}
+        {{- if and (ne $machineOS "linux") (ne $machineOS "darwin") }}{{ $relevant = false }}{{ end -}}
+      {{- else if ne $machineOS $expected -}}
+        {{- $relevant = false -}}
+      {{- end -}}
+    {{- else if eq $condition "distro" -}}
+      {{- if or (ne $machineOS "linux") (and (ne $distroID $expected) (not (has $expected $distroLike))) }}{{ $relevant = false }}{{ end -}}
+    {{- else if eq $condition "role" -}}
+      {{- if ne $machineRole $expected }}{{ $relevant = false }}{{ end -}}
+    {{- else if eq $condition "realm" -}}
+      {{- if ne $machineRealm $expected }}{{ $relevant = false }}{{ end -}}
+    {{- else if eq $condition "profiles" -}}
+      {{- range $profile := $expected -}}
+        {{- if not (has $profile $machineProfiles) }}{{ $relevant = false }}{{ end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- fail (printf "unsupported package group condition %q in %q" $condition (get $group "name")) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $relevant -}}
+    {{- range $package := get $group "packages" -}}
+      {{- $packageSpec := get $package "mise" -}}
+      {{- if not $packageSpec -}}
+        {{- fail (printf "unsupported package provider in group %q" (get $group "name")) -}}
+      {{- end -}}
+      {{- if not (contains "@" $packageSpec) -}}
+        {{- $packageSpec = printf "%s@latest" $packageSpec -}}
+      {{- end -}}
+      {{- $packages = append $packages $packageSpec -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+#!/bin/sh
+
+# packages.yaml: {{ $packagesDataHash }}
+{{- if eq (len $packages) 0 }}
+echo 'No mise packages apply to this machine.'
+exit 0
+{{- else }}
+if ! command -v mise >/dev/null 2>&1; then
+    echo 'mise is required to install packages.' >&2
+    exit 1
+fi
+
+MISE_GLOBAL_CONFIG_FILE="$HOME/.config/mise/config.toml" \
+    mise --yes use --global \
+{{- range $index, $package := $packages }}
+        {{ $package | quote }}{{ if lt (add1 $index) (len $packages) }} \{{ end }}
+{{- end }}
+{{- end }}

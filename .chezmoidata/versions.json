@@ -1,0 +1,8 @@
+{
+  "versions": {
+    "mise": {
+      "value": "v2026.8.12",
+      "check": "gh api repos/jdx/mise/releases/latest --jq .tag_name"
+    }
+  }
+}

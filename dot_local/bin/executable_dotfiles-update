@@ -1,0 +1,110 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+autoload -Uz colors
+colors
+
+readonly program_name="${0:t}"
+
+usage() {
+    print "Usage: $program_name [--yes]"
+    print "Check component versions and update chezmoi's versions.json."
+}
+
+assume_yes=false
+case "${1:-}" in
+    "") ;;
+    -y|--yes) assume_yes=true ;;
+    -h|--help)
+        usage
+        exit 0
+        ;;
+    *)
+        usage >&2
+        exit 2
+        ;;
+esac
+
+for dependency in chezmoi jq gh; do
+    if ! command -v "$dependency" >/dev/null 2>&1; then
+        print -u2 "dotfiles-update: required command not found: $dependency"
+        exit 1
+    fi
+done
+
+source_dir="$(chezmoi source-path)"
+versions_file="$source_dir/.chezmoidata/versions.json"
+
+if [[ ! -f "$versions_file" ]]; then
+    print -u2 "dotfiles-update: versions file not found: $versions_file"
+    exit 1
+fi
+
+if ! jq -e '
+    .versions | type == "object" and
+    all(to_entries[]; .value.value | type == "string") and
+    all(to_entries[]; .value.check | type == "string" and length > 0)
+' "$versions_file" >/dev/null; then
+    print -u2 "dotfiles-update: invalid versions data in $versions_file"
+    exit 1
+fi
+
+typeset -A latest_versions
+typeset -a changed_names
+
+while IFS= read -r name; do
+    current="$(jq -r --arg name "$name" '.versions[$name].value' "$versions_file")"
+    check_command="$(jq -r --arg name "$name" '.versions[$name].check' "$versions_file")"
+
+    print -n "Checking $name... "
+    if ! latest="$(eval "$check_command")"; then
+        print -u2 "${fg[red]}failed${reset_color}"
+        print -u2 "dotfiles-update: check command failed for $name: $check_command"
+        exit 1
+    fi
+
+    if [[ -z "$latest" || "$latest" == *$'\n'* ]]; then
+        print -u2 "${fg[red]}invalid output${reset_color}"
+        print -u2 "dotfiles-update: check for $name must output exactly one non-empty line"
+        exit 1
+    fi
+
+    if [[ "$latest" == "$current" ]]; then
+        print "${fg[green]}current${reset_color} ($current)"
+        continue
+    fi
+
+    latest_versions[$name]="$latest"
+    changed_names+=("$name")
+    print "${fg[yellow]}update available${reset_color} ($current -> $latest)"
+done < <(jq -r '.versions | keys[]' "$versions_file")
+
+if (( ${#changed_names} == 0 )); then
+    print "All components are current."
+    exit 0
+fi
+
+if [[ "$assume_yes" != true ]]; then
+    print -n "Update ${#changed_names} component(s) in versions.json? [y/N] "
+    read -r response
+    if [[ "${response:l}" != y && "${response:l}" != yes ]]; then
+        print "No changes made."
+        exit 0
+    fi
+fi
+
+work_dir="$(mktemp -d "${versions_file}.tmp.XXXXXX")"
+trap 'rm -rf -- "$work_dir"' EXIT INT TERM
+cp "$versions_file" "$work_dir/versions.json"
+
+for name in "${changed_names[@]}"; do
+    jq --arg name "$name" --arg value "${latest_versions[$name]}" \
+        '.versions[$name].value = $value' \
+        "$work_dir/versions.json" > "$work_dir/versions.next.json"
+    mv "$work_dir/versions.next.json" "$work_dir/versions.json"
+done
+
+chmod --reference="$versions_file" "$work_dir/versions.json"
+mv "$work_dir/versions.json" "$versions_file"
+print "Updated $versions_file"

@@ -20,3 +20,14 @@ packages:
         - winget: SST.opencode
         - winget: SST.OpenCodeDesktop
         - winget: GitHub.cli
+
+    - name: "unix.base"
+      if:
+        os: unix
+      packages:
+        - mise: gh
+        - mise: jq
+        - mise: rg
+        - mise: eza
+        - mise: tmux
+        - mise: opencode

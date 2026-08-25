@@ -1,4 +1,10 @@
+.oh-my-zsh/cache
+.config/opencode/node_modules
+
 {{- if ne .chezmoi.os "windows" }}
-.chezmoiscripts/run_onchange_install-packages.ps1.tmpl
-.chezmoiscripts/run_onchange_configure-windows.ps1.tmpl
+.chezmoiscripts/10-install-packages.ps1
+.chezmoiscripts/20-configure-windows.ps1
+{{- end }}
+{{- if ne .chezmoi.os "linux" }}
+.chezmoiscripts/00-init.sh
 {{- end }}
