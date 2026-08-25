@@ -50,13 +50,13 @@
 echo 'No mise packages apply to this machine.'
 exit 0
 {{- else }}
-if ! command -v mise >/dev/null 2>&1; then
+if [ ! -x ~/.local/bin/mise ]; then
     echo 'mise is required to install packages.' >&2
     exit 1
 fi
 
 MISE_GLOBAL_CONFIG_FILE="$HOME/.config/mise/config.toml" \
-    mise --yes use --global \
+    ~/.local/bin/mise --yes use --global \
 {{- range $index, $package := $packages }}
         {{ $package | quote }}{{ if lt (add1 $index) (len $packages) }} \{{ end }}
 {{- end }}

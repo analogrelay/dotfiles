@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+# Configure mise
+export MISE_VERSION={{ .versions.mise.value }}
+if ! command -v mise >/dev/null 2>&1 || [[ "$(mise --version)" != "$MISE_VERSION" ]]; then
+    echo "Installing mise version $MISE_VERSION"
+    curl "https://mise.run" | sh
+fi

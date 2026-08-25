@@ -6,5 +6,10 @@
 .chezmoiscripts/20-configure-windows.ps1
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
-.chezmoiscripts/00-init.sh
+.chezmoiscripts/00-init-linux.sh
+.chezmoiscripts/01-config-linux.sh
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+.chezmoiscripts/00-init-linux.sh
+.chezmoiscripts/01-config-linux.sh
 {{- end }}
