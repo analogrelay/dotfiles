@@ -1,10 +1,13 @@
 {{- $role := promptChoiceOnce . "role" "machine role" (list "workstation" "server" "devenv") -}}
 {{- $realm := promptChoiceOnce . "realm" "machine realm" (list "home" "work") -}}
+{{- $machine := promptStringOnce . "machine" "machine name" -}}
+{{- $user := promptStringOnce . "user" "your full name" }}
+{{- $userEmail := promptStringOnce . "email" "your email address (primarily for Git commits)" -}}
 [data]
 role = {{ $role | quote }}
 realm = {{ $realm | quote }}
-machineName = {{ promptStringOnce . "machine" "machine name" | quote }}
+machineName = {{ $machine | quote }}
 
 [data.user]
-name = {{ promptStringOnce . "user" "your full name" | quote }}
-email = {{ promptStringOnce . "email" "your email address (primarily for Git commits)" | quote }}
+name = {{ $user | quote }}
+email = {{ $userEmail | quote }}
