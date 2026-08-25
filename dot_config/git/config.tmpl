@@ -19,3 +19,10 @@
 [core]
   sshCommand = "C:/Windows/System32/OpenSSH/ssh.exe"
 {{- end }}
+
+{{- if .env.wsl }}
+[gpg "ssh"]
+  program = "/mnt/c/Users/ashleyst/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe"
+[core]
+  sshCommand = "ssh.exe"
+{{- end }}

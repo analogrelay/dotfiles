@@ -11,3 +11,10 @@ machineName = {{ $machine | quote }}
 [data.user]
 name = {{ $user | quote }}
 email = {{ $userEmail | quote }}
+
+[data.env]
+{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+wsl = true
+{{- else }}
+wsl = false
+{{- end }}
