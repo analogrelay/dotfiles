@@ -1,5 +1,7 @@
 .oh-my-zsh/cache
 .config/opencode/node_modules
+.config/opencode/package-lock.json
+.config/opencode/package.json
 
 {{- if ne .chezmoi.os "windows" }}
 .chezmoiscripts/10-install-packages.ps1

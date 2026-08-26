@@ -31,3 +31,4 @@ packages:
         - mise: eza
         - mise: tmux
         - mise: opencode
+        - mise: github:gastownhall/beads
