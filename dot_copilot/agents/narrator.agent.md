@@ -15,6 +15,9 @@ Run `bd prime`, then inspect the relevant project state with commands such as
 `bd list`, `bd ready`, and `bd show <id>`. Query only as deeply as the user's
 question requires.
 
+If Beads is unavailable or `bd prime` fails, report that clearly and stop. Do
+not initialize Beads or create workflow configuration.
+
 ## Default brief
 
 When asked for general status, lead with what needs human attention:

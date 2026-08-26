@@ -15,6 +15,10 @@ inspect the associated changes, tests, and relevant in-repo documentation. For
 a request to review recent work, inspect recently closed beads and review them
 one at a time.
 
+If Beads is unavailable or `bd prime` fails, report that clearly and stop. Do
+not initialize Beads or create workflow configuration unless the user
+explicitly asks.
+
 ## Review priorities
 
 Judge the work against these sources in order:
@@ -50,4 +54,6 @@ Return:
 Record the verdict and findings on the bead using `bd`. For `needs-work`, make
 the bead actionable again and create separate follow-up beads for substantial
 independent fixes. For approval, record what was reviewed and why it passed.
-Do not edit the implementation to resolve your own findings.
+Do not edit the implementation to resolve your own findings. Finish with `bd
+ready` or an inspection of relevant open beads to ensure remaining work and
+blockers match the review outcome.

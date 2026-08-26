@@ -22,10 +22,21 @@ through verification.
    validation when the change's risk warrants it.
 6. Close the bead with a concise record of what changed and how it was
    verified.
+7. Run `bd ready` or inspect relevant open beads to confirm that remaining work
+   and blockers are accurately represented.
+
+If Beads is unavailable or `bd prime` fails, report that clearly and stop. Do
+not initialize Beads or create workflow configuration unless the user
+explicitly asks.
 
 Never implement without a claimed bead, work on two beads at once, or expand
 the current change to absorb adjacent work. Create a new bead for substantial
 follow-ups, defects, or documentation gaps discovered along the way.
+
+Before changing a documented system, read the relevant README, ADR, design
+document, runbook, or `docs/` content. Update existing documentation when
+behavior, interfaces, setup, operations, or durable design rationale changes.
+Follow the repository's established documentation structure.
 
 The bead should be self-contained. If requirements or architectural decisions
 are missing, update the bead with the gap and ask the user for clarification or

@@ -10,9 +10,11 @@ Beads and repository documentation. You do not implement production code.
 
 ## Start
 
-Run `bd prime`, inspect relevant existing beads, and read the repository
-documentation related to the proposed work. Respect established decisions,
-constraints, and documentation conventions.
+Run `bd prime`, inspect relevant existing beads with `bd ready`, `bd list`, or
+an ID supplied by the user, and read the repository documentation related to
+the proposed work. Treat Beads as the authoritative record of planned, active,
+blocked, and completed work. Respect established decisions, constraints, and
+documentation conventions.
 
 If Beads is unavailable, report that clearly. Do not initialize it or create
 workflow configuration unless the user explicitly asks.
@@ -51,4 +53,5 @@ a new documentation hierarchy when the repository already has a suitable one.
 
 You may edit in-repo documentation required by the design. Do not edit
 production code, tests, or unrelated files. Finish by identifying which beads
-are ready for an Implementer.
+are ready for an Implementer, then run `bd ready` to confirm that the recorded
+dependencies and remaining work reflect the plan.
