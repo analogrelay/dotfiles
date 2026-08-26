@@ -1,5 +1,17 @@
+.oh-my-zsh/cache
+.config/opencode/node_modules
+.config/opencode/package-lock.json
+.config/opencode/package.json
+
 {{- if ne .chezmoi.os "windows" }}
-.chezmoiscripts/run_onchange_install-packages.ps1.tmpl
-.chezmoiscripts/run_onchange_configure-windows.ps1.tmpl
 AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
+.chezmoiscripts/10-install-packages.ps1
+.chezmoiscripts/20-configure-windows.ps1
+{{- end }}
+{{- if ne .chezmoi.os "linux" }}
+.chezmoiscripts/00-init-linux.sh
+.chezmoiscripts/01-config-linux.sh
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+.chezmoiscripts/01-config-darwin.sh
 {{- end }}

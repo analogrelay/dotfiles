@@ -13,9 +13,21 @@
   gpgsign = true
 {{- end }}
 
+{{- if eq .chezmoi.os "darwin" }}
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{- end }}
+
 {{- if eq .chezmoi.os "windows" }}
 [gpg "ssh"]
   program = "{{ .chezmoi.homeDir }}/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"
 [core]
   sshCommand = "C:/Windows/System32/OpenSSH/ssh.exe"
+{{- end }}
+
+{{- if .env.wsl }}
+[gpg "ssh"]
+  program = "/mnt/c/Users/ashleyst/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe"
+[core]
+  sshCommand = "ssh.exe"
 {{- end }}

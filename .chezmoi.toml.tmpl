@@ -1,8 +1,8 @@
 {{- $role := promptChoiceOnce . "role" "machine role" (list "workstation" "server" "devenv") -}}
 {{- $realm := promptChoiceOnce . "realm" "machine realm" (list "home" "work") -}}
-{{- $machine := promptStringOnce . "machine" "machine name" -}}
-{{- $user := promptStringOnce . "user" "your full name" }}
-{{- $userEmail := promptStringOnce . "email" "your email address (primarily for Git commits)" -}}
+{{- $machine := promptStringOnce . "machineName" "machine name" -}}
+{{- $user := promptStringOnce . "user.name" "your full name" }}
+{{- $userEmail := promptStringOnce . "user.email" "your email address (primarily for Git commits)" -}}
 [data]
 role = {{ $role | quote }}
 realm = {{ $realm | quote }}
@@ -11,3 +11,10 @@ machineName = {{ $machine | quote }}
 [data.user]
 name = {{ $user | quote }}
 email = {{ $userEmail | quote }}
+
+[data.env]
+{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+wsl = true
+{{- else }}
+wsl = false
+{{- end }}

@@ -20,4 +20,19 @@ packages:
         - winget: SST.opencode
         - winget: SST.OpenCodeDesktop
         - winget: GitHub.cli
+<<<<<<< HEAD
         - winget: GitHub.CopilotApp
+=======
+
+    - name: "unix.base"
+      if:
+        os: unix
+      packages:
+        - mise: gh
+        - mise: jq
+        - mise: rg
+        - mise: eza
+        - mise: tmux
+        - mise: opencode
+        - mise: github:gastownhall/beads
+>>>>>>> 363893a50ffbf9b12858b2048961c6b798a906dc
