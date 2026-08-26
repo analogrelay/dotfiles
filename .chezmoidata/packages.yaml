@@ -20,3 +20,4 @@ packages:
         - winget: SST.opencode
         - winget: SST.OpenCodeDesktop
         - winget: GitHub.cli
+        - winget: GitHub.CopilotApp
