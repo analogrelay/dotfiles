@@ -2,6 +2,9 @@
 .config/opencode/node_modules
 .config/opencode/package-lock.json
 .config/opencode/package.json
+CLAUDE.md
+AGENTS.md
+mise.toml
 
 {{- if ne .chezmoi.os "windows" }}
 AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json

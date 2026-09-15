@@ -13,26 +13,3 @@ if ! command -v mise >/dev/null 2>&1 || [[ "$(mise --version)" != "$MISE_VERSION
     echo "Installing mise version $MISE_VERSION"
     curl "https://mise.run" | sh
 fi
-
-# Install and enable the opencode user systemd service
-OPENCODE_SERVICE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
-OPENCODE_SERVICE_FILE="$OPENCODE_SERVICE_DIR/opencode.service"
-
-mkdir -p "$OPENCODE_SERVICE_DIR"
-
-cat > "$OPENCODE_SERVICE_FILE" <<'EOF'
-[Unit]
-Description=OpenCode serve
-After=network.target
-
-[Service]
-ExecStart=%h/.local/share/mise/shims/opencode serve --port 4096
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=default.target
-EOF
-
-systemctl --user daemon-reload
-systemctl --user enable --now opencode.service

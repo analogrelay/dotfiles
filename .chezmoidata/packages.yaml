@@ -35,3 +35,4 @@ packages:
         - mise: github:gastownhall/beads
         - mise: zellij
         - mise: lazygit
+        - mise: 1password-cli
