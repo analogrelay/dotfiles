@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jujutsu"
+  short_description: "Help with Jujutsu version control workflows"
+  default_prompt: "Use $jujutsu to inspect this repo, choose the right jj workflow, and carry the change through safely."
