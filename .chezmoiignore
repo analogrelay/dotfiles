@@ -10,6 +10,7 @@ mise.toml
 AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
 .chezmoiscripts/10-install-packages.ps1
 .chezmoiscripts/20-configure-windows.ps1
+.wslconfig
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
 .chezmoiscripts/00-init-linux.sh
