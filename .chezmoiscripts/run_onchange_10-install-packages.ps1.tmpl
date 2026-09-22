@@ -4,22 +4,36 @@
   {{- $relevant := true -}}
   {{- range $condition, $expected := get $group "if" -}}
     {{- if eq $condition "os" -}}
-      {{- if ne $.chezmoi.os $expected }}{{ $relevant = false }}{{ end -}}
+      {{- if ne $.chezmoi.os $expected }}
+        {{- debugf "group %q not relevant because actual os %q != os condition %q" (get $group "name") $.chezmoi.os $expected }}
+        {{ $relevant = false }}
+      {{ end -}}
     {{- else if eq $condition "role" -}}
-      {{- if ne $.role $expected }}{{ $relevant = false }}{{ end -}}
+      {{- if ne $.role $expected }}
+        {{- debugf "group %q not relevant because actual role %q != role condition %q" (get $group "name") $.role $expected }}
+        {{ $relevant = false }}
+      {{ end -}}
     {{- else if eq $condition "realm" -}}
-      {{- if ne $.realm $expected }}{{ $relevant = false }}{{ end -}}
+      {{- if ne $.realm $expected }}
+        {{- debugf "group %q not relevant because actual realm %q != realm condition %q" (get $group "name") $.realm $expected }}
+        {{ $relevant = false }}
+      {{ end -}}
     {{- else if eq $condition "profiles" -}}
       {{- range $profile := $expected -}}
-        {{- if not (has $profile $machineProfiles) }}{{ $relevant = false }}{{ end -}}
+        {{- if not (has $profile $machineProfiles) }}
+          {{- debugf "group %q not relevant because machine does not have profile %q" (get $group "name") $profile }}
+        {{ $relevant = false }}
+        {{ end -}}
       {{- end -}}
     {{- else -}}
       {{- fail (printf "unsupported package group condition %q in %q" $condition (get $group "name")) -}}
     {{- end -}}
   {{- end -}}
   {{- if $relevant -}}
+    {{- debugf "group %q is relevant" (get $group "name") }}
     {{- range $package := get $group "packages" -}}
       {{- $packageId := get $package "winget" -}}
+      {{- debugf "attempting to install winget package %q" $packageId }}
       {{- if not $packageId -}}
         {{- fail (printf "unsupported package provider in group %q" (get $group "name")) -}}
       {{- end -}}
