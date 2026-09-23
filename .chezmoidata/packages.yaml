@@ -31,9 +31,6 @@ packages:
         - mise: rg
         - mise: eza
         - mise: tmux
-        - mise: opencode
-        - mise: github:gastownhall/beads
-        - mise: github:agent-of-empires/agent-of-empires
-        - mise: zellij
         - mise: lazygit
+        - mise: copilot
         - mise: 1password-cli
