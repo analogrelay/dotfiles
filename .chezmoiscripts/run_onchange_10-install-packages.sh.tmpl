@@ -31,6 +31,7 @@
     {{- end -}}
   {{- end -}}
   {{- if $relevant -}}
+    {{- debugf "group %q is relevant, installing..." (get $group "name") -}}
     {{- range $package := get $group "packages" -}}
       {{- $packageSpec := get $package "mise" -}}
       {{- if not $packageSpec -}}
@@ -41,6 +42,8 @@
       {{- end -}}
       {{- $packages = append $packages $packageSpec -}}
     {{- end -}}
+  {{- else -}}
+    {{- debugf "group %q is not relevant, skipping" (get $group "name") -}}
   {{- end -}}
 {{- end -}}
 #!/bin/sh
